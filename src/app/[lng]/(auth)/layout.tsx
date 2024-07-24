@@ -29,16 +29,16 @@ export default function AuthLayout({
   const isMobile = true;
   const WebApp = window?.Telegram?.WebApp;
   const isTelegram = useTelegram()
-
-  useEffect(() => {
-    if (
-      currentUser &&
-      !currentUser?.is_apply_ref_code &&
-      !currentUser?.is_skip_ref
-    ) {
-      router.push(`/${lng}/enter-referral`);
-    }
-  }, [currentUser]);
+  // TODO: reopen
+  // useEffect(() => {
+  //   if (
+  //     currentUser &&
+  //     !currentUser?.is_apply_ref_code &&
+  //     !currentUser?.is_skip_ref
+  //   ) {
+  //     router.push(`/${lng}/enter-referral`);
+  //   }
+  // }, [currentUser]);
 
   useEffect(() => {
     if (WebApp) {

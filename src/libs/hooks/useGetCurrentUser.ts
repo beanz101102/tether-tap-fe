@@ -21,7 +21,19 @@ export const useGetCurrentUser = () => {
   const [firstLoading, setFirstLoading] = useAtom(firstLoadingAtom);
   return {
     setCurrentUser,
-    currentUser,
+    // TODO: mock data
+    currentUser: {
+      id: 1,
+      created_at: "2024-01-01T00:00:00Z",
+      updated_at: "2024-01-01T00:00:00Z",
+      name: "John Doe",
+      telegram_id: "123456789",
+      avatar: "https://example.com/avatar1.jpg",
+      lang: "en",
+      ref_code: "REF123",
+      is_apply_ref_code: true,
+      is_skip_ref: false,
+    },
     setFirstLoading,
     firstLoading,
   };
