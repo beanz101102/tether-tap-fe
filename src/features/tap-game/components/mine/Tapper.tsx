@@ -7,7 +7,7 @@ const Tapper = () => {
       id: 1,
       name: 'Gas Fee Master',
       coinPerHour: 0.0000000001,
-      price: 0.0001,
+      price: 0.1,
       imgUrl: '/img/tap-game/coin.svg',
       isActive: true
     },
@@ -15,7 +15,7 @@ const Tapper = () => {
       id: 2,
       name: 'Gas Fee Master',
       coinPerHour: 0.0000000001,
-      price: 0.0001,
+      price: 0.1,
       imgUrl: '/img/tap-game/coin.svg',
       isActive: false
     },
@@ -23,7 +23,7 @@ const Tapper = () => {
       id: 3,
       name: 'Gas Fee Master',
       coinPerHour: 0.0000000001,
-      price: 0.0001,
+      price: 0.1,
       imgUrl: '/img/tap-game/coin.svg',
       isActive: false
     },
@@ -31,7 +31,7 @@ const Tapper = () => {
       id: 4,
       name: 'Gas Fee Master',
       coinPerHour: 0.0000000001,
-      price: 0.0001,
+      price: 0.1,
       imgUrl: '/img/tap-game/coin.svg',
       isActive: false
     },
@@ -39,7 +39,7 @@ const Tapper = () => {
       id: 5,
       name: 'Gas Fee Master',
       coinPerHour: 0.0000000001,
-      price: 0.0001,
+      price: 0.1,
       imgUrl: '/img/tap-game/coin.svg',
       isActive: false
     },
@@ -47,7 +47,7 @@ const Tapper = () => {
       id: 6,
       name: 'Gas Fee Master',
       coinPerHour: 0.0000000001,
-      price: 0.0001,
+      price: 0.1,
       imgUrl: '/img/tap-game/coin.svg',
       isActive: false
     },
@@ -55,7 +55,7 @@ const Tapper = () => {
       id: 7,
       name: 'Gas Fee Master',
       coinPerHour: 0.0000000001,
-      price: 0.0001,
+      price: 0.1,
       imgUrl: '/img/tap-game/coin.svg',
       isActive: false
     },
@@ -63,7 +63,7 @@ const Tapper = () => {
       id: 8,
       name: 'Gas Fee Master',
       coinPerHour: 0.0000000001,
-      price: 0.0001,
+      price: 0.1,
       imgUrl: '/img/tap-game/coin.svg',
       isActive: false
     },

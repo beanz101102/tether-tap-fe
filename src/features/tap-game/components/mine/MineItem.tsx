@@ -35,17 +35,17 @@ const MineItem: FC<MineItemProps> = ({ id, coinPerHour, name, price, imgUrl, isA
       </div>
       {
         !isActive && (
-          <Button variant={'secondary'} className={'flex gap-3 w-fit !bg-[#3F3F46]'}>
-            <p className={'main-text-secondary'}>Price</p>
+          <Button variant={'secondary'} className={'flex justify-center items-center px-2 gap-1 w-fit h-fit max-h-fit max-w-[107px] !bg-[#3F3F46]'}>
+            <p className={'main-text-secondary text-xs'}>Price</p>
             <div className={'flex items-center gap-1'}>
               <Image
-                width={20}
-                height={20}
+                width={12}
+                height={12}
                 src={"/img/tap-game/coin.svg"}
                 alt={"coin"}
-                className={"mr-2 h-5 w-5"}
+                className={"h-3 w-3"}
               />
-              <p className={"main-text-primary font-bold"}>
+              <p className={"main-text-primary text-xs font-bold"}>
                 {formatNumberWithCommas(price)}
               </p>
             </div>
