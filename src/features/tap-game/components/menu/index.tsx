@@ -43,19 +43,31 @@ const TabBarMiniGameApp = () => {
     {
       name: "tap",
       path: "/",
-      imgUrl: "tap.webp",
+      imgUrl: "tap.svg",
       isActive: isActiveHomePage,
     },
     {
-      name: "earn",
+      name: "mine",
       path: "/earn",
-      imgUrl: "coin.svg",
+      imgUrl: "mine.svg",
       isActive: isEarnPageActive,
+    },
+    {
+      name: "earn",
+      path: "/referral",
+      imgUrl: "earn.svg",
+      isActive: isFriendsPageActive,
+    },
+    {
+      name: "wallet",
+      path: "/referral",
+      imgUrl: "wallet.svg",
+      isActive: isFriendsPageActive,
     },
     {
       name: "friends",
       path: "/referral",
-      imgUrl: "friends.webp",
+      imgUrl: "friend.svg",
       isActive: isFriendsPageActive,
     },
   ];
@@ -82,7 +94,7 @@ const TabBarMiniGameApp = () => {
             "flex h-[66px] w-full justify-between rounded-[16px] backdrop-blur-[16px]",
           )}
           style={{
-            background: "rgba(6, 32, 24, 0.80)",
+            background: "rgba(24, 24, 27, 1)",
           }}
         >
           {itemTabBar.map((item, index) => {
@@ -97,7 +109,7 @@ const TabBarMiniGameApp = () => {
                   clickTab();
                 }}
                 style={{
-                  background: item.isActive ? "rgba(167, 243, 208, 0.05)" : "",
+                  background: item.isActive ? "rgba(255, 255, 255, 0.05)" : "",
                 }}
                 className={clsx(
                   "relative flex w-[33%] flex-col items-center justify-center gap-0.5",
@@ -108,9 +120,9 @@ const TabBarMiniGameApp = () => {
                 <NextImage
                   src={`/img/tap-game/${item.imgUrl}`}
                   alt={item.imgUrl}
-                  className={cn("h-8 w-8")}
+                  className={cn("h-8 w-8 flex items-center justify-center")}
                 />
-                <span className={cn("mt-[2px] text-sm font-normal")}>
+                <span className={cn("mt-[2px] text-xs font-medium")}>
                   {t(item.name)}
                 </span>
               </Link>
