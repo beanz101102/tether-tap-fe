@@ -50,19 +50,19 @@ const TabBarMiniGameApp = () => {
     },
     {
       name: "mine",
-      path: "/earn",
+      path: "/mine",
       imgUrl: "mine.svg",
       isActive: isMinePageActive,
     },
     {
       name: "earn",
-      path: "/referral",
+      path: "/earn",
       imgUrl: "earn.svg",
       isActive: isEarnPageActive,
     },
     {
       name: "wallet",
-      path: "/referral",
+      path: "/wallet",
       imgUrl: "wallet.svg",
       isActive: isWalletPageActive,
     },

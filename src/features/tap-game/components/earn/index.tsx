@@ -15,22 +15,29 @@ const Earn = () => {
   const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
   return (
     <div className={"px-4 pt-6"}>
-      <div
-        className={
-          "relative mx-auto flex  h-[200px] w-[200px] flex-col items-center justify-center"
-        }
-      >
-        <NextImage
-          className={"w-[200px]"}
-          src={"/img/tap-game/money_bag_earn.svg"}
-          alt={"money bag"}
-        />
-      </div>
-      <p className={"main-text-primary text-center text-xl font-semibold"}>
-        {t("earn_more_coin")}
-      </p>
-      <p className={"main-text-secondary mt-2 text-center text-sm font-normal"}>
-        {t("des_earn_more_coin")}
+        <div
+            className={
+                "relative mx-auto flex  h-[200px] w-[200px] flex-col items-center justify-center"
+            }
+        >
+            <NextImage
+                className={"w-[200px]"}
+                src={"/img/tap-game/money_bag_earn.webp"}
+                alt={"money bag"}
+            />
+            <div
+                className="absolute z-10 inset-0"
+                style={{
+                    background: '#45887A',
+                    filter: 'blur(40px)',
+                    opacity: '0.2',
+                }}></div>
+        </div>
+        <p className={"main-text-primary text-center text-xl font-semibold"}>
+            {t("earn_more_coin")}
+        </p>
+        <p className={"main-text-secondary mt-2 text-center text-sm font-normal"}>
+            {t("des_earn_more_coin")}
       </p>
       <ListQuest />
     </div>
@@ -41,21 +48,21 @@ const ListQuest = () => {
   const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
   const { checkUserSpecificActionStatusData, loading } = useGetListQuest();
   const listQuestData: ItemQuestProps[] = [
-    // {
-    //   questDetail: {
-    //     title: "follow_twitter",
-    //     action_url: "https://t.me/MineLordChannel",
-    //   },
-    //   type: QuestType.TWITTER,
-    //   isClaim:
-    //     (checkUserSpecificActionStatusData &&
-    //       checkUserSpecificActionStatusData[
-    //         KeyCheckUserSpecificActionStatus.FOLLOW_TWITTER
-    //       ]) ??
-    //     false,
-    //   coins: 5000 * 1000,
-    //   key: KeyCheckUserSpecificActionStatus?.FOLLOW_TWITTER,
-    // },
+    {
+      questDetail: {
+        title: "follow_twitter",
+        action_url: "https://t.me/MineLordChannel",
+      },
+      type: QuestType.TWITTER,
+      isClaim:
+        (checkUserSpecificActionStatusData &&
+          checkUserSpecificActionStatusData[
+            KeyCheckUserSpecificActionStatus.FOLLOW_TWITTER
+          ]) ??
+        false,
+      coins: 5000 * 1000,
+      key: KeyCheckUserSpecificActionStatus?.FOLLOW_TWITTER,
+    },
     {
       questDetail: {
         title: "join_telegram_channel",
