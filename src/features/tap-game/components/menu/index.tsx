@@ -31,6 +31,8 @@ const TabBarMiniGameApp = () => {
   const isRoadmapPageActive = useActivePage("roadmap");
   const isEarnPageActive = useActivePage("earn");
   const isFriendsPageActive = useActivePage("referral");
+  const isWalletPageActive = useActivePage("wallet");
+  const isMinePageActive = useActivePage("mine");
 
   // Determine if home page is active
   const isActiveHomePage =
@@ -53,15 +55,15 @@ const TabBarMiniGameApp = () => {
     },
     {
       name: "earn",
-      path: "/referral",
+      path: "/earn",
       imgUrl: "earn.svg",
-      isActive: isFriendsPageActive,
+      isActive: isEarnPageActive,
     },
     {
       name: "wallet",
-      path: "/referral",
+      path: "/wallet",
       imgUrl: "wallet.svg",
-      isActive: isFriendsPageActive,
+      isActive: isWalletPageActive,
     },
     {
       name: "friends",
@@ -111,7 +113,7 @@ const TabBarMiniGameApp = () => {
                   background: item.isActive ? "rgba(255, 255, 255, 0.05)" : "",
                 }}
                 className={clsx(
-                  "relative flex w-[33%] flex-col items-center justify-center gap-0.5",
+                  "relative flex w-[20%] flex-col items-center justify-center gap-0.5",
                   item.isActive ? "main-text-primary" : "main-text-secondary",
                   index === 0 ? "rounded-l-[16px]" : "rounded-[16px]",
                 )}

@@ -93,11 +93,9 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
         window.open(questDetail?.action_url);
         setLinkOpened(true);
       }}
-      style={{
-        boxShadow: "0px 3px 0px 0px #3F3F46",
-      }}
+
       className={
-        "main-bg-secondary flex cursor-pointer items-center justify-between rounded-md px-3 py-4 pt-3"
+        "main-bg-primary border-[#45887A] border flex cursor-pointer items-center justify-between rounded-lg px-4 py-2"
       }
     >
       <div className={"flex items-center"}>
