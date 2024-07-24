@@ -125,12 +125,13 @@ const TapPageHeader = () => {
         </div>
       </div>
       <ShadModal isOpen={isOpenModalAboutGainCoin} onOpen={setIsOpenModalAboutGainCoin}>
-        <div className={'flex flex-col items-center justify-center gap-5'}>
+        <div className={'flex flex-col items-center justify-center gap-5 pt-2'}>
           <Image
-            src={"/img/tap-game/boost-earning.svg"}
+            src={"/img/tap-game/multi-tether-coin.svg"}
             alt={'boost earning'}
             width={130}
-            height={130}
+            height={88}
+            className={'w-[130px] h-[88px]'}
           />
           <p className={'main-text-primary text-2xl font-semibold'}>Boost your earnings</p>
           <p className={'main-text-secondary text-sm font-normal w-full text-center'}>
@@ -141,9 +142,6 @@ const TapPageHeader = () => {
           <Button
             className={'w-full h-[44px]'}
             onClick={() => setIsOpenModalAboutGainCoin(false)}
-            style={{
-              background: "linear-gradient(0deg, #3FAF96, #3FAF96), radial-gradient(100% 100% at 50% 0%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%)"
-            }}
           >
             Open Economic
           </Button>
