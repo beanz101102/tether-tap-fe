@@ -27,7 +27,7 @@ const TabBarMiniGameApp = () => {
   // Call hooks unconditionally
   const isHomePageActive = useActivePage("/");
   const isBoostPageActive = useActivePage("boost");
-  const isRankingPageActive = useActivePage("ranking");
+  const isMinePageActive = useActivePage("mine");
   const isRoadmapPageActive = useActivePage("roadmap");
   const isEarnPageActive = useActivePage("earn");
   const isFriendsPageActive = useActivePage("referral");
@@ -36,7 +36,6 @@ const TabBarMiniGameApp = () => {
   const isActiveHomePage =
     isHomePageActive ||
     isBoostPageActive ||
-    isRankingPageActive ||
     isRoadmapPageActive;
 
   const itemTabBar: TabBarMiniGameAppProps[] = [
@@ -48,9 +47,9 @@ const TabBarMiniGameApp = () => {
     },
     {
       name: "mine",
-      path: "/earn",
+      path: "/mine",
       imgUrl: "mine.svg",
-      isActive: isEarnPageActive,
+      isActive: isMinePageActive,
     },
     {
       name: "earn",

@@ -7,7 +7,6 @@ import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
 import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
 import {useAtom} from "jotai";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
 import {useTranslation} from "react-i18next";
 import {Info} from "lucide-react";
 import EnergyProgress from "@/features/tap-game/components/EnergyProgress";
