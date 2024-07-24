@@ -18,7 +18,8 @@
     "tap": "Tap",
     "mine": "Eco",
     "friends": "Frens",
-    "earn": "Earn"
+    "earn": "Earn",
+    "wallet": "Wallet"
   },
   "coming_soon": "Coming <span>soon</span>",
   "earn": {
@@ -91,7 +92,8 @@
     "des_invite_friend": "Invite friends to get more token",
     "share_link": "Share link to friend",
     "copy_link": "Copy Link",
-    "empty_list_friend": "Earn 10% more Tether coins from the coins your friends earn"
+    "empty_list_friend": "Earn 10% more Tether coins from the coins your friends earn",
+    "coin_earn": "Coin earn"
   },
   "level_up": "Level up!",
   "got_it": "Got It!",

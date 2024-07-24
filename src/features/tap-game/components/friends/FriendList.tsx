@@ -41,36 +41,6 @@ const FriendList = () => {
 
       return (
           <div>
-              {/*<InfiniteScroll*/}
-              {/*  dataLength={friends?.length}*/}
-              {/*  className={'relative'}*/}
-              {/*  style={{ overflow: 'hidden !important' }}*/}
-        {/*  next={() => {*/}
-        {/*    // handleGetMore();*/}
-        {/*  }}*/}
-        {/*  hasMore={hasMore}*/}
-        {/*  loader={null}*/}
-        {/*  scrollThreshold={0.8}*/}
-        {/*  scrollableTarget="scrollableDiv">*/}
-        {/*  <div id="scrollableDiv" className={' h-[38vh] overflow-y-auto'}>*/}
-        {/*    <div>*/}
-        {/*      {friends.map((friend, idx) => {*/}
-        {/*        return (*/}
-        {/*          <div key={`friend-row-${idx}`} className={'mb-2 px-4'}>*/}
-        {/*            <FriendItem*/}
-        {/*              key={friend?.name}*/}
-        {/*              friendCoins={10000000}*/}
-        {/*              name={friend?.name}*/}
-        {/*              avatar={friend?.avatar || '/img/richard.svg'}*/}
-        {/*              coinEarned={100000000}*/}
-        {/*            />*/}
-        {/*          </div>*/}
-        {/*        );*/}
-        {/*      })}*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
-
-        {/*</InfiniteScroll>*/}
         <div>
           {friends.map((friend, idx) => {
             return (
@@ -86,6 +56,7 @@ const FriendList = () => {
             );
           })}
         </div>
+
         <div className={"flex w-full flex-col items-center justify-center"}>
           {isLoading && friends?.length > 0 ? (
             <Loading className={"main-text-primary"} />

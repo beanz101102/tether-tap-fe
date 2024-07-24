@@ -20,7 +20,7 @@ const ItemStatsReferral = ({ title, value }: { title: string, value: number }) =
         'keyPrefix': 'friends'
     })
     return (
-        <div className="border border-[#45887A] h-full py-2 px-3 rounded-lg flex flex-col justify-between">
+        <div className="border main-bg-primary border-[#45887A] h-full py-2 px-3 rounded-lg flex flex-col justify-between">
             <p className="text-sm font-normal main-text-secondary">
                 {t(`rewards.${title}`)}
             </p>
