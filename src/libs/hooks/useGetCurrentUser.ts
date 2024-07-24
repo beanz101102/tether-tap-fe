@@ -13,7 +13,18 @@ interface IUser {
   is_skip_ref: boolean;
 }
 
-const userAtom = atom<IUser | null>(null);
+const userAtom = atom<IUser | null>({
+  id: 1,
+  created_at: "2024-01-01T00:00:00Z",
+  updated_at: "2024-01-01T00:00:00Z",
+  name: "John Doe",
+  telegram_id: "123456789",
+  avatar: "https://firebasestorage.googleapis.com/v0/b/xlords-dev.appspot.com/o/pet-game%2Fbasilisk.webp?alt=media&token=59e60aec-e0a7-40a1-a8a1-ed3e099fe89d",
+  lang: "en",
+  ref_code: "REF123",
+  is_apply_ref_code: true,
+  is_skip_ref: false,
+});
 const firstLoadingAtom = atom<boolean>(false);
 
 export const useGetCurrentUser = () => {
@@ -28,7 +39,7 @@ export const useGetCurrentUser = () => {
       updated_at: "2024-01-01T00:00:00Z",
       name: "John Doe",
       telegram_id: "123456789",
-      avatar: "https://example.com/avatar1.jpg",
+      avatar: "https://firebasestorage.googleapis.com/v0/b/xlords-dev.appspot.com/o/user-avatar%2F0VIiD25VGJY2t0Si46XUTkEOkkF2?alt=media&token=a9bacc86-4de1-425a-9154-848f74e6d72f",
       lang: "en",
       ref_code: "REF123",
       is_apply_ref_code: true,

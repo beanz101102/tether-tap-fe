@@ -29,6 +29,8 @@ const buttonVariants = cva(
         "zinc-700": "bg-zinc-700 hover:bg-zinc-800 border border-zinc-400",
         danger: "bg-rose-400 hover:bg-rose-500 text-white",
         new_brand: "main-bg-brand hover:opacity-80",
+        common:
+          "bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90",
         border_blue:
           "border border-blue-400 text-white bg-blue-500 hover:bg-blue-600",
         neutral_600: "bg-neutral-600/60 hover:bg-neutral-600 text-white",

@@ -109,5 +109,30 @@
     "full_energy": "Full Energy",
     "reset_energy_success": "Reset current energy successfully"
   },
-  "success-enter-referral-code": "Referral code successfully applied!"
+  "success-enter-referral-code": "Referral code successfully applied!",
+  "wallet": {
+    "balance": "Balance",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "view_explorer": "View on explorer",
+    "history": "History",
+    "time": "Time",
+    "transaction": "Transaction",
+    "reward": "Reward",
+    "nothing_found": "Nothing found",
+    "bnb_chain": "BNB Chain",
+    "eth_chain": "Ethereum Chain",
+    "base_chain": "Base Chain",
+    "arb_chain": "Arbitrum Chain",
+    "des_deposit": "lorem ipsum dolor sit amet",
+    "chain": "Chain",
+    "copy": "Copy Address",
+    "address": "Address",
+    "deposit_history": "Deposit History",
+    "des_withdraw": "lorem ipsum dolor sit amet",
+    "enter_address_wallet": "Enter your wallet address",
+    "amount": "Amount",
+    "max": "Max",
+    "min": "Min"
+  }
 }

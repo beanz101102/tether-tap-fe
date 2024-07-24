@@ -9,7 +9,12 @@ import { withSentryConfig } from "@sentry/nextjs";
 const config = {
   reactStrictMode: false,
   images: {
-    domains: ["firebasestorage.googleapis.com", "storage.googleapis.com"],
+    domains: [
+      "firebasestorage.googleapis.com",
+      "storage.googleapis.com",
+      "s2.coinmarketcap.com",
+      "image.nftscan.com",
+    ],
   },
 };
 

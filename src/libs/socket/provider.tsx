@@ -187,7 +187,7 @@ const LoadingOverlay = ({
   };
 
   return (
-    <div className="main-bg-default main-text-primary fixed inset-0 z-50 flex flex-col items-center justify-center !bg-opacity-50">
+    <div className="main-text-primary fixed inset-0 z-50 flex flex-col items-center justify-center bg-black !bg-opacity-50">
       {/* Loading Spinner or Message */}
       {showErr ? (
         <div className="flex flex-col items-center">
@@ -203,7 +203,7 @@ const LoadingOverlay = ({
         <Button
           variant={"outline"}
           onClick={reconnect}
-          className="bg-main-bg-default text-main-text-primary m-4 rounded-lg p-2"
+          className="text-main-text-primary	 m-4 rounded-lg bg-black p-2"
           loading={loadingButton}
         >
           Tap to reconnect
