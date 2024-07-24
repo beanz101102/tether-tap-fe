@@ -1,0 +1,35 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# build
+/dist
+/build
+
+# etc
+.DS_Store
+.env.local
+.idea
+.next
+
+
+# compiled
+utils/reload/*.js
+utils/reload/injections/*.js
+public/manifest.json
+
+yarn-error.log
+
+# Sentry Config File
+.env.sentry-build-plugin
+.vercel
+api/trpc.cjs
+trpc.cjs
+
+public/locales/.cache
+storybook-static
+
+# Sentry Config File
+.env.sentry-build-plugin

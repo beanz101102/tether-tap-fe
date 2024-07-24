@@ -1,0 +1,106 @@
+{
+  "play_on_mobile": "Play on your Telegram Mobile App",
+  "join_now": "Play now",
+  "telegram": "Telegram",
+  "twitter": "Twitter",
+  "earn_per_tap": "Earn per tap",
+  "coin_to_level_up": "Coins to level up",
+  "profit_per_hour": "Coins per hour",
+  "economy_management": "Economic Management",
+  "economy_management_desc": "Manage your Kingdom economy to earn coins passively",
+  "home_page": {
+    "tap_and_earn": "Tap to earn",
+    "des_tap_and_earn": "Gain rewards with every tap!",
+    "play_to_earn": "Play now"
+  },
+  "back": "Back",
+  "menu": {
+    "tap": "Tap",
+    "mine": "Eco",
+    "friends": "Frens",
+    "earn": "Earn"
+  },
+  "coming_soon": "Coming <span>soon</span>",
+  "earn": {
+    "earn_more_coin": "Earn more coin",
+    "des_earn_more_coin": "Complete tasks to earn more coins",
+    "quest": "Tasks",
+    "go": "Go",
+    "check": "Check",
+    "check-quest-success": "You have completed the quest!",
+    "check-quest-fail": "Oops! We couldn't verify your action. Please try again."
+  },
+  "ranking": {
+    "description": "Each level corresponds to specific benefits. Higher levels mean more chances to earn coins.",
+    "beginner": "Beginner",
+    "advanced": "Advanced",
+    "master": "Master",
+    "grandmaster": "Grandmaster",
+    "lord": "Pepe the Yeet",
+    "novice": "Pepperoni Pizza Pepe",
+    "adventurer": "Pepe Le Pew",
+    "champion": "Pepe Popsicle",
+    "hero": "Derpy Derp Pepe",
+    "high_lord": "Guaca-pepe",
+    "legendary_lord": "Pepe Long Stockings",
+    "mythic_lord": "Pepe Poppins",
+    "ethereal_lord": "The Peperator",
+    "over_lord": "Lord Pepe of the Memes",
+    "form_level": "From {{amount}}",
+    "progress_level": "{{amount}} /{{amountLevel}}"
+  },
+  "boost": {
+    "multitap": "Multihit",
+    "energy_limit": "Muscle limit",
+    "your_balance": "Your Balance",
+    "title": "Boost",
+    "maxed": "Maxed"
+  },
+  "upgrade": {
+    "upgrade_multitap": " Upgrade Multitap",
+    "upgrade_energy": "Upgrade Energy",
+    "cost": "Cost",
+    "title": "Upgrade",
+    "cancel": "Cancel",
+    "upgrade_success": "Upgrade successful",
+    "err_balance": "Insufficient balance"
+  },
+  "friends": {
+    "referral_reward": "Referral Rewards",
+    "friend": "Friend",
+    "premium": "Premium friend",
+    "empty_state": "No friends found",
+    "list_friends": "Your friends",
+    "title": "Friends",
+    "description": "Invite friends to get more coins",
+    "rewards": {
+      "normal_title": "Invite Friends",
+      "premium_title": "Invite Telegram Premium Friends",
+      "normal": "coins for you and your friends",
+      "premium": "coins for you and your friends (If your friend has Telegram Premium)"
+    },
+    "share_friends": "Share to friends",
+    "des_share_friends": "Share to earn more coins.",
+    "show_more": "Show 10 more results",
+    "share_with_friends": {
+      "title": "Rise as a PEPE LORD and Earn Tokens!",
+      "desc_1": "Get 5M Coins for each referee!",
+      "desc_2": "Extra 25M Coins with Telegram Premium!"
+    }
+  },
+  "level_up": "Level up!",
+  "got_it": "Got It!",
+  "level": "Level",
+  "bonus_power": "Bonus power",
+  "daily_boost": {
+    "daily_free_boost": "Daily Free Boost",
+    "full_energy_free": "Full Energy Free",
+    "des_full_energy_free": "Reset full Energy",
+    "reset_energy": "Reset Energy",
+    "des_reset_energy_modal": "Recharge your energy every day",
+    "recharge": "Recharge",
+    "full_energy": "Full Energy",
+    "reset_energy_success": "Reset current energy successfully"
+  },
+  "success-enter-referral-code": "Referral code successfully applied!"
+}

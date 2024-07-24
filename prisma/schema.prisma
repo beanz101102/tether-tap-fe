@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Users {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime? @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+  deletedAt   DateTime? @map("deleted_at")
+  name        String    @map("name")
+  avatar      String?   @map("avatar")
+
+  TapGameUserCoins       TapGameUserCoins[]       @relation("UserToCoins")
+  TapGameTrackingHistory TapGameTrackingHistory[] @relation("UserToTrackingHistory")
+  RefereeReferrals       Referrals[]              @relation("Referee")
+  RefererReferrals       Referrals[]              @relation("Referer")
+
+  @@map("users")
+}
+
+model Referrals {
+  id            Int   @id @default(autoincrement())
+  UserIDReferee Int   @map("user_id_referee")
+  UserIDReferer Int   @map("user_id_referer")
+  userReferee   Users @relation(name: "Referee", fields: [UserIDReferee], references: [id])
+  userReferer   Users @relation(name: "Referer", fields: [UserIDReferer], references: [id])
+
+  @@map("referrals")
+}
+
+model TapGameUserCoins {
+  id                Int    @id @default(autoincrement())
+  userId            Int
+  user              Users  @relation(name: "UserToCoins", fields: [userId], references: [id])
+  coinsEarnedPerTap Int
+  totalTaps         BigInt
+  totalCoinsEarned  BigInt
+  level             Int
+
+  @@map("tap_game_user_coins")
+}
+
+model TapGameUserEnergy {
+  id              Int      @id @default(autoincrement())
+  userId          Int      @unique
+  maxEarnedEnergy BigInt
+  currentEnergy   BigInt
+  lastUpdated     DateTime
+}
+
+model TapGameTrackingHistory {
+  id              Int                      @id @default(autoincrement())
+  userId          Int
+  user            Users                    @relation(name: "UserToTrackingHistory", fields: [userId], references: [id])
+  changedAmount   Int
+  changedInfoType TapGameChangedInfoType
+  actionType      ActionType
+  actionReason    TapGameInfoChangedReason
+
+  @@map("tap_game_tracking_histories")
+}
+
+enum TapGameChangedInfoType {
+  COINS
+  ENERGY
+  COINS_PER_TAP
+  MAX_ENERGY
+}
+
+enum TapGameInfoChangedReason {
+  BUY_BOOST
+  UPGRADE_ENERGY_BY_COINS
+  TAP
+  INVITE_FRIEND_THROUGH_REF_CODE
+  INVITED_BY_FRIEND
+}
+
+enum ActionType {
+  INCREASE
+  DECREASE
+}
