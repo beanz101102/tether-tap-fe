@@ -35,7 +35,7 @@ const MineItem: FC<MineItemProps> = ({ id, coinPerHour, name, price, imgUrl, isA
       </div>
       {
         !isActive && (
-          <Button className={'flex gap-3 w-fit !bg-[#3F3F46]'}>
+          <Button variant={'secondary'} className={'flex gap-3 w-fit !bg-[#3F3F46]'}>
             <p className={'main-text-secondary'}>Price</p>
             <div className={'flex items-center gap-1'}>
               <Image

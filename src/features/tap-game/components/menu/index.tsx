@@ -27,7 +27,6 @@ const TabBarMiniGameApp = () => {
   // Call hooks unconditionally
   const isHomePageActive = useActivePage("/");
   const isBoostPageActive = useActivePage("boost");
-  const isMinePageActive = useActivePage("mine");
   const isRoadmapPageActive = useActivePage("roadmap");
   const isEarnPageActive = useActivePage("earn");
   const isFriendsPageActive = useActivePage("referral");
