@@ -14,6 +14,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect } from "react";
 import { LocaleTypes } from "../i18n/settings";
 import { analytics } from "@/libs/firebase/app";
+import {useTelegram} from "@/libs/telegram/hooks/useTelegram";
 
 export default function AuthLayout({
   children,
@@ -25,9 +26,9 @@ export default function AuthLayout({
   const isHomePage = useActivePage("/");
   const isReferralPage = useActivePage("enter-referral");
   const { currentUser } = useGetCurrentUser();
-  // const { isMobile } = useUserAgent();
   const isMobile = true;
   const WebApp = window?.Telegram?.WebApp;
+  const isTelegram = useTelegram()
 
   useEffect(() => {
     if (
@@ -44,22 +45,45 @@ export default function AuthLayout({
       WebApp.expand();
     }
   }, [WebApp]);
-  return (
-    <div>
-      {!currentUser ||
-      (!currentUser?.is_skip_ref &&
-        !currentUser?.is_apply_ref_code &&
-        !isReferralPage) ? (
-        <ConnectingApp />
-      ) : (
+
+  if(!isTelegram) {
+    return (
         <div className={cn(!isHomePage && "pb-[90px]")}>
           {isMobile ? (
-            <div>
-              {!isReferralPage && (
-                <div>
-                  <HookGlobals />
-                  <TabBarMiniGameApp />
-                  <EnergyRecoveryGlobal />
+              <div>
+                {!isReferralPage && (
+                    <div>
+                      <HookGlobals/>
+                      <TabBarMiniGameApp/>
+                      <EnergyRecoveryGlobal/>
+                    </div>
+                )}
+
+                {children}
+              </div>
+          ) : (
+              <JoinTabGameDesktop/>
+          )}
+        </div>
+    )
+  }
+
+  return (
+      <div>
+        {!currentUser ||
+        (!currentUser?.is_skip_ref &&
+            !currentUser?.is_apply_ref_code &&
+            !isReferralPage) ? (
+            <ConnectingApp/>
+        ) : (
+            <div className={cn(!isHomePage && "pb-[90px]")}>
+              {isMobile ? (
+                  <div>
+                    {!isReferralPage && (
+                        <div>
+                          <HookGlobals/>
+                          <TabBarMiniGameApp/>
+                          <EnergyRecoveryGlobal />
                 </div>
               )}
 

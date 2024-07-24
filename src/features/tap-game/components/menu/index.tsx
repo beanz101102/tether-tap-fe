@@ -3,7 +3,7 @@ import { useTranslation } from "@/app/[lng]/i18n/client";
 import NextImage from "@/components/common/next-image";
 import { useActivePage } from "@/libs/hooks/useActivePage";
 import { cn } from "@/utils/cn";
-import { initHapticFeedback } from "@tma.js/sdk";
+import { initHapticFeedback, initWeb } from "@tma.js/sdk";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,8 @@ const TabBarMiniGameApp = () => {
     keyPrefix: "menu",
   });
   const router = useRouter();
-  const hapticFeedback = initHapticFeedback();
+  // TODO: reopen
+  // const hapticFeedback = initHapticFeedback();
 
   // Call hooks unconditionally
   const isHomePageActive = useActivePage("/");
@@ -91,7 +92,8 @@ const TabBarMiniGameApp = () => {
                 href={item.path}
                 key={index}
                 onClick={() => {
-                  hapticFeedback.impactOccurred("heavy");
+                  // TODO: reopen
+                  // hapticFeedback.impactOccurred("heavy");
                   clickTab();
                 }}
                 style={{

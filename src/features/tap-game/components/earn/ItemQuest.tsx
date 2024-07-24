@@ -37,7 +37,10 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
     keyPrefix: "earn",
   });
   const { t: tQuest } = useTranslation("quest");
-  const initData = useInitData();
+  // TODO: reopen
+  // const initData = useInitData();
+  // const userTelegramID = initData?.user?.id
+  const userTelegramID = 1111
   const { type, questDetail, coins, isClaim: isClaimed, key } = data;
   const [linkOpened, setLinkOpened] = useState(false);
   const [isDone, setIsDone] = useState(false);

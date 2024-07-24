@@ -11,10 +11,13 @@ const statusQuestAtom = atom<CheckUserSpecificActionStatusData | null>({
 });
 
 export const useGetListQuest = () => {
-  const initData = useInitData();
+  // const initData = useInitData();
+  // TODO: reopen
+  // const userTelegramID = initData?.user?.id
+  const userTelegramID = 1111
   const { data, loading } = useFirestoreRead(
     "quests",
-    String(initData?.user?.id),
+    String(userTelegramID),
   );
   const [statusListQuest, setStatusListQuest] = useAtom(statusQuestAtom);
 
