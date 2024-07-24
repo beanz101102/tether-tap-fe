@@ -80,24 +80,13 @@ const TapArea: FC<TapAreaProps> = memo(({ className, mainCoinClassName }) => {
         )}
       >
         <motion.div animate={controls}>
-          <div className="relative h-[300px] w-[300px]">
+          <div className="relative h-[250px] w-[250px]">
             <NextImage
-              width={300}
-              height={300}
-              src="/img/tap-game/pepe-coin.webp"
+              width={250}
+              height={250}
+              src="/img/tap-game/tether-coin.svg"
               alt="coin"
-              className="absolute left-0 top-0 h-[300px] w-[300px] object-cover"
-            />
-            <NextImage
-              width={200}
-              height={200}
-              src={
-                isActive
-                  ? "/img/tap-game/tap_active.webp"
-                  : "/img/tap-game/tap_disable.webp"
-              }
-              alt="coin"
-              className="absolute bottom-0 left-0 top-14 ml-14 h-[200px] w-[200px] object-cover"
+              className="absolute left-0 top-[15%] h-[250px] w-[250px] object-cover"
             />
           </div>
         </motion.div>
