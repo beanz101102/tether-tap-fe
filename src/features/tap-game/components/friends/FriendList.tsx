@@ -24,31 +24,27 @@ const FriendList = () => {
       return (
         <div
           className={
-            "mt-8 flex h-full w-full flex-col items-center justify-center"
+            "mt-10 flex h-full w-full flex-col items-center justify-center"
           }
         >
-          <NextImage
-            className="w-[140px]"
-            src="/img/tap-game/empty_referral.webp"
-            alt="Empty"
-          />
-          <p
-            className={
-              "main-text-primary my-2 w-full text-center text-base font-normal"
-            }
-          >
-            {t("empty_state")}
-          </p>
+
+                <p
+                    className={
+                        "main-text-secondary w-[80%] my-2 text-center text-base font-normal"
+                    }
+                >
+                    {t("empty_list_friend")}
+                </p>
         </div>
       );
     }
 
-    return (
-      <div>
-        {/*<InfiniteScroll*/}
-        {/*  dataLength={friends?.length}*/}
-        {/*  className={'relative'}*/}
-        {/*  style={{ overflow: 'hidden !important' }}*/}
+      return (
+          <div>
+              {/*<InfiniteScroll*/}
+              {/*  dataLength={friends?.length}*/}
+              {/*  className={'relative'}*/}
+              {/*  style={{ overflow: 'hidden !important' }}*/}
         {/*  next={() => {*/}
         {/*    // handleGetMore();*/}
         {/*  }}*/}

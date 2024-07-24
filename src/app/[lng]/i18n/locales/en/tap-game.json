@@ -70,7 +70,7 @@
     "friend": "Friend",
     "premium": "Premium friend",
     "empty_state": "No friends found",
-    "list_friends": "Your friends",
+    "list_friends": "List Friends",
     "title": "Friends",
     "description": "Invite friends to get more coins",
     "rewards": {
@@ -86,7 +86,12 @@
       "title": "Rise as a PEPE LORD and Earn Tokens!",
       "desc_1": "Get 5M Coins for each referee!",
       "desc_2": "Extra 25M Coins with Telegram Premium!"
-    }
+    },
+    "invite_friend": "Invite Friend",
+    "des_invite_friend": "Invite friends to get more token",
+    "share_link": "Share link to friend",
+    "copy_link": "Copy Link",
+    "empty_list_friend": "Earn 10% more Tether coins from the coins your friends earn"
   },
   "level_up": "Level up!",
   "got_it": "Got It!",

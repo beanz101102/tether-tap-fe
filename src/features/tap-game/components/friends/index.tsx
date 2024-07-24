@@ -9,6 +9,7 @@ import { MdDone } from "react-icons/md";
 import FriendList from "./FriendList";
 import { useTranslation } from "@/app/[lng]/i18n/client";
 import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
+import StatsReferral from "@/features/tap-game/components/friends/StatsReferral";
 
 const Friends = () => {
   const { t } = useTranslation("tap-game", {
@@ -27,53 +28,37 @@ const Friends = () => {
 
   return (
     <div className={"relative w-full py-6"}>
-      <div className="mx-auto h-[140px] w-[240px]">
-        <NextImage
-          src={"/img/tap-game/banner_referral.webp"}
-          alt={"friend logo"}
-          className={" mb-2 w-[240px]"}
-        />
-      </div>
+        <div className="mx-auto h-[140px] relative w-[160px]">
+            <div
+                className="absolute z-10 inset-0"
+                style={{
+                    background: '#45887A',
+                    filter: 'blur(40px)',
+                    opacity: '0.2',
+                }}></div>
+            <NextImage
+                src={"/img/tap-game/banner_referral.webp"}
+                alt={"friend logo"}
+                className={" mb-2 w-[160px]"}
+            />
+        </div>
 
-      <h3
-        className={
-          "main-text-primary mb-2 w-full text-center text-xl font-semibold"
-        }
-      >
-        {t("title")}
-      </h3>
-      <p className={"main-text-secondary mb-8 w-full text-center text-sm"}>
+        <h3
+            className={
+                "main-text-primary mb-2 w-full text-center text-xl font-semibold"
+            }
+        >
+            {t("rewards.normal_title")}
+        </h3>
+        <p className={"main-text-secondary mb-8 w-full text-center text-sm"}>
         {t("description")}
       </p>
 
       <div className={"mb-8 px-4"}>
-        <AboutRewardItem type={"normal"} />
-        <AboutRewardItem type={"premium"} />
+       <StatsReferral/>
       </div>
-
-      <div className="mb-6 flex gap-2 px-4">
-        <div className="flex-1">
-          <ShareWithFriends />
-        </div>
-        <div
-          style={{
-            boxShadow: "0px 3px 0px 0px #3F3F46",
-          }}
-          className="main-bg-secondary flex w-16 min-w-[64px] items-center justify-center rounded-md"
-          onClick={() => {
-            setIsCopied(true);
-            copyToClipboardWithCommand(linkTelegramBot, false);
-          }}
-        >
-          {isCopied ? (
-            <MdDone className="main-text-primary h-6 w-6" />
-          ) : (
-            <Copy className="main-text-primary h-6 w-6" />
-          )}
-        </div>
-      </div>
-
       <FriendList />
+      <ShareWithFriends/>
     </div>
   );
 };
