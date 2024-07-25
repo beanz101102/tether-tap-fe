@@ -99,6 +99,7 @@ function TgBackBtn() {
     window?.Telegram?.WebApp?.BackButton.onClick(() => {
       router.back();
     });
+    window?.Telegram?.WebApp?.setHeaderColor("#000");
   }
 
   useEffect(() => {
