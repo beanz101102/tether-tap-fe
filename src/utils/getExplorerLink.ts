@@ -10,7 +10,7 @@ export const explorerUrlPerChainId: {
 export function getExplorerLink(
   urlHash: string | number,
   type: "transaction" | "token" | "address" | "countdown" | "block",
-  _currentChainId = 421614,
+  _currentChainId = 84532,
 ): string {
   const prefix = explorerUrlPerChainId[_currentChainId];
 

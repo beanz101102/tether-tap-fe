@@ -75,34 +75,9 @@ const ShadModal: FC<ShadModalProps> = ({
             isHFull ? "max-h-[97vh]" : "max-h-[90vh]",
             isTelegram ? "!h-auto" : "",
           )}
-        >
-          {header && (
-            <DrawerHeader>
-              <DrawerTitle>{header}</DrawerTitle>
-            </DrawerHeader>
-          )}
-          <div className="hide-scrollbar fix-scroll-bar h-full overflow-y-scroll">
-            {children}
-          </div>
-          {footer && <DrawerFooter>{footer}</DrawerFooter>}
-        </DrawerContent>
-      </Drawer>
-    );
-
-  if (isMobile && isDrawer)
-    return (
-      <Drawer
-        open={isMobile && isOpen}
-        onOpenChange={isMobile ? onOpen : () => {}}
-      >
-        <DrawerTrigger asChild>{trigger}</DrawerTrigger>
-        <DrawerContent
-          className={cn(
-            "main-bg-secondary main-text-primary rounded-0 mx-auto w-full rounded-t-2xl border-0 p-4",
-            className,
-            isHFull ? "max-h-[97vh]" : "max-h-[90vh]",
-            isTelegram ? "!h-auto" : "",
-          )}
+          style={{
+            boxShadow: "0px -8px 30px 0px rgba(255, 255, 255, 0.15)"
+          }}
         >
           {header && (
             <DrawerHeader>

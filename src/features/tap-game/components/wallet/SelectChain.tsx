@@ -47,7 +47,7 @@ const SelectChain = () => {
         }}
         defaultValue={"bnb_chain"}
       >
-        <SelectTrigger className="main-border-color shadow-noe main-text-primary main-bg-default border px-3 py-2 focus:outline-none">
+        <SelectTrigger className="main-border-color shadow-noe main-text-primary main-bg-default border px-3 py-2 focus:main-bg-default focus:outline-none">
           <SelectValue className="shadow-none focus:outline-none">
             <div className="flex items-center">
               <NextImage
@@ -66,7 +66,7 @@ const SelectChain = () => {
           {listChain.map((chain, idx) => (
             <SelectItem
               key={idx}
-              className="hover:main-bg-default"
+              className="hover:main-bg-default focus:main-bg-default"
               value={idx.toString()}
             >
               <div className="flex items-center">

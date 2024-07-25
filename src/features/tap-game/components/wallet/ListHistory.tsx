@@ -7,6 +7,7 @@ import { truncateAddress } from "@/utils/truncateAddress";
 import { createColumnHelper } from "@tanstack/react-table";
 import dayjs from "dayjs";
 import { ExternalLink } from "lucide-react";
+import {useWindowSize} from "@/features/tap-game/hooks/useWindowSize";
 
 interface InviteHistory {
   action_time: string;
@@ -15,6 +16,8 @@ interface InviteHistory {
 }
 const ListHistory = ({title}:{title?: string}) => {
   const { t } = useTranslation("tap-game", { keyPrefix: "wallet" });
+  const {width} = useWindowSize()
+
   const listData: InviteHistory[] = [
     {
       action_time: dayjs().unix()?.toString(),
@@ -69,7 +72,7 @@ const ListHistory = ({title}:{title?: string}) => {
         {t( title ?? "history")}{" "}
       </p>
 
-      <div className="main-border-color hide-scrollbar relative h-[300px] w-full overflow-auto rounded-lg border">
+      <div className="main-border-color hide-scrollbar relative h-[38vh] w-full overflow-auto rounded-lg border">
         <div className="header main-bg-secondary text-secondary flex rounded-t-lg text-sm font-normal">
           <div className="main-border-color w-[33%] border-r p-2">
             {t("time")}
@@ -90,7 +93,7 @@ const ListHistory = ({title}:{title?: string}) => {
                   className="main-border-color main-bg-default flex border-b text-sm font-normal"
                 >
                   <div className="main-border-color w-[33%] border-r p-2">
-                    <p className="main-text-primary text-base font-normal">
+                    <p className="main-text-primary text-sm  md:text-base font-normal">
                       {dayjs(Number(data.action_time) * 1000).format(
                         "DD-MM-YYYY",
                       )}
@@ -98,24 +101,24 @@ const ListHistory = ({title}:{title?: string}) => {
                   </div>
                   <div className="main-border-color flex w-[33%] flex-col items-center justify-center border-r p-2">
                     <a
-                      href={getExplorerLink(data?.tx_hash, "transaction")}
+                      href={getExplorerLink(data?.tx_hash as string, "transaction")}
                       target="_blank"
                     >
                       <div className="flex items-center">
-                        <p className="main-text-primary text-base font-normal">
-                          {truncateAddress(data.tx_hash)}
+                        <p className="main-text-primary text-sm  md:text-base font-normal">
+                          {truncateAddress(data.tx_hash, width < 375 ? 2:4)}
                         </p>
                         <ExternalLink className="main-text-brand ml-1 h-[14px] w-[14px]" />
                       </div>
                     </a>
                   </div>
                   <div className="w-[33%] p-2">
-                    <div className="main-text-success flex items-center justify-end gap-1 text-base font-medium">
+                    <div className="main-text-success flex items-center justify-end text-sm  md:text-base font-medium">
                       + {formatNumberWithCommas(Number(data.amount ?? 0))}
                       <NextImage
                         src="/img/tap-game/coin.svg"
                         alt="coin"
-                        className="h5 ml-2 w-5"
+                        className="h-5 ml-[6px] w-5"
                       />
                     </div>
                   </div>

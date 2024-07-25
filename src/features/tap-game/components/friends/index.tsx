@@ -34,12 +34,12 @@ const Friends = () => {
                 style={{
                     background: '#45887A',
                     filter: 'blur(40px)',
-                    opacity: '0.2',
+                    opacity: '0.4',
                 }}></div>
             <NextImage
                 src={"/img/tap-game/banner_referral.webp"}
                 alt={"friend logo"}
-                className={" mb-2 w-[160px]"}
+                className={" mb-2 w-[160px] z-10"}
             />
         </div>
 

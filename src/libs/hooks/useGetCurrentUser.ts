@@ -11,20 +11,10 @@ interface IUser {
   ref_code: string;
   is_apply_ref_code: boolean;
   is_skip_ref: boolean;
+  address: string
 }
 
-const userAtom = atom<IUser | null>({
-  id: 1,
-  created_at: "2024-01-01T00:00:00Z",
-  updated_at: "2024-01-01T00:00:00Z",
-  name: "John Doe",
-  telegram_id: "123456789",
-  avatar: "https://firebasestorage.googleapis.com/v0/b/xlords-dev.appspot.com/o/pet-game%2Fbasilisk.webp?alt=media&token=59e60aec-e0a7-40a1-a8a1-ed3e099fe89d",
-  lang: "en",
-  ref_code: "REF123",
-  is_apply_ref_code: true,
-  is_skip_ref: false,
-});
+const userAtom = atom<IUser | null>(null);
 const firstLoadingAtom = atom<boolean>(false);
 
 export const useGetCurrentUser = () => {
@@ -44,6 +34,7 @@ export const useGetCurrentUser = () => {
       ref_code: "REF123",
       is_apply_ref_code: true,
       is_skip_ref: false,
+      address: '0x53454ed75a71E8623DF3034dCa7De46eE3393e79'
     },
     setFirstLoading,
     firstLoading,

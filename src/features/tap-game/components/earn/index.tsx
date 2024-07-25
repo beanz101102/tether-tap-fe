@@ -20,18 +20,18 @@ const Earn = () => {
                 "relative mx-auto flex  h-[200px] w-[200px] flex-col items-center justify-center"
             }
         >
-            <NextImage
-                className={"w-[200px]"}
-                src={"/img/tap-game/money_bag_earn.webp"}
-                alt={"money bag"}
-            />
             <div
                 className="absolute z-10 inset-0"
                 style={{
                     background: '#45887A',
                     filter: 'blur(40px)',
-                    opacity: '0.2',
+                    opacity: '0.4',
                 }}></div>
+            <NextImage
+                className={"w-[200px] z-10"}
+                src={"/img/tap-game/money_bag_earn.webp"}
+                alt={"money bag"}
+            />
         </div>
         <p className={"main-text-primary text-center text-xl font-semibold"}>
             {t("earn_more_coin")}
