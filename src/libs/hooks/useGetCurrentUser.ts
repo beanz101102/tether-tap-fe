@@ -22,7 +22,10 @@ export const useGetCurrentUser = () => {
   const [firstLoading, setFirstLoading] = useAtom(firstLoadingAtom);
   return {
     setCurrentUser,
-    currentUser,
+    currentUser: {
+      ...currentUser,
+      address: "0x5e486457c00913f2E83848fD6814ED1c6EC08F94",
+    },
     setFirstLoading,
     firstLoading,
   };
