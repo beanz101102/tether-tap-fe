@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SocketRoutes } from "../redux/features/socketSlice";
-import { useGetCurrentUser } from "./useGetCurrentUser";
+import { IUser, useGetCurrentUser } from "./useGetCurrentUser";
 import { useSendSocketRequest } from "./useSendSocketRequest";
 import { useInitData } from "@tma.js/sdk-react";
 
@@ -19,7 +19,7 @@ export const useSkipReferral = () => {
       if (currentUser) {
         setIsLoading(false);
         setCurrentUser({
-          ...currentUser,
+          ...(currentUser as IUser),
           is_skip_ref: true,
         });
         router.push("/");

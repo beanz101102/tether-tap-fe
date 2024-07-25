@@ -1,6 +1,6 @@
 import { atom, useAtom } from "jotai";
 
-interface IUser {
+export interface IUser {
   id: number;
   created_at: string;
   updated_at: string;

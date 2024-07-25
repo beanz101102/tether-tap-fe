@@ -1,5 +1,5 @@
 import { useTranslation } from "@/app/[lng]/i18n/client";
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
+import { IUser, useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
 import { useSendSocketRequest } from "@/libs/hooks/useSendSocketRequest";
 import { SocketRoutes } from "@/libs/redux/features/socketSlice";
 import { useInitData } from "@tma.js/sdk-react";
@@ -26,7 +26,7 @@ export const useHandleEnterReferralCode = () => {
     onDone: () => {
       if (currentUser) {
         setCurrentUser({
-          ...currentUser,
+          ...(currentUser as IUser),
           is_apply_ref_code: true,
         });
         router?.push("/");
