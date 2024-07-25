@@ -14,7 +14,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect } from "react";
 import { LocaleTypes } from "../i18n/settings";
 import { analytics } from "@/libs/firebase/app";
-import {useTelegram} from "@/libs/telegram/hooks/useTelegram";
+import { useTelegram } from "@/libs/telegram/hooks/useTelegram";
 
 export default function AuthLayout({
   children,
@@ -28,17 +28,16 @@ export default function AuthLayout({
   const { currentUser } = useGetCurrentUser();
   const isMobile = true;
   const WebApp = window?.Telegram?.WebApp;
-  const isTelegram = useTelegram()
-  // TODO: reopen
-  // useEffect(() => {
-  //   if (
-  //     currentUser &&
-  //     !currentUser?.is_apply_ref_code &&
-  //     !currentUser?.is_skip_ref
-  //   ) {
-  //     router.push(`/${lng}/enter-referral`);
-  //   }
-  // }, [currentUser]);
+  const isTelegram = useTelegram();
+  useEffect(() => {
+    if (
+      currentUser &&
+      !currentUser?.is_apply_ref_code &&
+      !currentUser?.is_skip_ref
+    ) {
+      router.push(`/${lng}/enter-referral`);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (WebApp) {
@@ -46,44 +45,44 @@ export default function AuthLayout({
     }
   }, [WebApp]);
 
-  if(!isTelegram) {
+  if (!isTelegram) {
     return (
-        <div className={cn(!isHomePage && "pb-[90px]")}>
-          {isMobile ? (
+      <div className={cn(!isHomePage && "pb-[90px]")}>
+        {isMobile ? (
+          <div>
+            {!isReferralPage && (
               <div>
-                {!isReferralPage && (
-                    <div>
-                      <HookGlobals/>
-                      <TabBarMiniGameApp/>
-                      <EnergyRecoveryGlobal/>
-                    </div>
-                )}
-
-                {children}
+                <HookGlobals />
+                <TabBarMiniGameApp />
+                <EnergyRecoveryGlobal />
               </div>
-          ) : (
-              <JoinTabGameDesktop/>
-          )}
-        </div>
-    )
+            )}
+
+            {children}
+          </div>
+        ) : (
+          <JoinTabGameDesktop />
+        )}
+      </div>
+    );
   }
 
   return (
-      <div>
-        {!currentUser ||
-        (!currentUser?.is_skip_ref &&
-            !currentUser?.is_apply_ref_code &&
-            !isReferralPage) ? (
-            <ConnectingApp/>
-        ) : (
-            <div className={cn(!isHomePage && "pb-[90px]")}>
-              {isMobile ? (
-                  <div>
-                    {!isReferralPage && (
-                        <div>
-                          <HookGlobals/>
-                          <TabBarMiniGameApp/>
-                          <EnergyRecoveryGlobal />
+    <div>
+      {!currentUser ||
+      (!currentUser?.is_skip_ref &&
+        !currentUser?.is_apply_ref_code &&
+        !isReferralPage) ? (
+        <ConnectingApp />
+      ) : (
+        <div className={cn(!isHomePage && "pb-[90px]")}>
+          {isMobile ? (
+            <div>
+              {!isReferralPage && (
+                <div>
+                  <HookGlobals />
+                  <TabBarMiniGameApp />
+                  <EnergyRecoveryGlobal />
                 </div>
               )}
 

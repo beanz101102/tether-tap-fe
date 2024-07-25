@@ -10,15 +10,15 @@ import SelectChain from "../SelectChain";
 import ListHistory from "../ListHistory";
 import { useTranslation } from "@/app/[lng]/i18n/client";
 import { truncateAddress } from "@/utils/truncateAddress";
-import {useWindowSize} from "@/features/tap-game/hooks/useWindowSize";
-import {copyToClipboardWithCommand} from "@/utils/copyToClipboardWithCommand";
+import { useWindowSize } from "@/features/tap-game/hooks/useWindowSize";
+import { copyToClipboardWithCommand } from "@/utils/copyToClipboardWithCommand";
 
 const Deposit = () => {
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
-  const { currentUser} = useGetCurrentUser()
-  const {width} = useWindowSize()
+  const { currentUser } = useGetCurrentUser();
+  const { width } = useWindowSize();
 
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
@@ -41,11 +41,15 @@ const Deposit = () => {
         </p>
         <div className="flex items-center justify-between">
           <div className="main-bg-default main-text-primary main-border-color w-[65%] rounded-md border px-3 py-2 text-base font-normal">
-            {truncateAddress(currentUser?.address, width < 780 ? 6 :10)}
+            {truncateAddress(currentUser?.address, width < 780 ? 6 : 10)}
           </div>
           <Button
-              onClick={() => copyToClipboardWithCommand(currentUser?.address)}
-              variant={"common"} className="!w-[30%]">
+            onClick={() =>
+              copyToClipboardWithCommand(currentUser?.address ?? "")
+            }
+            variant={"common"}
+            className="!w-[30%]"
+          >
             {t("copy")}
           </Button>
         </div>

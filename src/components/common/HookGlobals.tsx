@@ -3,8 +3,7 @@ import { memo } from "react";
 
 export const HookGlobals = memo(
   () => {
-      // TODO: reopen
-    // useGetListQuest();
+    useGetListQuest();
     return null;
   },
   () => true,

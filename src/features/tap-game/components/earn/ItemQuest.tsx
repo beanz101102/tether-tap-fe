@@ -37,10 +37,8 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
     keyPrefix: "earn",
   });
   const { t: tQuest } = useTranslation("quest");
-  // TODO: reopen
-  // const initData = useInitData();
-  // const userTelegramID = initData?.user?.id
-  const userTelegramID = 1111
+  const initData = useInitData();
+  const userTelegramID = initData?.user?.id;
   const { type, questDetail, coins, isClaim: isClaimed, key } = data;
   const [linkOpened, setLinkOpened] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -58,7 +56,7 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
   const onDoneTask = () => {
     setIsDone(true);
     setIsLoadingCheckQuest(false);
-    writeData("quests", String(initData?.user?.id), {
+    writeData("quests", String(userTelegramID), {
       [key]: true,
     });
     updateStatusTask(key);
@@ -93,9 +91,8 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
         window.open(questDetail?.action_url);
         setLinkOpened(true);
       }}
-
       className={
-        "main-bg-primary border-[#45887A] border flex cursor-pointer items-center justify-between rounded-lg px-4 py-2"
+        "main-bg-primary flex cursor-pointer items-center justify-between rounded-lg border border-[#45887A] px-4 py-2"
       }
     >
       <div className={"flex items-center"}>

@@ -21,8 +21,7 @@ const TabBarMiniGameApp = () => {
     keyPrefix: "menu",
   });
   const router = useRouter();
-  // TODO: reopen
-  // const hapticFeedback = initHapticFeedback();
+  const hapticFeedback = initHapticFeedback();
 
   // Call hooks unconditionally
   const isHomePageActive = useActivePage("/");
@@ -35,9 +34,7 @@ const TabBarMiniGameApp = () => {
 
   // Determine if home page is active
   const isActiveHomePage =
-    isHomePageActive ||
-    isBoostPageActive ||
-    isRoadmapPageActive;
+    isHomePageActive || isBoostPageActive || isRoadmapPageActive;
 
   const itemTabBar: TabBarMiniGameAppProps[] = [
     {
@@ -104,8 +101,7 @@ const TabBarMiniGameApp = () => {
                 href={item.path}
                 key={index}
                 onClick={() => {
-                  // TODO: reopen
-                  // hapticFeedback.impactOccurred("heavy");
+                  hapticFeedback.impactOccurred("heavy");
                   clickTab();
                 }}
                 style={{
@@ -120,7 +116,7 @@ const TabBarMiniGameApp = () => {
                 <NextImage
                   src={`/img/tap-game/${item.imgUrl}`}
                   alt={item.imgUrl}
-                  className={cn("h-8 w-8 flex items-center justify-center")}
+                  className={cn("flex h-8 w-8 items-center justify-center")}
                 />
                 <span className={cn("mt-[2px] text-xs font-medium")}>
                   {t(item.name)}

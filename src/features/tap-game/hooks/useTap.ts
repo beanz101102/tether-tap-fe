@@ -31,8 +31,7 @@ export const useTap = () => {
   const [taps, setTaps] = useState<AnimationPositionPerTap[]>([]);
   const { userTapGameInfo } = useGetUserTapGameInfo();
   const { handleUpdateUserCoinsWhenTap } = useUpdateUserCoinsWhenTap();
-  // TODO: reopen
-  // const hapticFeedback = initHapticFeedback();
+  const hapticFeedback = initHapticFeedback();
   const coinGainPerTap = Number(userTapGameInfo?.coins_earned_per_tap);
 
   const isDisable = useMemo(
@@ -100,16 +99,14 @@ export const useTap = () => {
 
       // main logic
       debouncedHandleMainLogic(touches, rect);
-      // TODO: reopen
-      // hapticFeedback.impactOccurred("heavy");
+      hapticFeedback.impactOccurred("heavy");
     },
     [
       coinGainPerTap,
       currentEnergy,
       handlePushAnimation,
       handleUpdateCorePoint,
-      // TODO: reopen
-      // hapticFeedback,
+      hapticFeedback,
     ],
   );
 
