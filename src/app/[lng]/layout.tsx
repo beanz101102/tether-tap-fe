@@ -9,7 +9,7 @@ import { DefaultToastOptions, Toaster } from "react-hot-toast";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SDKProvider } from "@tma.js/sdk-react";
-import {useTelegram} from "@/libs/telegram/hooks/useTelegram";
+import { useTelegram } from "@/libs/telegram/hooks/useTelegram";
 
 export const toastOptions: DefaultToastOptions = {
   style: {
@@ -24,26 +24,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isTelegram = useTelegram();
-
-  if(!isTelegram){
-    return  (
-      <ProviderRedux>
-        <TRPCReactProvider>
-          <ToastContainer
-            autoClose={4000}
-            hideProgressBar
-            draggable
-            pauseOnHover
-          />
-          <Toaster position="top-center" toastOptions={toastOptions} />
-          <ListenWsUpdateGlobal />
-          <LayoutTapGame>{children}</LayoutTapGame>
-        </TRPCReactProvider>
-    </ProviderRedux>
-    )
-}
-
   return (
     <SDKProvider acceptCustomStyles debug>
       <ProviderTelegram>

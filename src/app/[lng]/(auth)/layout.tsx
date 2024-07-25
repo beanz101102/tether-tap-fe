@@ -28,7 +28,6 @@ export default function AuthLayout({
   const { currentUser } = useGetCurrentUser();
   const isMobile = true;
   const WebApp = window?.Telegram?.WebApp;
-  const isTelegram = useTelegram();
   useEffect(() => {
     if (
       currentUser &&
@@ -44,28 +43,6 @@ export default function AuthLayout({
       WebApp.expand();
     }
   }, [WebApp]);
-
-  if (!isTelegram) {
-    return (
-      <div className={cn(!isHomePage && "pb-[90px]")}>
-        {isMobile ? (
-          <div>
-            {!isReferralPage && (
-              <div>
-                <HookGlobals />
-                <TabBarMiniGameApp />
-                <EnergyRecoveryGlobal />
-              </div>
-            )}
-
-            {children}
-          </div>
-        ) : (
-          <JoinTabGameDesktop />
-        )}
-      </div>
-    );
-  }
 
   return (
     <div>
