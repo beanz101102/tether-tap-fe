@@ -19,6 +19,8 @@ const Deposit = () => {
   });
   const { currentUser } = useGetCurrentUser();
   const { width } = useWindowSize();
+  const address =
+    currentUser?.address ?? "0x5e486457c00913f2E83848fD6814ED1c6EC08F94";
 
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
@@ -41,12 +43,10 @@ const Deposit = () => {
         </p>
         <div className="flex items-center justify-between">
           <div className="main-bg-default main-text-primary main-border-color w-[65%] rounded-md border px-3 py-2 text-base font-normal">
-            {truncateAddress(currentUser?.address, width < 780 ? 6 : 10)}
+            {truncateAddress(address, width < 780 ? 6 : 10)}
           </div>
           <Button
-            onClick={() =>
-              copyToClipboardWithCommand(currentUser?.address ?? "")
-            }
+            onClick={() => copyToClipboardWithCommand(address ?? "")}
             variant={"common"}
             className="!w-[30%]"
           >

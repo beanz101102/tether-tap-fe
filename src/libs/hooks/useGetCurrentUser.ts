@@ -11,7 +11,7 @@ export interface IUser {
   ref_code: string;
   is_apply_ref_code: boolean;
   is_skip_ref: boolean;
-  address: string;
+  address?: string;
 }
 
 const userAtom = atom<IUser | null>(null);
@@ -22,10 +22,7 @@ export const useGetCurrentUser = () => {
   const [firstLoading, setFirstLoading] = useAtom(firstLoadingAtom);
   return {
     setCurrentUser,
-    currentUser: {
-      ...currentUser,
-      address: "0x5e486457c00913f2E83848fD6814ED1c6EC08F94",
-    },
+    currentUser,
     setFirstLoading,
     firstLoading,
   };
