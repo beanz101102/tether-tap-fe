@@ -7,14 +7,15 @@ import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
 import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
 import { useAtom } from "jotai";
 import Image from "next/image";
-import { useTranslation } from "react-i18next";
 import { Info } from "lucide-react";
 import EnergyProgress from "@/features/tap-game/components/EnergyProgress";
 import ShadModal from "@/components/ui/ShadModal";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "../i18n/client";
 
 export default function Home() {
+  const { t } = useTranslation("tap-game");
   const [score] = useAtom(ScoreAtom);
   const { isLoading } = useGetUserTapGameInfo();
 
@@ -23,7 +24,7 @@ export default function Home() {
       style={{
         backgroundColor: "black",
         boxShadow: "0px -4px 4px 0px rgba(0, 0, 0, 0.25)",
-        backgroundImage: "url(/img/tap-game/tap-bg.svg)",
+        backgroundImage: "url(/img/tap-game/tap-bg.webp)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -37,7 +38,7 @@ export default function Home() {
             "main-text-secondary mt-6 w-full text-center text-sm font-medium"
           }
         >
-          Your coin balance
+          {t("your_balance_coin")}
         </p>
         <div className={"mb-2 h-full w-full px-4 pt-3"}>
           <div className={"flex items-center justify-center"}>
@@ -63,7 +64,7 @@ export default function Home() {
         </div>
 
         <div className="">
-          <TapArea mainCoinClassName={""} />
+          <TapArea />
         </div>
         <div className={"absolute bottom-[90px] left-0 mb-2 w-full px-4"}>
           <EnergyProgress />
@@ -142,7 +143,7 @@ const TapPageHeader = () => {
             className={"h-[88px] w-[130px]"}
           />
           <p className={"main-text-primary text-2xl font-semibold"}>
-            Boost your earnings
+            {t("boost_your_earning")}
           </p>
           <p
             className={
@@ -153,13 +154,13 @@ const TapPageHeader = () => {
             and buy upgrades for your kingdom
           </p>
           <p className={"main-text-primary text-base font-bold"}>
-            Earn offline up to 4 hours.
+            {t("earn_offline")}
           </p>
           <Button
             className={"h-[44px] w-full"}
             onClick={() => setIsOpenModalAboutGainCoin(false)}
           >
-            Open Economic
+            {t("open_economic")}
           </Button>
         </div>
       </ShadModal>

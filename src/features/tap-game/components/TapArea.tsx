@@ -7,10 +7,9 @@ import NextImage from "@/components/common/next-image";
 
 interface TapAreaProps {
   className?: string;
-  mainCoinClassName?: string;
 }
 
-const TapArea: FC<TapAreaProps> = memo(({ className, mainCoinClassName }) => {
+const TapArea: FC<TapAreaProps> = memo(({ className }) => {
   const [isActive, setIsActive] = useState(false);
   const { taps, setTaps, handleTap, isDisable } = useTap();
   const controls = useAnimation();

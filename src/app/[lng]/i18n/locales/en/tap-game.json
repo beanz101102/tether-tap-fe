@@ -134,5 +134,9 @@
     "amount": "Amount",
     "max": "Max",
     "min": "Min"
-  }
+  },
+  "your_balance_coin": "Your coin balance",
+  "boost_your_earning": "Boost your earnings",
+  "earn_offline": "Earn offline up to 4 hours.",
+  "open_economic": "Open Economic"
 }
