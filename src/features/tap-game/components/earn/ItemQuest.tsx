@@ -126,7 +126,7 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
               + {formatNumberWithCommas(coins)}
             </p>
             <NextImage
-              src={"/img/tap-game/coin.svg"}
+              src={"/img/tap-game/coin.webp"}
               className={"h-4 w-4"}
               alt={"coins"}
             />

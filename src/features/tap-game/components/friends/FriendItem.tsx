@@ -1,7 +1,7 @@
 import NextImage from "@/components/common/next-image";
 import { formatNumberWithCommas } from "@/utils/formatNumber";
 import { FC } from "react";
-import {useTranslation} from "@/app/[lng]/i18n/client";
+import { useTranslation } from "@/app/[lng]/i18n/client";
 
 interface FriendItemProps {
   avatar: string;
@@ -16,10 +16,9 @@ const FriendItem: FC<FriendItemProps> = ({
   coinEarned,
   name,
 }) => {
-  const {t} = useTranslation("tap-game", {
+  const { t } = useTranslation("tap-game", {
     keyPrefix: "friends",
-
-  })
+  });
   return (
     <div
       className={
@@ -39,7 +38,7 @@ const FriendItem: FC<FriendItemProps> = ({
           <p className={"main-text-primary font-medium"}>{name}</p>
           <div className={"flex items-center gap-1"}>
             <NextImage
-              src={"/img/tap-game/coin.svg"}
+              src={"/img/tap-game/coin.webp"}
               alt={"coin"}
               className={"h-4 w-4"}
             />
@@ -49,14 +48,16 @@ const FriendItem: FC<FriendItemProps> = ({
           </div>
         </div>
       </div>
-      <div className={"flex flex-col w-[25%] items-center justify-end"}>
-        <p className={"text-sm font-normal ml-auto text-right main-text-muted"} >{t('coin_earn')}</p>
-        <div className={'flex items-center ml-auto'}>
+      <div className={"flex w-[25%] flex-col items-center justify-end"}>
+        <p className={"main-text-muted ml-auto text-right text-sm font-normal"}>
+          {t("coin_earn")}
+        </p>
+        <div className={"ml-auto flex items-center"}>
           <div className={"h-4 w-4"}>
             <NextImage
-                src={"/img/tap-game/coin.svg"}
-                alt={"coin"}
-                className={"h-4 w-4"}
+              src={"/img/tap-game/coin.webp"}
+              alt={"coin"}
+              className={"h-4 w-4"}
             />
           </div>
           <p className={"main-text-warning pl-1 text-sm font-semibold"}>

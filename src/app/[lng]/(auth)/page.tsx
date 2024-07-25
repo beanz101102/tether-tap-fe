@@ -3,16 +3,16 @@
 import AnimatedNumber from "@/components/ui/animated-number";
 import WrapSkeleton from "@/components/ui/wrap-skeleton";
 import TapArea from "@/features/tap-game/components/TapArea";
-import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
-import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
-import {useAtom} from "jotai";
+import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
+import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import { useAtom } from "jotai";
 import Image from "next/image";
-import {useTranslation} from "react-i18next";
-import {Info} from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Info } from "lucide-react";
 import EnergyProgress from "@/features/tap-game/components/EnergyProgress";
 import ShadModal from "@/components/ui/ShadModal";
-import {useState} from "react";
-import {Button} from "@/components/ui/button";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const [score] = useAtom(ScoreAtom);
@@ -32,13 +32,19 @@ export default function Home() {
     >
       <TapPageHeader />
       <div className={""}>
-        <p className={'w-full text-center text-sm font-medium mt-6 main-text-secondary'}>Your coin balance</p>
+        <p
+          className={
+            "main-text-secondary mt-6 w-full text-center text-sm font-medium"
+          }
+        >
+          Your coin balance
+        </p>
         <div className={"mb-2 h-full w-full px-4 pt-3"}>
           <div className={"flex items-center justify-center"}>
             <Image
               width={32}
               height={32}
-              src={"/img/tap-game/coin.svg"}
+              src={"/img/tap-game/coin.webp"}
               alt={"coin"}
               className={"mr-2"}
             />
@@ -59,7 +65,7 @@ export default function Home() {
         <div className="">
           <TapArea mainCoinClassName={""} />
         </div>
-        <div className={"absolute bottom-[90px] mb-2 left-0 w-full px-4"}>
+        <div className={"absolute bottom-[90px] left-0 mb-2 w-full px-4"}>
           <EnergyProgress />
         </div>
       </div>
@@ -68,10 +74,10 @@ export default function Home() {
 }
 
 const TapPageHeader = () => {
-  const [isOpenModalAboutGainCoin, setIsOpenModalAboutGainCoin] = useState(false);
+  const [isOpenModalAboutGainCoin, setIsOpenModalAboutGainCoin] =
+    useState(false);
   const { t } = useTranslation("tap-game");
   const { userTapGameInfo } = useGetUserTapGameInfo();
-
 
   return (
     <>
@@ -91,7 +97,7 @@ const TapPageHeader = () => {
             <Image
               width={20}
               height={20}
-              src={"/img/tap-game/coin.svg"}
+              src={"/img/tap-game/coin.webp"}
               alt={"coin"}
               className={"mr-2 h-5 w-5"}
             />
@@ -105,7 +111,7 @@ const TapPageHeader = () => {
           onClick={() => setIsOpenModalAboutGainCoin(true)}
         >
           <div className={"main-border-divider-secondary h-[35px] border-l"} />
-          <div className={"w-full flex flex-col items-end px-3 py-2"}>
+          <div className={"flex w-full flex-col items-end px-3 py-2"}>
             <p className={"main-text-secondary text-xs font-medium"}>
               {t("coin_to_level_up")}
             </p>
@@ -114,32 +120,43 @@ const TapPageHeader = () => {
               <Image
                 width={20}
                 height={20}
-                src={"/img/tap-game/coin.svg"}
+                src={"/img/tap-game/coin.webp"}
                 alt={"coin"}
                 className={"mx-2 h-5 w-5"}
               />
-              <Info className={'main-text-secondary w-4 h-4'} />
+              <Info className={"main-text-secondary h-4 w-4"} />
             </div>
           </div>
         </div>
       </div>
-      <ShadModal isOpen={isOpenModalAboutGainCoin} onOpen={setIsOpenModalAboutGainCoin}>
-        <div className={'flex flex-col items-center justify-center gap-5 pt-2'}>
+      <ShadModal
+        isOpen={isOpenModalAboutGainCoin}
+        onOpen={setIsOpenModalAboutGainCoin}
+      >
+        <div className={"flex flex-col items-center justify-center gap-5 pt-2"}>
           <Image
-            src={"/img/tap-game/multi-tether-coin.svg"}
-            alt={'boost earning'}
+            src={"/img/tap-game/money_bag_earn.webp"}
+            alt={"boost earning"}
             width={130}
             height={88}
-            className={'w-[130px] h-[88px]'}
+            className={"h-[88px] w-[130px]"}
           />
-          <p className={'main-text-primary text-2xl font-semibold'}>Boost your earnings</p>
-          <p className={'main-text-secondary text-sm font-normal w-full text-center'}>
-            Tap the <span className={'main-text-primary'}>Economic</span> menu and buy upgrades
-            for your kingdom
+          <p className={"main-text-primary text-2xl font-semibold"}>
+            Boost your earnings
           </p>
-          <p className={'main-text-primary text-base font-bold'}>Earn offline up to 4 hours.</p>
+          <p
+            className={
+              "main-text-secondary w-full text-center text-sm font-normal"
+            }
+          >
+            Tap the <span className={"main-text-primary"}>Economic</span> menu
+            and buy upgrades for your kingdom
+          </p>
+          <p className={"main-text-primary text-base font-bold"}>
+            Earn offline up to 4 hours.
+          </p>
           <Button
-            className={'w-full h-[44px]'}
+            className={"h-[44px] w-full"}
             onClick={() => setIsOpenModalAboutGainCoin(false)}
           >
             Open Economic

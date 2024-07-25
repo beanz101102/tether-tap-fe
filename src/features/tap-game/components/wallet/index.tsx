@@ -48,7 +48,7 @@ const Wallet = () => {
       <div className={"flex items-center"}>
         <NextImage
           className={"h-[30px] w-[30px]"}
-          src={"/img/tap-game/coin.svg"}
+          src={"/img/tap-game/coin.webp"}
           alt={"coin"}
         />
         <p className={"main-text-primary pl-2 text-3xl font-semibold"}>

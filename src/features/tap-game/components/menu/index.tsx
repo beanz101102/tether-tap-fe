@@ -40,31 +40,31 @@ const TabBarMiniGameApp = () => {
     {
       name: "tap",
       path: "/",
-      imgUrl: "tap.svg",
+      imgUrl: "tap.webp",
       isActive: isActiveHomePage,
     },
     {
       name: "mine",
       path: "/mine",
-      imgUrl: "mine.svg",
+      imgUrl: "mine.webp",
       isActive: isMinePageActive,
     },
     {
       name: "earn",
       path: "/earn",
-      imgUrl: "earn.svg",
+      imgUrl: "earn.webp",
       isActive: isEarnPageActive,
     },
     {
       name: "wallet",
       path: "/wallet",
-      imgUrl: "wallet.svg",
+      imgUrl: "wallet.webp",
       isActive: isWalletPageActive,
     },
     {
       name: "friends",
       path: "/referral",
-      imgUrl: "friend.svg",
+      imgUrl: "friend.webp",
       isActive: isFriendsPageActive,
     },
   ];

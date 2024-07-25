@@ -84,7 +84,7 @@ const TapArea: FC<TapAreaProps> = memo(({ className, mainCoinClassName }) => {
             <NextImage
               width={250}
               height={250}
-              src="/img/tap-game/tether-coin.svg"
+              src="/img/tap-game/tether-coin.webp"
               alt="coin"
               className="absolute left-0 top-[15%] h-[250px] w-[250px] object-cover"
             />

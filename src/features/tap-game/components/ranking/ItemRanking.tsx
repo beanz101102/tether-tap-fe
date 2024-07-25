@@ -34,7 +34,7 @@ const ItemRanking = ({
           <p className={"main-text-primary text-lg font-semibold"}>{name}</p>
           <div className={"flex items-center"}>
             <NextImage
-              src={"/img/tap-game/coin.svg"}
+              src={"/img/tap-game/coin.webp"}
               alt={"coin"}
               className={"h-5 w-5"}
             />

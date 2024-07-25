@@ -77,7 +77,7 @@ const Boost = () => {
       </p>
       <div className={"mt-2.5 flex items-center"}>
         <NextImage
-          src={"/img/tap-game/coin.svg"}
+          src={"/img/tap-game/coin.webp"}
           alt={"coin"}
           className={"h-10 w-10"}
         />

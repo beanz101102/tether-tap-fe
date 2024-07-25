@@ -81,7 +81,7 @@ const ItemBoost = ({
                   className={cn("mt-1 flex items-center", isMax && "grayscale")}
                 >
                   <NextImage
-                    src={"/img/tap-game/coin.svg"}
+                    src={"/img/tap-game/coin.webp"}
                     className={"h-[16px] w-[16px]"}
                     alt={"coin"}
                   />

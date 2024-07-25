@@ -119,7 +119,7 @@ const ModalUpgrade = ({
           </p>
           <div className={"mt-1 flex items-center"}>
             <NextImage
-              src={"/img/tap-game/coin.svg"}
+              src={"/img/tap-game/coin.webp"}
               className={"h-[16px] w-[16px]"}
               alt={"coin"}
             />
