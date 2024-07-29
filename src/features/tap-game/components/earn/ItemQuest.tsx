@@ -140,7 +140,8 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
         <Button
           loading={isLoadingCheckQuest}
           onClick={() => handleCheckQuest()}
-          className={"!w-[75px] !rounded-[32px]"}
+          variant={'common'}
+          className={"!w-[75px] !h-[32px] !rounded-[32px]"}
         >
           {t("check")}
         </Button>

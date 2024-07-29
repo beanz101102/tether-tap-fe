@@ -150,7 +150,7 @@ const TapPageHeader = () => {
               "main-text-secondary w-full text-center text-sm font-normal"
             }
           >
-            Tap the <span className={"main-text-primary"}>Economic</span> menu
+            Tap the <span className={"main-text-primary font-semibold"}>Mine</span> menu
             and buy upgrades for your kingdom
           </p>
           <p className={"main-text-primary text-base font-bold"}>

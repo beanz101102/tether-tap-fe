@@ -80,8 +80,8 @@ const Withdraw = () => {
           </div>
         </div>
       </div>
-        <Button className={"mt-4"}>
-            {t('withdraw')}
+        <Button variant={'common'} className={"mt-8 w-full"}>
+            {t('transfer')}
         </Button>
     </div>
   );
