@@ -13,6 +13,7 @@ import ShadModal from "@/components/ui/ShadModal";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "../i18n/client";
+import {useRouter} from "next/navigation";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
@@ -54,7 +55,7 @@ export default function Home() {
               isSkeleton={isLoading}
             >
               <AnimatedNumber
-                value={score}
+                value={isNaN(score) ? 0 : score}
                 hasComma={true}
                 size={30}
                 duration={200}
@@ -79,6 +80,7 @@ const TapPageHeader = () => {
     useState(false);
   const { t } = useTranslation("tap-game");
   const { userTapGameInfo } = useGetUserTapGameInfo();
+  const router = useRouter()
 
   return (
     <>
@@ -114,7 +116,7 @@ const TapPageHeader = () => {
           <div className={"main-border-divider-secondary h-[35px] border-l"} />
           <div className={"flex w-full flex-col items-end px-3 py-2"}>
             <p className={"main-text-secondary text-xs font-medium"}>
-              {t("coin_to_level_up")}
+              {t("profit_per_hour")}
             </p>
             <div className={"flex items-center justify-center"}>
               <p className={"main-text-primary font-bold"}>0</p>
@@ -158,7 +160,7 @@ const TapPageHeader = () => {
           </p>
           <Button
             className={"h-[44px] w-full"}
-            onClick={() => setIsOpenModalAboutGainCoin(false)}
+            onClick={() => router.push('/mine')}
           >
             {t("open_economic")}
           </Button>

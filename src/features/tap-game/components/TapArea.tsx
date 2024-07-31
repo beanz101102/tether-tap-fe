@@ -115,7 +115,7 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
             >
               <p
                 className={
-                  "tap-game-coin-gained-stroke text-5xl font-extrabold text-[#6EE7B7]"
+                  "text-xl font-semibold text-white"
                 }
               >
                 +{isNaN(tap.value) ? 0 : tap.value}
