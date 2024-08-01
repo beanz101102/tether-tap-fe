@@ -3,6 +3,14 @@ import { GeistSans } from "geist/font/sans";
 import "@/styles/global.scss";
 import Script from "next/script";
 import { useEffect, useState } from "react";
+import { Viewport } from "next";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export default function RootLayout({
   children,
@@ -24,6 +32,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable} dark`}>
       <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
         <Script
           src="/en/protocol.js"
           onLoad={() => {

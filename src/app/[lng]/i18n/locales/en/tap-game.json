@@ -17,14 +17,14 @@
   "menu": {
     "tap": "Tap",
     "mine": "Eco",
-    "friends": "Frens",
+    "friends": "Friend",
     "earn": "Earn",
     "wallet": "Wallet"
   },
   "coming_soon": "Coming <span>soon</span>",
   "earn": {
     "earn_more_coin": "Earn more coin",
-    "des_earn_more_coin": "Complete tasks to earn more coins",
+    "des_earn_more_coin": "Complete the quest to get Tether coin",
     "quest": "Quest",
     "go": "Go",
     "check": "Check",

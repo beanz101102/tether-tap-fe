@@ -26,11 +26,10 @@ const Friends = () => {
     <div className={"relative w-full py-6"}>
       <div className="relative mx-auto h-[140px] w-[160px]">
         <div
-          className="absolute inset-0 z-10"
+          className="absolute inset-0 bg-[#45887A] opacity-30"
           style={{
             background: "#45887A",
             filter: "blur(40px)",
-            opacity: "0.4",
           }}
         ></div>
         <NextImage

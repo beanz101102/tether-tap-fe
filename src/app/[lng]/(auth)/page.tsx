@@ -149,11 +149,12 @@ const TapPageHeader = () => {
           </p>
           <p
             className={
-              "main-text-secondary w-full text-center text-sm font-normal"
+              "main-text-secondary mx-auto w-[80%] text-center text-sm font-normal"
             }
           >
-            Tap the <span className={"main-text-primary font-semibold"}>Mine</span> menu
-            and buy upgrades for your kingdom
+            Tap the{" "}
+            <span className={"main-text-primary font-semibold"}>Mine</span> and
+            buy upgrades to earn coin faster
           </p>
           <p className={"main-text-primary text-base font-bold"}>
             {t("earn_offline")}

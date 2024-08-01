@@ -83,7 +83,7 @@ const TabBarMiniGameApp = () => {
     <div>
       <div
         className={cn(
-          "fixed bottom-0 left-1/2 z-50 flex w-full max-w-[500px] -translate-x-1/2 transform justify-evenly gap-4",
+          "fixed bottom-4 left-1/2 z-50 flex w-full max-w-[500px] -translate-x-1/2 transform justify-evenly gap-4",
         )}
       >
         <div
