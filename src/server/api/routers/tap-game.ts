@@ -65,7 +65,7 @@ export const tapGameRouter = createTRPCRouter({
       `;
 
       // Process the result to format it as needed
-      const formattedResult = result.map((pack: any) => ({
+      const formattedResult = (result as unknown as any).map((pack: any) => ({
         id: pack.pack_id,
         name: pack.name,
         image: pack.image,

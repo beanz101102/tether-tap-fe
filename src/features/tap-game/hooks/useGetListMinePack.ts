@@ -43,7 +43,7 @@ export const useGetListMinePack = () => {
 
   useEffect(() => {
     if (!isQueryLoading && data) {
-      const formattedData: MinePack[] = data.map((pack) => ({
+      const formattedData: MinePack[] = data.map((pack: MinePack) => ({
         id: pack.id,
         name: pack.name,
         image: pack.image,
