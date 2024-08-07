@@ -58,7 +58,7 @@ export const EnergyRecoveryGlobal = () => {
     if (!userTapGameInfo) return;
     const intervalId = setInterval(() => {
       if (energyRef.current >= maxEnergy) return;
-      const energyRecovery = currentEnergy + 3 * 1000;
+      const energyRecovery = currentEnergy + 1;
       const energyUpdateData =
         energyRecovery >= maxEnergy ? maxEnergy : energyRecovery;
       handleEnergy(energyUpdateData);

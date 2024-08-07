@@ -13,7 +13,8 @@ import ShadModal from "@/components/ui/ShadModal";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "../i18n/client";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import { formatAirdropAmount } from "@/utils/formatNumber";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
@@ -54,12 +55,15 @@ export default function Home() {
               className={"h-[25px] w-[60px]"}
               isSkeleton={isLoading}
             >
-              <AnimatedNumber
+              {/* <AnimatedNumber
                 value={isNaN(score) ? 0 : score}
                 hasComma={true}
                 size={30}
                 duration={200}
-              />
+              /> */}
+              <p className=" main-text-primary text-[36px] font-bold">
+                {formatAirdropAmount(isNaN(score) ? 0 : score)}
+              </p>
             </WrapSkeleton>
           </div>
         </div>
@@ -80,7 +84,7 @@ const TapPageHeader = () => {
     useState(false);
   const { t } = useTranslation("tap-game");
   const { userTapGameInfo } = useGetUserTapGameInfo();
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <>
@@ -161,7 +165,7 @@ const TapPageHeader = () => {
           </p>
           <Button
             className={"h-[44px] w-full"}
-            onClick={() => router.push('/mine')}
+            onClick={() => router.push("/mine")}
           >
             {t("open_economic")}
           </Button>

@@ -43,7 +43,7 @@ export const useTap = () => {
     if (touchesLength <= 0) return;
     tapCountRef.current += touchesLength;
     setScore((prevScore) => prevScore + touchesLength * coinGainPerTap);
-    const energyConsumed = currentEnergy - touchesLength * coinGainPerTap;
+    const energyConsumed = currentEnergy - touchesLength;
     const newEnergy = energyConsumed <= 0 ? 0 : energyConsumed;
     handleEnergy(newEnergy);
   };

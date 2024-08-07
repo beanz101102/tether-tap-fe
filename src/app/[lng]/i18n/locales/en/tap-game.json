@@ -11,7 +11,11 @@
   "home_page": {
     "tap_and_earn": "Tap to earn",
     "des_tap_and_earn": "Gain rewards with every tap!",
-    "play_to_earn": "Play now"
+    "play_to_earn": "Play now",
+    "tether_coin": "Tether coin",
+    "wait": "Wait a second",
+    "des_wait": "The game will start soon",
+    "more_chanel": "More info in official channels"
   },
   "back": "Back",
   "menu": {
