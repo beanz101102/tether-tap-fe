@@ -36,4 +36,49 @@ export const tapGameRouter = createTRPCRouter({
 
       return result;
     }),
+  getMinePacks: publicProcedure
+    .input(
+      z.object({
+        userId: z.number(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { userId } = input;
+
+      const result = await ctx.db.$queryRaw`
+      SELECT 
+        mp.id AS pack_id,
+        mp.name,
+        mp.image,
+        mp.cost,
+        mp.upgraded_amt,
+        mp.duration,
+        mp.pack_type,
+        ump.id AS user_pack_id,
+        ump.end_time
+      FROM 
+        tap_tether_mine_packs mp
+      LEFT JOIN 
+        user_tap_tether_mine_packs ump ON mp.id = ump.mine_pack_id AND ump.user_id = ${userId}
+      ORDER BY 
+        mp.id ASC
+      `;
+
+      // Process the result to format it as needed
+      const formattedResult = result.map((pack: any) => ({
+        id: pack.pack_id,
+        name: pack.name,
+        image: pack.image,
+        cost: pack.cost.toString(), // Convert Decimal to string
+        upgradedAmt: pack.upgraded_amt.toString(), // Convert Decimal to string
+        duration: pack.duration,
+        packType: pack.pack_type,
+        isPurchased: pack.user_pack_id !== null,
+        userPackId: pack.user_pack_id,
+        endTime: pack.end_time,
+        isActive: pack.end_time ? new Date(pack.end_time) > new Date() : false,
+      }));
+
+      return formattedResult;
+    }),
 });

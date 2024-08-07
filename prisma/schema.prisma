@@ -2,26 +2,27 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Users {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime? @default(now()) @map("created_at")
-  updatedAt   DateTime? @updatedAt @map("updated_at")
-  deletedAt   DateTime? @map("deleted_at")
-  name        String    @map("name")
-  avatar      String?   @map("avatar")
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime? @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  name      String    @map("name")
+  avatar    String?   @map("avatar")
 
   TapGameUserCoins       TapGameUserCoins[]       @relation("UserToCoins")
   TapGameTrackingHistory TapGameTrackingHistory[] @relation("UserToTrackingHistory")
   RefereeReferrals       Referrals[]              @relation("Referee")
   RefererReferrals       Referrals[]              @relation("Referer")
+  UserTapTetherMinePack  UserTapTetherMinePack[]
 
   @@map("users")
 }
@@ -86,4 +87,40 @@ enum TapGameInfoChangedReason {
 enum ActionType {
   INCREASE
   DECREASE
+}
+
+model TapTetherMinePack {
+  id          Int          @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  cost        Decimal      @db.Decimal(30, 18)
+  upgradedAmt Decimal      @db.Decimal(30, 18)
+  name        String
+  image       String
+  duration    Int          @db.UnsignedInt
+  packType    MinePackType
+
+  userPacks UserTapTetherMinePack[]
+
+  @@map("tap_tether_mine_packs")
+}
+
+model UserTapTetherMinePack {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     Int
+  minePackId Int
+  endTime    DateTime
+
+  user Users             @relation(fields: [userId], references: [id])
+  pack TapTetherMinePack @relation(fields: [minePackId], references: [id])
+
+  @@unique([userId, minePackId])
+  @@map("user_tap_tether_mine_packs")
+}
+
+enum MinePackType {
+  MINE_PACK_FOR_EARN_COINS_PER_SECOND
+  MINE_PACK_FOR_EARN_COINS_PER_TAP
 }
