@@ -70,12 +70,6 @@ export const useListenUserTapGameInfoUpdated = () => {
           newBalance += dataListen?.data_info_if_has_changed?.changed_amount;
         }
 
-        if (
-          dataListen?.user_coins_level_info?.current_level >
-          userTapGameInfoClone?.user_coins_level_info?.current_level
-        ) {
-          setIsOpenModalLevelUp(true);
-        }
         setScore(newBalance);
         return newBalance;
       }
