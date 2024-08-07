@@ -61,7 +61,9 @@ export default function Home() {
                 size={30}
                 duration={200}
               /> */}
-              {score ?? 0}
+              <p className=" main-text-primary text-[36px] font-bold">
+                {formatAirdropAmount(isNaN(score) ? 0 : score)}
+              </p>
             </WrapSkeleton>
           </div>
         </div>
