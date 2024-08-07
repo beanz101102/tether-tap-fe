@@ -61,7 +61,7 @@ export default function Home() {
                 size={30}
                 duration={200}
               /> */}
-              {formatAirdropAmount(score)}
+              {score ?? 0}
             </WrapSkeleton>
           </div>
         </div>
