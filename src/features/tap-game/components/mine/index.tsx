@@ -86,7 +86,7 @@ const MinePageHeader = () => {
           />
           <WrapSkeleton className={"h-[25px] w-[60px]"} isSkeleton={isLoading}>
             <AnimatedNumber
-              value={isNaN(score) ? 0 : score}
+              value={Number(score ?? 0)}
               hasComma={true}
               size={30}
               duration={200}

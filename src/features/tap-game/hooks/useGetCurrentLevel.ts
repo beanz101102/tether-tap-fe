@@ -15,7 +15,7 @@ export const useGetCurrentLevel = () => {
   const [score] = useAtom(ScoreAtom);
   const [, setIsOpenModalLevelUp] = useAtom(openModalLevelUpAtom);
   const { setUserTabGameInfo, userTapGameInfo } = useGetUserTapGameInfo();
-  const currentLevelIndex = levels.findIndex((level) => score < level);
+  const currentLevelIndex = levels.findIndex((level) => Number(score) < level);
 
   const defaultLevelIndex = useMemo(
     () => (currentLevelIndex === -1 ? 10 : currentLevelIndex),
@@ -43,7 +43,9 @@ export const useGetCurrentLevel = () => {
     levelNext[Number(userTapGameInfo?.user_coins_level_info?.current_level)];
   const progress = useMemo(
     () =>
-      !score || !coinNextLevel ? 0 : (score / Number(coinNextLevel)) * 100,
+      !score || !coinNextLevel
+        ? 0
+        : (Number(score) / Number(coinNextLevel)) * 100,
     [coinNextLevel, score],
   );
 

@@ -201,7 +201,7 @@ const HeaderRanking = () => {
                 <p className="main-text-secondary text-center text-base font-medium">
                   {currentLevel === listRanking[currentIndex]?.level
                     ? t("progress_level", {
-                        amount: formatLargeNumber(score),
+                        amount: formatLargeNumber(Number(score)),
                         amountLevel: formatLargeNumber(
                           listRanking[currentIndex]?.max as number,
                         ),

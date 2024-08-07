@@ -55,15 +55,12 @@ export default function Home() {
               className={"h-[25px] w-[60px]"}
               isSkeleton={isLoading}
             >
-              {/* <AnimatedNumber
-                value={isNaN(score) ? 0 : score}
+              <AnimatedNumber
+                value={Number(score ?? 0)}
                 hasComma={true}
                 size={30}
                 duration={200}
-              /> */}
-              <p className=" main-text-primary text-[36px] font-bold">
-                {formatAirdropAmount(isNaN(score) ? 0 : score)}
-              </p>
+              />
             </WrapSkeleton>
           </div>
         </div>

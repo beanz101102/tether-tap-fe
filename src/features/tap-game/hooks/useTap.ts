@@ -16,6 +16,7 @@ import { useHapticFeedback } from "@vkruglikov/react-telegram-web-app";
 import dayjs from "dayjs";
 import { debounce, uniqBy } from "lodash";
 import { initHapticFeedback } from "@tma.js/sdk";
+import BigNumber from "bignumber.js";
 
 export const isUpdateCoinBalanceAtom = atom<boolean>(false);
 export const useTap = () => {
@@ -42,7 +43,11 @@ export const useTap = () => {
   const handleUpdateCorePoint = (touchesLength: number) => {
     if (touchesLength <= 0) return;
     tapCountRef.current += touchesLength;
-    setScore((prevScore) => prevScore + touchesLength * coinGainPerTap);
+    setScore((prevScore) =>
+      new BigNumber(prevScore)
+        .plus(new BigNumber(touchesLength * coinGainPerTap))
+        .toString(),
+    );
     const energyConsumed = currentEnergy - touchesLength;
     const newEnergy = energyConsumed <= 0 ? 0 : energyConsumed;
     handleEnergy(newEnergy);

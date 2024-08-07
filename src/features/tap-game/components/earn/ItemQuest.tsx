@@ -43,7 +43,6 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
   const [linkOpened, setLinkOpened] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [isLoadingCheckQuest, setIsLoadingCheckQuest] = useState(false);
-  const [, setScore] = useAtom(ScoreAtom);
   const { updateStatusTask } = useGetListQuest();
   const { writeData } = useFirestoreWrite();
   const { currentUser } = useGetCurrentUser();
@@ -60,7 +59,6 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
       [key]: true,
     });
     updateStatusTask(key);
-    setScore((prev) => prev + coins);
   };
 
   const { trigger } = useSendSocketRequest({
@@ -140,8 +138,8 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
         <Button
           loading={isLoadingCheckQuest}
           onClick={() => handleCheckQuest()}
-          variant={'common'}
-          className={"!w-[75px] !h-[32px] !rounded-[32px]"}
+          variant={"common"}
+          className={"!h-[32px] !w-[75px] !rounded-[32px]"}
         >
           {t("check")}
         </Button>

@@ -28,7 +28,7 @@ const ModalUpgrade = ({
   type: ModalUpgradeType;
   data: ItemBoostProps;
 }) => {
-  const [score, setScore] = useAtom(ScoreAtom);
+  const [score] = useAtom(ScoreAtom);
   const [showErr, setShowErr] = useState(false);
   const { setUserTabGameInfo, userTapGameInfo } = useGetUserTapGameInfo();
   const { coins, level, increaseEnergy, increaseCoinsPerTap } = dataDetail;
@@ -61,7 +61,7 @@ const ModalUpgrade = ({
   const isUpgradeTap = type === ModalUpgradeType.TAP;
 
   const handleUpgrade = () => {
-    if (score < coins) {
+    if (Number(score) < coins) {
       setShowErr(true);
       return;
     }

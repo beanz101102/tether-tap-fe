@@ -5,7 +5,7 @@ import {
 } from "@/features/tap-game/interfaces/tap-game";
 
 export const FriendsAtom = atom<FriendData[]>([]);
-export const ScoreAtom = atom(0);
+export const ScoreAtom = atom("0");
 export const openModalLevelUpAtom = atom(false);
 export const TapLevel = {
   LEVEL_0: 0,

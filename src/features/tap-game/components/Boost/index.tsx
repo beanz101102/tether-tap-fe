@@ -82,7 +82,7 @@ const Boost = () => {
           className={"h-10 w-10"}
         />
         <p className={"main-text-primary pl-2 text-3xl font-semibold"}>
-          {formatNumberWithCommas(balance)}
+          {formatNumberWithCommas(Number(balance))}
         </p>
       </div>
       <div className={"mb-2 w-full"}>
