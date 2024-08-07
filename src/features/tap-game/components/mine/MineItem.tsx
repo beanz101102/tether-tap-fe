@@ -3,14 +3,15 @@ import { FC } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { formatNumberWithCommas } from "@/utils/formatNumber";
+import {useBuyMinePack} from "@/features/tap-game/hooks/useBuyMinePack";
 
 interface MineItemProps {
   id: number;
   name: string;
   imgUrl: string;
   isActive: boolean;
-  coinPerHour: number;
-  price: number;
+  coinPerHour: string;
+  price: string;
 }
 const MineItem: FC<MineItemProps> = ({
   id,
@@ -20,6 +21,8 @@ const MineItem: FC<MineItemProps> = ({
   imgUrl,
   isActive,
 }) => {
+  const {handleBuyMine, loading} = useBuyMinePack();
+
   return (
     <div
       className={
@@ -50,7 +53,7 @@ const MineItem: FC<MineItemProps> = ({
               className={"mr-2 h-5 w-5"}
             />
             <p className={"main-text-primary font-bold"}>
-              + {formatNumberWithCommas(coinPerHour)}
+              + {coinPerHour}
             </p>
           </div>
         </div>
@@ -61,6 +64,9 @@ const MineItem: FC<MineItemProps> = ({
           className={
             "flex h-fit max-h-fit w-fit max-w-[107px] items-center justify-center gap-1 !bg-[#3F3F46] px-2"
           }
+          disabled={loading || isActive}
+          loading={loading}
+          onClick={() => handleBuyMine(id)}
         >
           <p className={"main-text-secondary text-xs"}>Price</p>
           <div className={"flex items-center gap-1"}>
@@ -72,7 +78,7 @@ const MineItem: FC<MineItemProps> = ({
               className={"h-3 w-3"}
             />
             <p className={"main-text-primary text-xs font-bold"}>
-              {formatNumberWithCommas(price)}
+              {price}
             </p>
           </div>
         </Button>
