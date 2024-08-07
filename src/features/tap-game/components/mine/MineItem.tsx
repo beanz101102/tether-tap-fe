@@ -21,7 +21,7 @@ const MineItem: FC<MineItemProps> = ({
   imgUrl,
   isActive,
 }) => {
-  const {handleBuyMine, loading} = useBuyMinePack();
+  const {handleBuyPack, loading} = useBuyMinePack();
 
   return (
     <div
@@ -66,7 +66,7 @@ const MineItem: FC<MineItemProps> = ({
           }
           disabled={loading || isActive}
           loading={loading}
-          onClick={() => handleBuyMine(id)}
+          onClick={() => handleBuyPack(id)}
         >
           <p className={"main-text-secondary text-xs"}>Price</p>
           <div className={"flex items-center gap-1"}>
