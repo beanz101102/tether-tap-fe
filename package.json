@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx env-cmd -f .env.development next build",
     "build:production": "npx env-cmd -f .env.production next build",
-    "db:generate": "prisma migrate dev",
+    "db:generate": "npx prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",

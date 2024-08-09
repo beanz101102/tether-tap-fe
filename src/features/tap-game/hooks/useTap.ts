@@ -34,11 +34,16 @@ export const useTap = () => {
   const { handleUpdateUserCoinsWhenTap } = useUpdateUserCoinsWhenTap();
   const hapticFeedback = initHapticFeedback();
   const coinGainPerTap = Number(userTapGameInfo?.coins_earned_per_tap);
+  const currentEnergyRef = useRef(currentEnergy);
 
   const isDisable = useMemo(
     () => currentEnergy - Number(userTapGameInfo?.coins_earned_per_tap) < 0,
     [currentEnergy, userTapGameInfo?.coins_earned_per_tap],
   );
+
+  useEffect(() => {
+    currentEnergyRef.current = currentEnergy;
+  }, [currentEnergy]);
 
   const handleUpdateCorePoint = (touchesLength: number) => {
     if (touchesLength <= 0) return;
@@ -48,7 +53,7 @@ export const useTap = () => {
         .plus(new BigNumber(touchesLength * coinGainPerTap))
         .toString(),
     );
-    const energyConsumed = currentEnergy - touchesLength;
+    const energyConsumed = currentEnergyRef?.current - touchesLength;
     const newEnergy = energyConsumed <= 0 ? 0 : energyConsumed;
     handleEnergy(newEnergy);
   };
@@ -89,13 +94,12 @@ export const useTap = () => {
     (event: TouchEvent<HTMLDivElement>) => {
       event.preventDefault();
 
-      if (currentEnergy - coinGainPerTap < 0) return;
+      if (currentEnergyRef?.current - coinGainPerTap < 0) return;
       const rect = event.currentTarget.getBoundingClientRect();
       const touches = uniqBy(Array.from(event.touches), "identifier");
-
       // handle slice touches if it can't afford the energy
-      const maxAffordableTouches = Math.floor(currentEnergy / coinGainPerTap);
-      if (currentEnergy - touches.length * coinGainPerTap < 0) {
+      const maxAffordableTouches = Math.floor(currentEnergyRef?.current / coinGainPerTap);
+      if (currentEnergyRef?.current - touches.length * coinGainPerTap < 0) {
         if (maxAffordableTouches === 0) {
           return; // If no touches can be afforded, exit the function.
         }
@@ -106,13 +110,7 @@ export const useTap = () => {
       debouncedHandleMainLogic(touches, rect);
       hapticFeedback.impactOccurred("heavy");
     },
-    [
-      coinGainPerTap,
-      currentEnergy,
-      handlePushAnimation,
-      handleUpdateCorePoint,
-      hapticFeedback,
-    ],
+    [],
   );
 
   const debouncedHandleMainLogic = debounce(

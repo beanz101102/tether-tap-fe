@@ -4,14 +4,16 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { formatNumberWithCommas } from "@/utils/formatNumber";
 import {useBuyMinePack} from "@/features/tap-game/hooks/useBuyMinePack";
+import {PackType} from "@/features/tap-game/hooks/useGetListMinePack";
 
 interface MineItemProps {
   id: number;
   name: string;
   imgUrl: string;
   isActive: boolean;
-  coinPerHour: string;
-  price: string;
+  coinPerHour: number;
+  price: number;
+  packType: PackType;
 }
 const MineItem: FC<MineItemProps> = ({
   id,
@@ -20,6 +22,7 @@ const MineItem: FC<MineItemProps> = ({
   price,
   imgUrl,
   isActive,
+  packType
 }) => {
   const {handleBuyPack, loading} = useBuyMinePack();
 
@@ -30,13 +33,15 @@ const MineItem: FC<MineItemProps> = ({
       }
     >
       <div className={"flex"}>
-        <Image
-          width={32}
-          height={32}
-          src={imgUrl}
-          alt={name}
-          className={"h-14 w-14 min-w-14 rounded-lg bg-[#27272A] p-2"}
-        />
+        <div className={'h-14 w-14 min-w-14 rounded-lg bg-[#27272A] p-2'}>
+          {/*<Image*/}
+          {/*  width={32}*/}
+          {/*  height={32}*/}
+          {/*  src={imgUrl}*/}
+          {/*  alt={name}*/}
+          {/*  className={"h-14 w-14 min-w-14 rounded-lg bg-[#27272A] p-2"}*/}
+          {/*/>*/}
+        </div>
         <div className={"ml-2 flex flex-col"}>
           <p className={"main-text-primary xs:text-base text-sm font-bold"}>
             {name}
@@ -53,7 +58,7 @@ const MineItem: FC<MineItemProps> = ({
               className={"mr-2 h-5 w-5"}
             />
             <p className={"main-text-primary font-bold"}>
-              + {coinPerHour}
+              + {formatNumberWithCommas(coinPerHour)}
             </p>
           </div>
         </div>
@@ -66,7 +71,7 @@ const MineItem: FC<MineItemProps> = ({
           }
           disabled={loading || isActive}
           loading={loading}
-          onClick={() => handleBuyPack(id)}
+          onClick={() => handleBuyPack(id, packType, price)}
         >
           <p className={"main-text-secondary text-xs"}>Price</p>
           <div className={"flex items-center gap-1"}>
@@ -78,7 +83,7 @@ const MineItem: FC<MineItemProps> = ({
               className={"h-3 w-3"}
             />
             <p className={"main-text-primary text-xs font-bold"}>
-              {price}
+              {formatNumberWithCommas(price)}
             </p>
           </div>
         </Button>

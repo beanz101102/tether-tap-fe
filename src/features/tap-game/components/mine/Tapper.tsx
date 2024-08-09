@@ -24,6 +24,7 @@ const Tapper = () => {
           isActive={pack.isPurchased}
           coinPerHour={pack.upgradedAmt}
           price={pack.cost}
+          packType={pack.packType}
         />
       ))}
     </div>

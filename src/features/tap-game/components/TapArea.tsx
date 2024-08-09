@@ -10,7 +10,6 @@ interface TapAreaProps {
 }
 
 const TapArea: FC<TapAreaProps> = memo(({ className }) => {
-  const [isActive, setIsActive] = useState(false);
   const { taps, setTaps, handleTap, isDisable } = useTap();
   const controls = useAnimation();
   const tapAreaRef = useRef<HTMLDivElement>();
@@ -21,16 +20,6 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
       scale: [1, 0.95, 1],
       transition: { duration: 0.7 },
     });
-  };
-
-  const toggleActive = () => {
-    setIsActive(true);
-    if (tapTimer) clearTimeout(tapTimer);
-    setTapTimer(
-      setTimeout(() => {
-        setIsActive(false);
-      }, 500),
-    );
   };
 
   useEffect(() => {
@@ -59,7 +48,6 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
         // if (isLoading) return;
         handleTap(e);
         animateCoin();
-        toggleActive();
       }}
       onWheel={(event) => {
         event.preventDefault();
