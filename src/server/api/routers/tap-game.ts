@@ -45,7 +45,7 @@ export const tapGameRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const { userId } = input;
 
-      const result = await ctx.db.$queryRaw`
+      const result: any[] = await ctx.db.$queryRaw`
       SELECT 
         mp.id AS pack_id,
         mp.name,

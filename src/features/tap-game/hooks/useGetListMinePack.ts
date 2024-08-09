@@ -17,8 +17,8 @@ export interface MinePack {
   isActive: boolean;
 }
 export enum PackType {
-  MINE_PACK_FOR_EARN_COINS_PER_SECOND = 'MINE_PACK_FOR_EARN_COINS_PER_SECOND',
-  MINE_PACK_FOR_EARN_COINS_PER_TAP = 'MINE_PACK_FOR_EARN_COINS_PER_TAP'
+  MINE_PACK_FOR_EARN_COINS_PER_SECOND = "MINE_PACK_FOR_EARN_COINS_PER_SECOND",
+  MINE_PACK_FOR_EARN_COINS_PER_TAP = "MINE_PACK_FOR_EARN_COINS_PER_TAP",
 }
 
 export interface ListMinePack {
@@ -38,12 +38,12 @@ export const useGetListMinePack = () => {
 
   const { data, isLoading: isQueryLoading } = api.tapGame.getMinePacks.useQuery(
     { userId: Number(currentUser?.id) },
-    { enabled: !!currentUser?.id }
+    { enabled: !!currentUser?.id },
   );
 
   useEffect(() => {
     if (!isQueryLoading && data) {
-      const formattedData: MinePack[] = data.map((pack) => ({
+      const formattedData: MinePack[] = data.map((pack: MinePack) => ({
         id: pack.id,
         name: pack.name,
         image: pack.image,
@@ -59,10 +59,11 @@ export const useGetListMinePack = () => {
 
       // Split the packs by type
       const perSecondPacks = formattedData.filter(
-        pack => pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND
+        (pack) =>
+          pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND,
       );
       const perTapPacks = formattedData.filter(
-        pack => pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_TAP
+        (pack) => pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_TAP,
       );
 
       setListMinePack({
