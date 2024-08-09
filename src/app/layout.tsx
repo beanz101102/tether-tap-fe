@@ -17,7 +17,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const enableEruda = true;
+  const enableEruda = false;
   useEffect(() => {
     if (typeof window !== "undefined" && enableEruda) {
       setTimeout(() => {

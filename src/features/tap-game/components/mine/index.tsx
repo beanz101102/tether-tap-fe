@@ -51,10 +51,10 @@ const MinePageContent = () => {
           </p>
         </TabsTrigger>
       </TabsList>
-      <TabsContent value={EconomyType.HOLDER} className="w-full">
+      <TabsContent value={EconomyType.HOLDER} className="w-full pb-10">
         <Holder />
       </TabsContent>
-      <TabsContent value={EconomyType.TAPPER} className="w-full">
+      <TabsContent value={EconomyType.TAPPER} className="w-full pb-10">
         <Tapper />
       </TabsContent>
     </Tabs>

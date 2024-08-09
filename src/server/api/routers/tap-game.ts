@@ -57,9 +57,9 @@ export const tapGameRouter = createTRPCRouter({
         ump.id AS user_pack_id,
         ump.end_time
       FROM 
-        tap_tether_mine_packs mp
+        tap_tether_mine_pack_models mp
       LEFT JOIN 
-        user_tap_tether_mine_packs ump ON mp.id = ump.mine_pack_id AND ump.user_id = ${userId}
+        user_tap_tether_mine_pack_models ump ON mp.id = ump.mine_pack_id AND ump.user_id = ${userId}
       ORDER BY 
         mp.id ASC
       `;

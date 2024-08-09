@@ -7,13 +7,13 @@ export interface MinePack {
   id: number;
   name: string;
   image: string;
-  cost: string;
-  upgradedAmt: string;
+  cost: number;
+  upgradedAmt: number;
   duration: number;
   packType: PackType;
   isPurchased: boolean;
   userPackId: number | null;
-  endTime: string | null;
+  endTime: string | null; // endTime should be a string or null
   isActive: boolean;
 }
 export enum PackType {

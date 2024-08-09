@@ -102,7 +102,7 @@ model TapTetherMinePack {
 
   userPacks UserTapTetherMinePack[]
 
-  @@map("tap_tether_mine_packs")
+  @@map("tap_tether_mine_pack_models")
 }
 
 model UserTapTetherMinePack {
@@ -117,7 +117,7 @@ model UserTapTetherMinePack {
   pack TapTetherMinePack @relation(fields: [minePackId], references: [id])
 
   @@unique([userId, minePackId])
-  @@map("user_tap_tether_mine_packs")
+  @@map("user_tap_tether_mine_pack_models")
 }
 
 enum MinePackType {
