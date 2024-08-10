@@ -19,8 +19,7 @@ const Deposit = () => {
   });
   const { currentUser } = useGetCurrentUser();
   const { width } = useWindowSize();
-  const address =
-    currentUser?.address ?? "0x5e486457c00913f2E83848fD6814ED1c6EC08F94";
+  const address = currentUser?.address;
 
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>

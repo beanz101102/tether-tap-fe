@@ -11,7 +11,7 @@ export interface IUser {
   ref_code: string;
   is_apply_ref_code: boolean;
   is_skip_ref: boolean;
-  address?: string;
+  address: string;
 }
 
 const userAtom = atom<IUser | null>(null);
