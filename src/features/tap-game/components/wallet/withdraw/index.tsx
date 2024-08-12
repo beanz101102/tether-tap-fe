@@ -7,14 +7,17 @@ import {useTranslation} from "@/app/[lng]/i18n/client";
 import {Input} from "@/components/ui/input";
 import {useCallback, useState} from "react";
 import {useWithdraw} from "@/features/tap-game/hooks/useWithdraw";
+import {useAtom} from "jotai/index";
+import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
 
 const Withdraw = () => {
+  const [score] = useAtom(ScoreAtom);
   const [address, setAddress] = useState("");
   const [amount, setAmount] = useState("");
   const [chainId, setChainId] = useState<number>(0);
   const {handleWithdraw, loading} = useWithdraw();
   const minWithdraw = 0.5;
-  const balance = 1.22;
+  const balance = score;
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
@@ -74,7 +77,7 @@ const Withdraw = () => {
         <div className="flex items-center justify-between">
           <p className="main-text-muted">{t("min")}: {formatNumberWithCommas(minWithdraw)} USDT</p>
           <div className="flex">
-            <p>{t("balance")}: {formatNumberWithCommas(balance)}</p>
+            <p>{t("balance")}: {formatNumberWithCommas(Number(balance))}</p>
             <button onClick={onMax} className="main-text-brand ml-2">{t("max")}</button>
           </div>
         </div>
