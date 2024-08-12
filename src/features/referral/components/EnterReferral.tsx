@@ -16,16 +16,16 @@ const EnterReferral = () => {
 
   return (
     <div className="p-4">
-      <NextImage
-        className="mx-auto h-[120px] w-[120px]"
-        src="/img/tap-game/referral_pepe.webp"
-        alt="referral"
-      />
       <p className="main-text-primary text-center text-2xl font-semibold">
         Referral code
       </p>
+      <NextImage
+        className="mx-auto h-[110px] w-[110px]"
+        src="/img/tap-game/enter_referral_code.webp"
+        alt="referral"
+      />
       <p className="main-text-secondary mb-6 mt-2 text-center text-sm  font-normal">
-        Get a referral code, earn up to 775M coins!
+        Enter your referral code to continue
       </p>
       <Input
         placeholder="Enter Referral code"
@@ -39,19 +39,14 @@ const EnterReferral = () => {
         }}
         loading={isLoading}
         disabled={code?.trim() == ""}
-        style={{
-          boxShadow: "0px 3px 0px 0px #047857",
-        }}
-        className={"mt-6 w-full rounded-md !bg-[#059669] !text-white"}
+        className={"mt-6 w-full !h-[44px] rounded-md"}
       >
         Send
       </Button>
       <Button
-        style={{
-          boxShadow: "0px 3px 0px 0px #3F3F46",
-        }}
+        variant={'outline'}
         loading={isLoadingSkipReferral}
-        className={"mt-4 w-full rounded-md !bg-[#27272A] !text-white"}
+        className={"mt-4 w-full !h-[44px]  rounded-md !text-white"}
         onClick={handleSkipReferral}
       >
         Skip
