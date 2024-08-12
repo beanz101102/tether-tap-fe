@@ -124,3 +124,19 @@ enum MinePackType {
   MINE_PACK_FOR_EARN_COINS_PER_SECOND
   MINE_PACK_FOR_EARN_COINS_PER_TAP
 }
+
+model TransferTransactionHistory {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+  from      String    @map("from") @db.VarChar(42)
+  to        String    @map("to") @db.VarChar(42)
+  value     Decimal   @db.Decimal(32, 18)
+  tokenID   Int       @map("token_id")
+  type      String    @map("type")
+  status    String    @map("status")
+  txHash    String    @unique @map("tx_hash") @db.VarChar(66)
+
+  @@map("transfer_transaction_history_models")
+}

@@ -81,4 +81,50 @@ export const tapGameRouter = createTRPCRouter({
 
       return formattedResult;
     }),
+  getListTransactionHistory: publicProcedure
+    .input(
+      z.object({
+        address: z.string(),
+        status: z.enum(['deposit', 'withdraw', 'all']).default('deposit'), // Adding status input
+        page: z.number().int().positive().default(1),
+        pageSize: z.number().int().positive().default(10),
+      }),
+    )
+    .query(async ({ input, ctx }) => {
+      const { address, status, page, pageSize } = input;
+
+      const statusFilter =
+        status === 'all' ? ['deposit', 'withdraw'] : [status];
+
+      const [totalRecords, listTransactionHistory] = await Promise.all([
+        ctx.db.transferTransactionHistory.count({
+          where: {
+            to: address,
+            status: {
+              in: statusFilter, // Using status filter
+            },
+          },
+        }),
+        ctx.db.transferTransactionHistory.findMany({
+          where: {
+            to: address,
+            status: {
+              in: statusFilter, // Using status filter
+            },
+          },
+          skip: (page - 1) * pageSize,
+          take: pageSize,
+          orderBy: {
+            createdAt: 'desc',
+          },
+        }),
+      ]);
+
+      return {
+        totalRecords,
+        listTransactionHistory,
+        totalPages: Math.ceil(totalRecords / pageSize),
+        currentPage: page,
+      };
+    })
 });

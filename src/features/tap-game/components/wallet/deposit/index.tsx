@@ -1,18 +1,21 @@
 "use client";
-import NextImage from "@/components/common/next-image";
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
-import { useAtom } from "jotai/index";
-import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
+import {useAtom} from "jotai/index";
+import {Button} from "@/components/ui/button";
 import SelectChain from "../SelectChain";
 import ListHistory from "../ListHistory";
-import { useTranslation } from "@/app/[lng]/i18n/client";
-import { truncateAddress } from "@/utils/truncateAddress";
-import { useWindowSize } from "@/features/tap-game/hooks/useWindowSize";
-import { copyToClipboardWithCommand } from "@/utils/copyToClipboardWithCommand";
-import {useState} from "react";
+import {useTranslation} from "@/app/[lng]/i18n/client";
+import {truncateAddress} from "@/utils/truncateAddress";
+import {useWindowSize} from "@/features/tap-game/hooks/useWindowSize";
+import {copyToClipboardWithCommand} from "@/utils/copyToClipboardWithCommand";
+import {useEffect, useState} from "react";
+import {api} from "@/trpc/react";
+import {uniqBy} from "lodash";
+import {atom} from "jotai";
+import {ITransferTransactionHistory} from "@/features/tap-game/interfaces/transaction-history";
+
+const listDepositTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]);
+
 
 const Deposit = () => {
   const [chainId, setChainId] = useState<number>(0);
@@ -22,6 +25,25 @@ const Deposit = () => {
   const { currentUser } = useGetCurrentUser();
   const { width } = useWindowSize();
   const address = currentUser?.address;
+
+  const [page, setPage] = useState(1);
+  const [listDepositTransactionHistory, setListDepositTransactionHistory] = useAtom(listDepositTransactionHistoryAtom);
+  const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery({
+    address: currentUser?.address as string,
+    pageSize: 20,
+    page: page,
+  });
+
+  useEffect(() => {
+    if (!data || isLoading) return;
+    if (page === 1) {
+      setListDepositTransactionHistory(uniqBy(data?.listTransactionHistory as any[], 'txHash'));
+    } else {
+      setListDepositTransactionHistory(
+        uniqBy([...listDepositTransactionHistory, ...(data?.listTransactionHistory as any)], 'txHash'),
+      );
+    }
+  }, [data, page, isLoading]);
 
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
@@ -55,7 +77,12 @@ const Deposit = () => {
           </Button>
         </div>
       </div>
-      <ListHistory title="deposit_history" />
+      <ListHistory
+        listData={listDepositTransactionHistory}
+        hasMore={page === data?.totalPages}
+        isLoading={isLoading}
+        nextPage={() => setPage(page + 1)}
+        title="deposit_history" />
     </div>
   );
 };
