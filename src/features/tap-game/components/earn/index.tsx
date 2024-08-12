@@ -1,15 +1,9 @@
 "use client";
-import { Loading } from "@/components/common/Loading";
 import NextImage from "@/components/common/next-image";
-import { useGetListQuest } from "../../hooks/useGetListQuest";
-import {
-  CheckUserSpecificActionStatusData,
-  KeyCheckUserSpecificActionStatus,
-  QuestType,
-  SpecificActionStatus,
-} from "../../interfaces/tap-game";
-import ItemQuest, { ItemQuestProps } from "./ItemQuest";
-import { useTranslation } from "@/app/[lng]/i18n/client";
+import {KeyCheckUserSpecificActionStatus, QuestType,} from "../../interfaces/tap-game";
+import ItemQuest, {ItemQuestProps} from "./ItemQuest";
+import {useTranslation} from "@/app/[lng]/i18n/client";
+import {useGetListQuest} from "@/features/tap-game/hooks/useGetListQuest";
 
 const Earn = () => {
   const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
@@ -60,7 +54,7 @@ const ListQuest = () => {
             KeyCheckUserSpecificActionStatus.FOLLOW_TWITTER
           ]) ??
         false,
-      coins: 5000 * 1000,
+      coins: 0.000001,
       key: KeyCheckUserSpecificActionStatus?.FOLLOW_TWITTER,
     },
     {
@@ -75,7 +69,7 @@ const ListQuest = () => {
             KeyCheckUserSpecificActionStatus.JOIN_TELEGRAM_CHANEL
           ]) ??
         false,
-      coins: 5000 * 1000,
+      coins: 0.000001,
       key: KeyCheckUserSpecificActionStatus?.JOIN_TELEGRAM_CHANEL,
     },
   ];

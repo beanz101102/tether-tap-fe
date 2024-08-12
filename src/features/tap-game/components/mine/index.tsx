@@ -8,6 +8,7 @@ import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGa
 import Holder from "@/features/tap-game/components/mine/Holder";
 import Tapper from "@/features/tap-game/components/mine/Tapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
+import {useTranslation} from "@/app/[lng]/i18n/client";
 
 enum EconomyType {
   HOLDER = "holder",
@@ -24,6 +25,7 @@ const Mine = () => {
 };
 
 const MinePageContent = () => {
+  const {t} =  useTranslation('mine');
   return (
     <Tabs
       defaultValue={EconomyType.HOLDER}
@@ -37,7 +39,7 @@ const MinePageContent = () => {
           <p
             className={"main-text-red max-w-full truncate text-xs font-medium"}
           >
-            Holder
+            {t('holder')}
           </p>
         </TabsTrigger>
         <TabsTrigger
@@ -47,7 +49,7 @@ const MinePageContent = () => {
           <p
             className={"main-text-red max-w-full truncate text-xs font-medium"}
           >
-            Tapper
+            {t('tapper')}
           </p>
         </TabsTrigger>
       </TabsList>
@@ -62,6 +64,7 @@ const MinePageContent = () => {
 };
 
 const MinePageHeader = () => {
+  const {t} = useTranslation('mine');
   const { userTapGameInfo } = useGetUserTapGameInfo();
   const [score] = useAtom(ScoreAtom);
   const { isLoading } = useGetUserTapGameInfo();
@@ -73,7 +76,7 @@ const MinePageHeader = () => {
           "main-text-secondary mt-6 w-full text-center text-sm font-medium"
         }
       >
-        Your coin balance
+        {t('your_coin_balance')}
       </p>
       <div className={"mb-3 h-full w-full px-4 pt-3"}>
         <div className={"flex items-center justify-center"}>
@@ -102,7 +105,7 @@ const MinePageHeader = () => {
           }
         >
           <p className={"main-text-secondary text-xs font-medium"}>
-            Earn per hour
+            {t('earn_per_hour')}
           </p>
           <div className={"flex items-center gap-1"}>
             <Image
@@ -124,7 +127,7 @@ const MinePageHeader = () => {
           }
         >
           <p className={"main-text-secondary text-xs font-medium"}>
-            Earn per tap
+            {t('earn_per_tap')}
           </p>
           <div className={"flex items-center gap-1"}>
             <Image
@@ -145,10 +148,10 @@ const MinePageHeader = () => {
           "main-text-secondary my-1 w-full text-center text-xs font-medium"
         }
       >
-        Boost economic and earn hourly.
+        {t('boost_economic')}
       </p>
       <p className={"main-text-primary w-full text-center text-sm font-normal"}>
-        Earn offline up to 1 hours.
+        {t('earn_offline')}
       </p>
     </div>
   );

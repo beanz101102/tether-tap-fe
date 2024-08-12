@@ -1,10 +1,11 @@
 "use client";
-import { FC } from "react";
+import {FC} from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
+import {Button} from "@/components/ui/button";
+import {formatNumberWithCommas} from "@/utils/formatNumber";
 import {useBuyMinePack} from "@/features/tap-game/hooks/useBuyMinePack";
 import {PackType} from "@/features/tap-game/hooks/useGetListMinePack";
+import {useTranslation} from "@/app/[lng]/i18n/client";
 
 interface MineItemProps {
   id: number;
@@ -24,6 +25,7 @@ const MineItem: FC<MineItemProps> = ({
   isActive,
   packType
 }) => {
+  const {t} = useTranslation('price')
   const {handleBuyPack, loading} = useBuyMinePack();
 
   return (
@@ -47,7 +49,7 @@ const MineItem: FC<MineItemProps> = ({
             {name}
           </p>
           <p className={"main-text-secondary text-sm font-normal"}>
-            Coin per hour
+            {t('coin_per_hour')}
           </p>
           <div className={"flex items-center gap-1"}>
             <Image
@@ -73,7 +75,7 @@ const MineItem: FC<MineItemProps> = ({
           loading={loading}
           onClick={() => handleBuyPack(id, packType, price)}
         >
-          <p className={"main-text-secondary text-xs"}>Price</p>
+          <p className={"main-text-secondary text-xs"}>{t('price')}</p>
           <div className={"flex items-center gap-1"}>
             <Image
               width={12}
