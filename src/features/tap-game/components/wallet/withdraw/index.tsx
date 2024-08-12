@@ -5,7 +5,7 @@ import {Button} from "@/components/ui/button";
 import SelectChain from "../SelectChain";
 import {useTranslation} from "@/app/[lng]/i18n/client";
 import {Input} from "@/components/ui/input";
-import {useCallback, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
 import {useWithdraw} from "@/features/tap-game/hooks/useWithdraw";
 import {useAtom} from "jotai/index";
 import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
@@ -21,6 +21,9 @@ const Withdraw = () => {
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
+  const { t: tValidate } = useTranslation("tap-game", {
+    keyPrefix: "upgrade",
+  });
 
   const onMax = () => {
       setAmount(String(balance))
@@ -28,6 +31,10 @@ const Withdraw = () => {
   const onWithdraw = useCallback(() => {
     handleWithdraw({amount: Number(amount), receiver: address, chain_id: chainId});
   }, [amount, address, chainId]);
+
+  const isDisableButtonWithdraw = useMemo(() => {
+    return Number(amount) > Number(score ?? 0) || Number(amount) < minWithdraw || address?.trim() === '';
+  },[amount, address, score])
 
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
@@ -84,12 +91,14 @@ const Withdraw = () => {
       </div>
         <Button
           loading={loading}
-          disabled={loading}
+          disabled={isDisableButtonWithdraw}
           variant={'common'}
           onClick={onWithdraw}
           className={"mt-8 w-full"}
         >
-            {t('transfer')}
+            {Number(amount) > Number(score ?? 0)   ? tValidate('err_balance') :   Number(amount) < minWithdraw ? tValidate('min_amount_withdraw', {
+              amount: minWithdraw,
+            })   :  t('transfer')}
         </Button>
     </div>
   );

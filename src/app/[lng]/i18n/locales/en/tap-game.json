@@ -68,7 +68,8 @@
     "title": "Upgrade",
     "cancel": "Cancel",
     "upgrade_success": "Upgrade successful",
-    "err_balance": "Insufficient balance"
+    "err_balance": "Insufficient balance",
+    "min_amount_withdraw": "Minimum withdrawal {{amount}} USDT"
   },
   "friends": {
     "referral_reward": "Referral Rewards",
