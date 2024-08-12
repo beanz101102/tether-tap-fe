@@ -4,6 +4,7 @@ export enum SocketRoutes {
   onUserUpdated = "onUserUpdated",
   UserInfo = "UserService.GetUserInfo",
   ApplyRefCode = "UserService.ApplyRefCode",
+  RequestWithdraw = "UserService.RequestWithdraw",
   // Start tap game
   GetUserTapGameInfo = "TapGameService.GetUserTapGameInfoWithTelegram",
   UpdateUserCoinsWhenTap = "TapGameService.UpdateUserCoinsWhenTap",

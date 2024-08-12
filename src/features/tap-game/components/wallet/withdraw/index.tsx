@@ -1,24 +1,20 @@
 "use client";
 import NextImage from "@/components/common/next-image";
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
-import { useAtom } from "jotai/index";
-import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import {formatNumberWithCommas} from "@/utils/formatNumber";
+import {Button} from "@/components/ui/button";
 import SelectChain from "../SelectChain";
-import ListHistory from "../ListHistory";
-import { useTranslation } from "@/app/[lng]/i18n/client";
-import { truncateAddress } from "@/utils/truncateAddress";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import {useTranslation} from "@/app/[lng]/i18n/client";
+import {Input} from "@/components/ui/input";
+import {useCallback, useState} from "react";
+import {useWithdraw} from "@/features/tap-game/hooks/useWithdraw";
 
 const Withdraw = () => {
   const [address, setAddress] = useState("");
-  const [amount, setAmount] = useState("")
-  const max = 0.5
-  const minWithdraw = 0.5
-  const balance = 1.22
+  const [amount, setAmount] = useState("");
+  const [chainId, setChainId] = useState<number>(0);
+  const {handleWithdraw, loading} = useWithdraw();
+  const minWithdraw = 0.5;
+  const balance = 1.22;
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
@@ -26,6 +22,9 @@ const Withdraw = () => {
   const onMax = () => {
       setAmount(String(balance))
   }
+  const onWithdraw = useCallback(() => {
+    handleWithdraw({amount: Number(amount), receiver: address, chain_id: chainId});
+  }, [amount, address, chainId]);
 
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
@@ -40,7 +39,7 @@ const Withdraw = () => {
         <p className="main-text-primary mb-[2px] text-sm font-medium">
           {t("chain")}
         </p>
-        <SelectChain />
+        <SelectChain setChainId={setChainId} />
       </div>
       <div className="mt-4 w-full">
         <Input
@@ -80,7 +79,13 @@ const Withdraw = () => {
           </div>
         </div>
       </div>
-        <Button variant={'common'} className={"mt-8 w-full"}>
+        <Button
+          loading={loading}
+          disabled={loading}
+          variant={'common'}
+          onClick={onWithdraw}
+          className={"mt-8 w-full"}
+        >
             {t('transfer')}
         </Button>
     </div>

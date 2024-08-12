@@ -11,8 +11,10 @@ import ListHistory from "./ListHistory";
 import SelectChain from "./SelectChain";
 import Link from "next/link";
 import { getExplorerLink } from "@/utils/getExplorerLink";
+import {useState} from "react";
 
 const Wallet = () => {
+  const [chainId, setChainId] = useState<number>(0);
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
@@ -39,7 +41,7 @@ const Wallet = () => {
             {currentUser?.name}
           </p>
         </div>
-        <SelectChain />
+        <SelectChain setChainId={setChainId} />
       </div>
       <p className={"main-text-secondary mt-5 text-center text-sm font-medium"}>
         {" "}

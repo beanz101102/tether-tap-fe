@@ -315,3 +315,10 @@ export const bonusReferByLevel: { [key: number]: number } = {
 };
 
 export const maxLevelUpgrade = 12;
+
+export const ChainId = {
+  BNB: process.env.NEXT_PUBLIC_IS_DEV ? 97 : 56,
+  ETH: process.env.NEXT_PUBLIC_IS_DEV ? 5 : 1,
+  BASE: process.env.NEXT_PUBLIC_IS_DEV ? 84531 : 8453,
+  ARB: process.env.NEXT_PUBLIC_IS_DEV ? 421613 : 42161,
+}

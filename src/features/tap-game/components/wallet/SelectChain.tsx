@@ -8,30 +8,36 @@ import {
 } from "@/components/ui/select";
 import NextImage from "next/image";
 import { useTranslation } from "@/app/[lng]/i18n/client";
+import {ChainId} from "@/features/tap-game/constants/tap-game";
 
 interface ListChainProps {
   title: string;
   logo: string;
+  chain_id: number;
 }
 
-const SelectChain = () => {
+const SelectChain = ({setChainId}: {setChainId: (value: (((prevState: number) => number) | number)) => void}) => {
   const { t } = useTranslation("tap-game", { keyPrefix: "wallet" });
   const listChain: ListChainProps[] = [
     {
       title: "bnb_chain",
       logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+      chain_id: ChainId.BNB
     },
     {
       title: "eth_chain",
       logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+      chain_id: ChainId.ETH
     },
     {
       title: "base_chain",
       logo: "https://image.nftscan.com/eth/logo/0xd4307e0acd12cf46fd6cf93bc264f5d5d1598792.png",
+      chain_id: ChainId.BASE
     },
     {
       title: "arb_chain",
       logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/11841.png",
+      chain_id: ChainId.ARB
     },
   ];
 
@@ -44,6 +50,7 @@ const SelectChain = () => {
       <Select
         onValueChange={(e) => {
           setIndexSelect(e);
+          setChainId(listChain[Number(e)]?.chain_id || 0);
         }}
         defaultValue={"bnb_chain"}
       >
@@ -51,14 +58,14 @@ const SelectChain = () => {
           <SelectValue className="shadow-none focus:outline-none">
             <div className="flex items-center">
               <NextImage
-                src={selectedChain?.logo}
-                alt={selectedChain?.title}
+                src={selectedChain.logo}
+                alt={selectedChain.title}
                 width={16}
                 height={16}
                 className="h-4 w-4"
               />
               <span className="main-text-primary ml-2 text-sm font-medium">
-                {t(selectedChain?.title)}
+                {t(selectedChain.title)}
               </span>
             </div>
           </SelectValue>

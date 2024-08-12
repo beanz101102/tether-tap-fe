@@ -12,8 +12,10 @@ import { useTranslation } from "@/app/[lng]/i18n/client";
 import { truncateAddress } from "@/utils/truncateAddress";
 import { useWindowSize } from "@/features/tap-game/hooks/useWindowSize";
 import { copyToClipboardWithCommand } from "@/utils/copyToClipboardWithCommand";
+import {useState} from "react";
 
 const Deposit = () => {
+  const [chainId, setChainId] = useState<number>(0);
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
@@ -34,7 +36,7 @@ const Deposit = () => {
         <p className="main-text-primary mb-[2px] text-sm font-medium">
           {t("chain")}
         </p>
-        <SelectChain />
+        <SelectChain setChainId={setChainId} />
       </div>
       <div className="mt-4 w-full">
         <p className="main-text-primary mb-[2px] text-sm font-medium">
