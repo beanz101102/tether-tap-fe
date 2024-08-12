@@ -8,7 +8,7 @@ export enum SocketRoutes {
   // Start tap game
   GetUserTapGameInfo = "TapGameService.GetUserTapGameInfoWithTelegram",
   UpdateUserCoinsWhenTap = "TapGameService.UpdateUserCoinsWhenTap",
-  BuyMinePackRequest = "TapGameService.BuyMinePackRequest",
+  BuyMinePackRequest = "TapGameService.BuyMinePack",
   UpgradeEnergyByLevel = "TapGameService.UpgradeEnergyByLevel",
   UpgradeCoinsPerTap = "TapGameService.UpgradeCoinsPerTap",
   CheckUserSpecificActionStatus = "TapGameService.CheckUserSpecificActionStatus",

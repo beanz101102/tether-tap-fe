@@ -22,6 +22,7 @@ export const useBuyMinePack = () => {
     route: SocketRoutes.BuyMinePackRequest,
     enable: false,
     onDone: () => {
+      console.log('buy pack callback');
       handleBuyDone();
     },
     toastMessage: "Buy pack successfully!",
@@ -74,11 +75,13 @@ export const useBuyMinePack = () => {
       toast("Not enough coins to buy this pack!");
       return;
     }
+    const packIdNumber = Number(packId);
     packTypeRef.current = type;
-    packIdRef.current = packId;
+    packIdRef.current = packIdNumber;
+    console.log('buy pack', packIdNumber, currentUser?.id);
     trigger({
       user_id: currentUser?.id,
-      mine_pack_id: packId,
+      mine_pack_id: packIdNumber,
     });
   };
 
