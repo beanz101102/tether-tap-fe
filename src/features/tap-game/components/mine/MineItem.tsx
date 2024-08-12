@@ -25,7 +25,7 @@ const MineItem: FC<MineItemProps> = ({
   isActive,
   packType
 }) => {
-  const {t} = useTranslation('price')
+  const {t} = useTranslation('mine')
   const {handleBuyPack, loading} = useBuyMinePack();
 
   return (
