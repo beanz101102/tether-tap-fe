@@ -6,7 +6,7 @@ import {useAtomValue, useSetAtom} from "jotai/index";
 import {ChainIdAtom} from "@/features/tap-game/components/wallet/SelectChain";
 import {toast} from "react-toastify";
 
-export const useWithdraw = () => {
+export const useWithdraw = (onDone: () => void) => {
   const {currentUser} = useGetCurrentUser()
   const {tokensInfo} = useGetTokenInfo()
   const chainID = useAtomValue(ChainIdAtom);
@@ -17,6 +17,9 @@ export const useWithdraw = () => {
     route: SocketRoutes.RequestWithdraw,
     enable: false,
     toastMessage: "Withdraw successfully!",
+    onDone: () => {
+      onDone()
+    }
   });
 
   const handleWithdraw = ({amount, receiver, chain_id}: {amount: number, receiver: string, chain_id: number}) => {
