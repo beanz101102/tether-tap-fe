@@ -25,25 +25,6 @@ const Deposit = () => {
   const { width } = useWindowSize();
   const address = currentUser?.address;
 
-  const [page, setPage] = useState(1);
-  const [listDepositTransactionHistory, setListDepositTransactionHistory] = useAtom(listDepositTransactionHistoryAtom);
-  const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery({
-    address: currentUser?.address as string,
-    pageSize: 20,
-    page: page,
-    status : 'deposit'
-  });
-
-  useEffect(() => {
-    if (!data || isLoading) return;
-    if (page === 1) {
-      setListDepositTransactionHistory(uniqBy(data?.listTransactionHistory as any[], 'txHash'));
-    } else {
-      setListDepositTransactionHistory(
-        uniqBy([...listDepositTransactionHistory, ...(data?.listTransactionHistory as any)], 'txHash'),
-      );
-    }
-  }, [data, page, isLoading]);
 
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
@@ -77,14 +58,44 @@ const Deposit = () => {
           </Button>
         </div>
       </div>
-      <ListHistory
-        listData={listDepositTransactionHistory}
-        hasMore={page === data?.totalPages}
-        isLoading={isLoading}
-        nextPage={() => setPage(page + 1)}
-        title="deposit_history" />
+      <ListTransactionHistory/>
     </div>
   );
 };
+
+const ListTransactionHistory = () => {
+  const { currentUser } = useGetCurrentUser();
+
+  const [page, setPage] = useState(1);
+  const [listDepositTransactionHistory, setListDepositTransactionHistory] = useAtom(listDepositTransactionHistoryAtom);
+  const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery({
+    address: currentUser?.address as string,
+    pageSize: 20,
+    page: page,
+    status : 'deposit'
+  }, {
+    refetchInterval: 10000
+  });
+
+  useEffect(() => {
+    if (!data || isLoading) return;
+    if (page === 1) {
+      setListDepositTransactionHistory(uniqBy(data?.listTransactionHistory as any[], 'txHash'));
+    } else {
+      setListDepositTransactionHistory(
+        uniqBy([...listDepositTransactionHistory, ...(data?.listTransactionHistory as any)], 'txHash'),
+      );
+    }
+  }, [data, page, isLoading]);
+
+  return (
+    <ListHistory
+      listData={listDepositTransactionHistory}
+      hasMore={page === data?.totalPages}
+      isLoading={isLoading}
+      nextPage={() => setPage(page + 1)}
+      title="deposit_history" />
+  )
+}
 
 export default Deposit;

@@ -16,38 +16,15 @@ import {api} from "@/trpc/react";
 import {uniqBy} from "lodash";
 import {ITransferTransactionHistory} from "@/features/tap-game/interfaces/transaction-history";
 
-
 const listTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]);
 
 
 const Wallet = () => {
-  const [chainId, setChainId] = useState<number>(0);
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
   const { currentUser } = useGetCurrentUser();
   const [score] = useAtom(ScoreAtom);
-  const [page, setPage] = useState(1);
-  const [listTransactionHistory, setListTransactionHistory] = useAtom(listTransactionHistoryAtom);
-  const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery({
-    address: currentUser?.address as string,
-    pageSize: 20,
-    page: page,
-    status: "all",
-  });
-
-  useEffect(() => {
-    if (!data || isLoading) return;
-    if (page === 1) {
-      setListTransactionHistory(uniqBy(data?.listTransactionHistory as any[], 'txHash'));
-    } else {
-      setListTransactionHistory(
-        uniqBy([...listTransactionHistory, ...(data?.listTransactionHistory as any)], 'txHash'),
-      );
-    }
-  }, [data, page, isLoading]);
-
-
 
   return (
     <div className={"flex w-full flex-col items-center justify-center"}>
@@ -109,15 +86,44 @@ const Wallet = () => {
         </div>
       </Link>
       <div className={"w-full px-4"}>
-        <ListHistory
-          listData={listTransactionHistory}
-          hasMore={page === data?.totalPages}
-          isLoading={isLoading}
-          nextPage={() => setPage(page + 1)}
-        />
+      <ListTransactionHistory/>
       </div>
     </div>
   );
 };
+
+const ListTransactionHistory = () => {
+  const { currentUser } = useGetCurrentUser();
+  const [page, setPage] = useState(1);
+  const [listTransactionHistory, setListTransactionHistory] = useAtom(listTransactionHistoryAtom);
+  const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery({
+    address: currentUser?.address as string,
+    pageSize: 20,
+    page: page,
+    status: "all",
+  }, {
+    refetchInterval: 10000
+  });
+
+  useEffect(() => {
+    if (!data || isLoading) return;
+    if (page === 1) {
+      setListTransactionHistory(uniqBy(data?.listTransactionHistory as any[], 'txHash'));
+    } else {
+      setListTransactionHistory(
+        uniqBy([...listTransactionHistory, ...(data?.listTransactionHistory as any)], 'txHash'),
+      );
+    }
+  }, [data, page, isLoading]);
+
+  return (
+    <ListHistory
+      listData={listTransactionHistory}
+      hasMore={page === data?.totalPages}
+      isLoading={isLoading}
+      nextPage={() => setPage(page + 1)}
+    />
+  )
+}
 
 export default Wallet;

@@ -15,10 +15,9 @@ const Earn = () => {
             }
         >
             <div
-                className="absolute z-10 inset-0"
+                className="absolute z-10 inset-0 opacity-30"
                 style={{
                     background: '#45887A',
-                    filter: 'blur(40px)',
                     opacity: '0.4',
                 }}></div>
             <NextImage
