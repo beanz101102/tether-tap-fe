@@ -81,6 +81,7 @@ const ListHistory = ({ title , listData, nextPage, isLoading, hasMore}: { title?
                                 href={getExplorerLink(
                                   data?.txHash as string,
                                   "transaction",
+                                  data?.token?.chainId as number,
                                 )}
                                 target="_blank"
                               >

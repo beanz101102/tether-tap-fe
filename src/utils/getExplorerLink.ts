@@ -5,6 +5,8 @@ export const explorerUrlPerChainId: {
   42161: "https://arbiscan.io",
   84532: "https://sepolia.basescan.org",
   8453: "https://basescan.org",
+  97: 'https://testnet.bscscan.com',
+  56:  'https://bscscan.com'
 };
 
 export function getExplorerLink(

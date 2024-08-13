@@ -117,6 +117,13 @@ export const tapGameRouter = createTRPCRouter({
           orderBy: {
             createdAt: 'desc',
           },
+          include: {
+            token: {
+              select: {
+                chainId: true,
+              },
+            },
+          },
         }),
       ]);
 

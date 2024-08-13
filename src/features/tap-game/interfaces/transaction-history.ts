@@ -10,6 +10,9 @@ export interface ITransferTransactionHistory {
   type: TransactionType;
   status: TransactionStatus;
   txHash: string;
+  token: {
+    chainId: number
+  }
 }
 enum  TransactionStatus {
   PENDING = 'pending',
