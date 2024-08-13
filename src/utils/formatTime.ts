@@ -15,12 +15,34 @@ export function formatDuration(seconds: string | number) {
   const totalMinutes = Math.floor(durationObj.asMinutes()) % 60;
   const totalSeconds = Math.floor(durationObj.asSeconds()) % 60;
 
-  // Format them with leading zeros
-  const days = String(totalDays).padStart(2, '0');
-  const hours = String(totalHours).padStart(2, '0');
-  const minutes = String(totalMinutes).padStart(2, '0');
-  const secondsPart = String(totalSeconds).padStart(2, '0');
+  // Build the formatted duration string
+  let formattedDuration = [];
 
-  console.log('seconds', normalizedSeconds, days, hours, minutes, secondsPart);
-  return `${days}:${hours}:${minutes}:${secondsPart}`;
+  // Add components to formattedDuration until it has two elements
+  if (totalDays > 0) {
+    formattedDuration.push(`${totalDays} day${totalDays > 1 ? 's' : ''}`);
+  }
+  if (totalHours > 0 && formattedDuration.length < 2) {
+    formattedDuration.push(`${totalHours} hour${totalHours > 1 ? 's' : ''}`);
+  }
+  if (totalMinutes > 0 && formattedDuration.length < 2) {
+    formattedDuration.push(`${totalMinutes} minute${totalMinutes > 1 ? 's' : ''}`);
+  }
+  if (totalSeconds > 0 && formattedDuration.length < 2) {
+    formattedDuration.push(`${totalSeconds} second${totalSeconds > 1 ? 's' : ''}`);
+  }
+
+  // If no time units are greater than zero, default to "0 seconds"
+  if (formattedDuration.length === 0) {
+    formattedDuration.push('0 seconds');
+  }
+
+  // Join the parts with a space
+  return formattedDuration.join(' ');
 }
+
+// Example usage:
+console.log(formatDuration(86461)); // Output: "1 day 1 hour"
+console.log(formatDuration(3662));  // Output: "1 hour 1 minute"
+console.log(formatDuration(75));    // Output: "1 minute 15 seconds"
+console.log(formatDuration(0));     // Output: "0 seconds"

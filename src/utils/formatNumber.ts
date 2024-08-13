@@ -116,7 +116,7 @@ export const formatNumberWithCommas = (number: number, precision: number = 0) =>
   if (numberType < 1 && numberType > 0 && precision >= 1) {
     // Convert number to a string with specified precision, remove trailing zeros
     let fixedNumber = numberType.toPrecision(precision);
-    return fixedNumber.replace(/0+$/, "").replace(/\.$/, "");
+    return fixedNumber.replace(/0+$/, "").replace(/\.$/, "").toString();
   }
 
   if (numberType < 1000) {
