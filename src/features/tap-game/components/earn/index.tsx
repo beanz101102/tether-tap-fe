@@ -9,37 +9,34 @@ const Earn = () => {
   const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
   return (
     <div className={"px-4 pt-6"}>
+      <div className="relative mx-auto h-[140px] w-[160px]">
         <div
-            className={
-                "relative mx-auto flex  h-[200px] w-[200px] flex-col items-center justify-center"
-            }
-        >
-            <div
-                className="absolute z-10 inset-0 opacity-30"
-                style={{
-                    background: '#45887A',
-                    opacity: '0.4',
-                }}></div>
-            <NextImage
-                className={"w-[200px] z-10"}
-                src={"/img/tap-game/money_bag_earn.webp"}
-                alt={"money bag"}
-            />
-        </div>
-        <p className={"main-text-primary text-center text-xl font-semibold"}>
-            {t("earn_more_coin")}
-        </p>
-        <p className={"main-text-secondary mt-2 text-center text-sm font-normal"}>
-            {t("des_earn_more_coin")}
+          className="absolute inset-0 bg-[#45887A] opacity-30"
+          style={{
+            background: "#45887A",
+            filter: "blur(40px)",
+          }}
+        ></div>
+        <NextImage
+          src={"/img/tap-game/money_bag_earn.webp"}
+          alt={"friend logo"}
+          className={" z-10 mb-2 w-[160px]"}
+        />
+      </div>
+      <p className={"main-text-primary text-center text-xl font-semibold"}>
+        {t("earn_more_coin")}
       </p>
-      <ListQuest />
+      <p className={"main-text-secondary mt-2 text-center text-sm font-normal"}>
+        {t("des_earn_more_coin")}
+      </p>
+      <ListQuest/>
     </div>
   );
 };
 
 const ListQuest = () => {
-  const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
-  const { checkUserSpecificActionStatusData, loading } = useGetListQuest();
+  const {t} = useTranslation("tap-game", {keyPrefix: "earn"});
+  const {checkUserSpecificActionStatusData, loading} = useGetListQuest();
   const listQuestData: ItemQuestProps[] = [
     {
       questDetail: {
