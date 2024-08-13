@@ -36,7 +36,7 @@ export const useHandleEnterReferralCode = () => {
 
   const handleEnterReferralCode = (code: string) => {
     setIsLoading(true);
-    trigger({ ref_code: code, is_premium_account: isTelegramPremium });
+    trigger({ ref_code: code, is_premium_account: isTelegramPremium, user_id: currentUser?.id});
   };
 
   return { handleEnterReferralCode, isLoading };
