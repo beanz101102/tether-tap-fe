@@ -69,7 +69,7 @@
     "cancel": "Cancel",
     "upgrade_success": "Upgrade successful",
     "err_balance": "Insufficient balance",
-    "min_amount_withdraw": "Minimum withdrawal {{amount}} USDT"
+    "min_amount_withdraw": "Minimum amount to withdraw is {{amount}} USDT"
   },
   "friends": {
     "referral_reward": "Referral Rewards",
@@ -139,7 +139,8 @@
     "amount": "Amount",
     "max": "Max",
     "min": "Min",
-    "transfer": "Transfer"
+    "transfer": "Transfer",
+    "invalid_address": "Invalid address"
   },
   "your_balance_coin": "Your coin balance",
   "boost_your_earning": "Boost your earnings",
