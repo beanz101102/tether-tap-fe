@@ -31,6 +31,7 @@ const Deposit = () => {
     address: currentUser?.address as string,
     pageSize: 20,
     page: page,
+    status : 'deposit'
   });
 
   useEffect(() => {

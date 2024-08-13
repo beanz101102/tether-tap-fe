@@ -140,7 +140,10 @@
     "max": "Max",
     "min": "Min",
     "transfer": "Transfer",
-    "invalid_address": "Invalid address"
+    "invalid_address": "Invalid address",
+    "status": "Status",
+    "failed": "Failed",
+    "success": "Success"
   },
   "your_balance_coin": "Your coin balance",
   "boost_your_earning": "Boost your earnings",

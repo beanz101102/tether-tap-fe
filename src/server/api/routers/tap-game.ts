@@ -100,7 +100,7 @@ export const tapGameRouter = createTRPCRouter({
         ctx.db.transferTransactionHistory.count({
           where: {
             to: address,
-            status: {
+            type: {
               in: statusFilter, // Using status filter
             },
           },
@@ -108,7 +108,7 @@ export const tapGameRouter = createTRPCRouter({
         ctx.db.transferTransactionHistory.findMany({
           where: {
             to: address,
-            status: {
+            type: {
               in: statusFilter, // Using status filter
             },
           },
