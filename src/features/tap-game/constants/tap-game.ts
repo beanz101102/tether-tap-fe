@@ -13,14 +13,16 @@ export interface UserCoinsLevelInfo {
 }
 
 export interface UserTapGameInfo {
+  bonus_coins_from_last_time_online: number;
   coins_balance: number;
+  coins_bonus_per_hour: number;
   coins_earned_per_tap: number;
-  energy_balance: number;
-  max_energy_reached: number;
-  user_coins_level_info: UserCoinsLevelInfo;
   coins_per_tap_level: number;
-  max_energy_level: number;
+  energy_balance: number;
+  energy_last_updated: number;
   is_already_reset_max_energy: boolean;
+  max_energy_level: number;
+  max_energy_reached: number;
 }
 
 export const ChainId = {

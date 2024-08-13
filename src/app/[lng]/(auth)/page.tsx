@@ -3,18 +3,18 @@
 import AnimatedNumber from "@/components/ui/animated-number";
 import WrapSkeleton from "@/components/ui/wrap-skeleton";
 import TapArea from "@/features/tap-game/components/TapArea";
-import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
-import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
-import { useAtom } from "jotai";
+import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
+import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import {useAtom} from "jotai";
 import Image from "next/image";
-import { Info } from "lucide-react";
+import {Info} from "lucide-react";
 import EnergyProgress from "@/features/tap-game/components/EnergyProgress";
 import ShadModal from "@/components/ui/ShadModal";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { useTranslation } from "../i18n/client";
-import { useRouter } from "next/navigation";
-import { formatAirdropAmount } from "@/utils/formatNumber";
+import {useState} from "react";
+import {Button} from "@/components/ui/button";
+import {useTranslation} from "../i18n/client";
+import {useRouter} from "next/navigation";
+import {formatNumberWithCommas} from "@/utils/formatNumber";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
@@ -120,7 +120,7 @@ const TapPageHeader = () => {
               {t("profit_per_hour")}
             </p>
             <div className={"flex items-center justify-center"}>
-              <p className={"main-text-primary font-bold"}>0</p>
+              <p className={"main-text-primary font-bold"}>+{formatNumberWithCommas(userTapGameInfo?.coins_bonus_per_hour ?? 0, 3)}</p>
               <Image
                 width={20}
                 height={20}

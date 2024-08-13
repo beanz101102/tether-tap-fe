@@ -9,6 +9,7 @@ import Holder from "@/features/tap-game/components/mine/Holder";
 import Tapper from "@/features/tap-game/components/mine/Tapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import {useTranslation} from "@/app/[lng]/i18n/client";
+import {formatNumberWithCommas} from "@/utils/formatNumber";
 
 enum EconomyType {
   HOLDER = "holder",
@@ -116,7 +117,7 @@ const MinePageHeader = () => {
               className={"mr-2 h-5 w-5"}
             />
             <p className={"main-text-primary font-bold"}>
-              +{userTapGameInfo?.coins_earned_per_tap ?? 0}
+              +{formatNumberWithCommas(userTapGameInfo?.coins_bonus_per_hour ?? 0, 3)}
             </p>
           </div>
         </div>

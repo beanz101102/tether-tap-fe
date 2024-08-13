@@ -6,6 +6,7 @@ export enum SocketRoutes {
   ApplyRefCode = "UserService.ApplyRefCode",
   RequestWithdraw = "UserService.RequestWithdraw",
   // Start tap game
+  PingPong = "TapGameService.Ping",
   GetUserTapGameInfo = "TapGameService.GetUserTapGameInfoWithTelegram",
   UpdateUserCoinsWhenTap = "TapGameService.UpdateUserCoinsWhenTap",
   BuyMinePackRequest = "TapGameService.BuyMinePack",
