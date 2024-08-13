@@ -4,7 +4,7 @@ import duration from 'dayjs/plugin/duration';
 // Extend Day.js with the duration plugin
 dayjs.extend(duration);
 
-export function formatDuration(seconds) {
+export function formatDuration(seconds: string | number) {
   const normalizedSeconds = Number(seconds);
 
   const durationObj = dayjs.duration(normalizedSeconds, 'seconds');

@@ -145,7 +145,6 @@ export const useTap = () => {
       clearInterval(idInterval);
     };
   }, [
-    userTapGameInfo?.user_coins_level_info?.current_level,
     coinGainPerTap,
     isUpdateCoinBalance,
   ]);
