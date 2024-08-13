@@ -79,48 +79,30 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
         </motion.div>
       </div>
 
-      <AnimatePresence>
-        {taps.map((tap) => {
-          return (
-            <motion.div
-              key={tap.id}
-              initial={{ opacity: 1, scale: 1, x: tap.x, y: tap.y }}
-              animate={{
-                opacity: 0,
-                scale: 0.5,
-              }}
-              exit={{ opacity: 0, scale: 0, display: "none" }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              style={{
-                userSelect: "none",
-              }}
-              className={"absolute z-20 flex items-center justify-center"}
-              onAnimationComplete={() => {
-                setTaps((currentTaps) =>
-                  currentTaps.filter((t) => t.id !== tap.id),
-                );
-              }}
-            >
-              <p
-                className={
-                  "text-xl font-semibold text-white"
-                }
-              >
-                +{isNaN(tap.value) ? 0 : tap.value}
-              </p>
-              {/*<Lottie*/}
-              {/*  options={{*/}
-              {/*    loop: false,*/}
-              {/*    autoplay: true,*/}
-              {/*    animationData: coinFlip,*/}
-              {/*  }}*/}
-              {/*  height={80}*/}
-              {/*  width={80}*/}
-              {/*/>*/}
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
+      {taps.map((tap) => {
+        return (
+          <div
+            key={tap.id}
+            className={
+              "animate__animated animate__fadeOutUp animate__duration-1500ms absolute z-20 flex items-center justify-center"
+            }
+            style={{
+              transform: `translate(${tap.x}px, ${tap.y}px)`,
+              userSelect: "none",
+            }}
+            onAnimationEnd={() => {
+              setTaps((currentTaps) =>
+                currentTaps.filter((t) => t.id !== tap.id),
+              );
+            }}
+          >
+            <p className={"text-3xl font-extrabold text-white"}>
+              +{isNaN(tap.value) ? 0 : tap.value}
+            </p>
+          </div>
+        );
+      })}
+
     </div>
   );
 });

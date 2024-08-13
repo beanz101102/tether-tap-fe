@@ -1,15 +1,15 @@
 "use client";
-import { ListenWsUpdateGlobal } from "@/components/common/ListenWsUpdateGlobal";
+import {ListenWsUpdateGlobal} from "@/components/common/ListenWsUpdateGlobal";
 import LayoutTapGame from "@/features/tap-game/layout";
-import { ProviderRedux } from "@/libs/redux/provider";
-import { ProviderSocket } from "@/libs/socket/provider";
-import { ProviderTelegram } from "@/libs/telegram/provider";
-import { TRPCReactProvider } from "@/trpc/react";
-import { DefaultToastOptions, Toaster } from "react-hot-toast";
-import { ToastContainer } from "react-toastify";
+import {ProviderRedux} from "@/libs/redux/provider";
+import {ProviderSocket} from "@/libs/socket/provider";
+import {ProviderTelegram} from "@/libs/telegram/provider";
+import {TRPCReactProvider} from "@/trpc/react";
+import {DefaultToastOptions, Toaster} from "react-hot-toast";
+import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { SDKProvider } from "@tma.js/sdk-react";
-import { useTelegram } from "@/libs/telegram/hooks/useTelegram";
+import {SDKProvider} from "@tma.js/sdk-react";
+import "animate.css/animate.min.css";
 
 export const toastOptions: DefaultToastOptions = {
   style: {
