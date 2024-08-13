@@ -12,7 +12,7 @@ export enum SocketRoutes {
   UpgradeEnergyByLevel = "TapGameService.UpgradeEnergyByLevel",
   UpgradeCoinsPerTap = "TapGameService.UpgradeCoinsPerTap",
   CheckUserSpecificActionStatus = "TapGameService.CheckUserSpecificActionStatus",
-  ResetCurrentEnergy = "TapGameService.ResetCurrentEnergy",
+ResetCurrentEnergy = "TapGameService.ResetCurrentEnergy",
   CheckCondition = "CheckCondition",
   ClaimQuest = "TapGameService.ClaimQuest",
   SkipRef = "UserService.SkipRef",

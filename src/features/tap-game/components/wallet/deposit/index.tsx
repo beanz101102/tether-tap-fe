@@ -18,7 +18,6 @@ const listDepositTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]
 
 
 const Deposit = () => {
-  const [chainId, setChainId] = useState<number>(0);
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
@@ -58,7 +57,7 @@ const Deposit = () => {
         <p className="main-text-primary mb-[2px] text-sm font-medium">
           {t("chain")}
         </p>
-        <SelectChain setChainId={setChainId} />
+        <SelectChain />
       </div>
       <div className="mt-4 w-full">
         <p className="main-text-primary mb-[2px] text-sm font-medium">

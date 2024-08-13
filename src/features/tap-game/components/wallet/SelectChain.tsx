@@ -9,14 +9,16 @@ import {
 import NextImage from "next/image";
 import { useTranslation } from "@/app/[lng]/i18n/client";
 import {ChainId} from "@/features/tap-game/constants/tap-game";
+import {atom, useSetAtom} from "jotai";
 
 interface ListChainProps {
   title: string;
   logo: string;
   chain_id: number;
 }
-
-const SelectChain = ({setChainId}: {setChainId: (value: (((prevState: number) => number) | number)) => void}) => {
+export const ChainIdAtom = atom<number>(ChainId.BNB);
+const SelectChain = () => {
+  const setChainId = useSetAtom(ChainIdAtom);
   const { t } = useTranslation("tap-game", { keyPrefix: "wallet" });
   const listChain: ListChainProps[] = [
     {
@@ -42,7 +44,6 @@ const SelectChain = ({setChainId}: {setChainId: (value: (((prevState: number) =>
   ];
 
   const [indexSelect, setIndexSelect] = useState("0");
-
   const selectedChain = listChain[Number(indexSelect)] as ListChainProps;
 
   return (

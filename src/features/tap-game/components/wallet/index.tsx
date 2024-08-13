@@ -70,7 +70,7 @@ const Wallet = () => {
             {currentUser?.name}
           </p>
         </div>
-        <SelectChain setChainId={setChainId} />
+        <SelectChain />
       </div>
       <p className={"main-text-secondary mt-5 text-center text-sm font-medium"}>
         {" "}

@@ -2,20 +2,21 @@
 import NextImage from "@/components/common/next-image";
 import {formatNumberWithCommas} from "@/utils/formatNumber";
 import {Button} from "@/components/ui/button";
-import SelectChain from "../SelectChain";
+import SelectChain, {ChainIdAtom} from "../SelectChain";
 import {useTranslation} from "@/app/[lng]/i18n/client";
 import {Input} from "@/components/ui/input";
 import {useCallback, useMemo, useState} from "react";
 import {useWithdraw} from "@/features/tap-game/hooks/useWithdraw";
-import {useAtom} from "jotai/index";
+import {useAtom, useAtomValue} from "jotai/index";
 import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
 
 const Withdraw = () => {
   const [score] = useAtom(ScoreAtom);
   const [address, setAddress] = useState("");
   const [amount, setAmount] = useState("");
-  const [chainId, setChainId] = useState<number>(0);
   const {handleWithdraw, loading} = useWithdraw();
+
+  const chainId = useAtomValue(ChainIdAtom);
   const minWithdraw = 0.5;
   const balance = score;
   const { t } = useTranslation("tap-game", {
@@ -29,6 +30,7 @@ const Withdraw = () => {
       setAmount(String(balance))
   }
   const onWithdraw = useCallback(() => {
+    console.log('chain_id', chainId);
     handleWithdraw({amount: Number(amount), receiver: address, chain_id: chainId});
   }, [amount, address, chainId]);
 
@@ -49,7 +51,7 @@ const Withdraw = () => {
         <p className="main-text-primary mb-[2px] text-sm font-medium">
           {t("chain")}
         </p>
-        <SelectChain setChainId={setChainId} />
+        <SelectChain />
       </div>
       <div className="mt-4 w-full">
         <Input
