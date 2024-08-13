@@ -54,7 +54,7 @@ const MineItem: FC<MineItemProps> = ({
               {name}
             </p>
             <p className={"main-text-secondary text-sm font-normal"}>
-              {t('coin_per_hour')}
+              {t(packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? 'coin_per_hour' : 'coin_per_tap')}
             </p>
             <div className={"flex items-center gap-1"}>
               <Image
