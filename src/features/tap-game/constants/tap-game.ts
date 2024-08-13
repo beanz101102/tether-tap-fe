@@ -26,6 +26,6 @@ export interface UserTapGameInfo {
 export const ChainId = {
   BNB: process.env.NEXT_PUBLIC_IS_DEV ? 97 : 56,
   ETH: process.env.NEXT_PUBLIC_IS_DEV ? 5 : 1,
-  BASE: process.env.NEXT_PUBLIC_IS_DEV ? 84531 : 8453,
+  BASE: process.env.NEXT_PUBLIC_IS_DEV ? 84532 : 8453,
   ARB: process.env.NEXT_PUBLIC_IS_DEV ? 421613 : 42161,
 }

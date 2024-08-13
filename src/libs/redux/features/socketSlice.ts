@@ -16,6 +16,7 @@ ResetCurrentEnergy = "TapGameService.ResetCurrentEnergy",
   CheckCondition = "CheckCondition",
   ClaimQuest = "TapGameService.ClaimQuest",
   SkipRef = "UserService.SkipRef",
+  GetTokensInfo = "TapGameService.GetTokensInfo"
   // End tap game
 }
 

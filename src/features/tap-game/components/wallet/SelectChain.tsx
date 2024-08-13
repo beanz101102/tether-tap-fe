@@ -16,7 +16,7 @@ interface ListChainProps {
   logo: string;
   chain_id: number;
 }
-export const ChainIdAtom = atom<number>(ChainId.BNB);
+export const ChainIdAtom = atom<number>(ChainId.BASE);
 const SelectChain = () => {
   const setChainId = useSetAtom(ChainIdAtom);
   const { t } = useTranslation("tap-game", { keyPrefix: "wallet" });
@@ -26,21 +26,21 @@ const SelectChain = () => {
       logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
       chain_id: ChainId.BNB
     },
-    {
-      title: "eth_chain",
-      logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
-      chain_id: ChainId.ETH
-    },
+    // {
+    //   title: "eth_chain",
+    //   logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+    //   chain_id: ChainId.ETH
+    // },
     {
       title: "base_chain",
       logo: "https://image.nftscan.com/eth/logo/0xd4307e0acd12cf46fd6cf93bc264f5d5d1598792.png",
       chain_id: ChainId.BASE
     },
-    {
-      title: "arb_chain",
-      logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/11841.png",
-      chain_id: ChainId.ARB
-    },
+    // {
+    //   title: "arb_chain",
+    //   logo: "https://s2.coinmarketcap.com/static/img/coins/64x64/11841.png",
+    //   chain_id: ChainId.ARB
+    // },
   ];
 
   const [indexSelect, setIndexSelect] = useState("0");
