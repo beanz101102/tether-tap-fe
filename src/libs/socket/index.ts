@@ -26,6 +26,7 @@ export const useConnectSocket = () => {
           },
           (data: any) => {
             if (data?.code === 200) {
+              console.log('setUserTabGameInfo', data?.data);
               setUserTabGameInfo(data?.data);
               setScore(data?.data?.coins_balance ?? 0);
               nano.on(SocketRoutes.onUserUpdated, (data: unknown) => {

@@ -25,6 +25,7 @@ const Holder = () => {
           coinPerHour={pack.upgradedAmt}
           price={pack.cost}
           packType={pack.packType}
+          duration={pack.duration}
         />
       ))}
     </div>

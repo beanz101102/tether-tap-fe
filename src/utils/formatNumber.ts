@@ -1,6 +1,6 @@
 /* eslint-disable import/no-named-as-default */
 import BigNumber from "bignumber.js";
-import { isNil, min } from "lodash";
+import {isNil, min} from "lodash";
 import numeral from "numeral";
 
 export const formatNumberWithNumeral = (
@@ -98,24 +98,31 @@ export const formatAirdropAmount = (val: number | string): string => {
 
 export const roundDownNumber = (num: number, decimals: number): number => {
   const multiplier = Math.pow(10, decimals);
-  const roundedNum = Math.floor(num * multiplier) / multiplier;
-  return roundedNum;
+  return Math.floor(num * multiplier) / multiplier;
 };
 
 export const roundUpNumber = (num: number, decimals: number): number => {
   const multiplier = Math.pow(10, decimals);
-  const roundedNum = Math.ceil(num * multiplier) / multiplier;
-  return roundedNum;
+  return Math.ceil(num * multiplier) / multiplier;
 };
 
-export const formatNumberWithCommas = (number: number) => {
-  if (isNaN(number)) {
+export const formatNumberWithCommas = (number: number, precision: number = 0) => {
+  const numberType = Number(number);
+  if (isNaN(numberType)) {
     return "0";
   }
-  if (number < 1000) {
-    return number.toString();
+
+  // Handle small numbers with fixed precision
+  if (numberType < 1 && numberType > 0 && precision >= 1) {
+    // Convert number to a string with specified precision, remove trailing zeros
+    let fixedNumber = numberType.toPrecision(precision);
+    return fixedNumber.replace(/0+$/, "").replace(/\.$/, "");
+  }
+
+  if (numberType < 1000) {
+    return numberType.toString();
   } else {
-    return number.toLocaleString();
+    return numberType.toLocaleString();
   }
 };
 

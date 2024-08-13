@@ -11,7 +11,7 @@ import { useAtom } from "jotai/index";
 import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
 import { toast } from "react-toastify";
 
-export const useBuyMinePack = () => {
+export const useBuyMinePack = (cb: () => void) => {
   const packTypeRef = useRef<PackType>(
     PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND,
   );
@@ -22,8 +22,8 @@ export const useBuyMinePack = () => {
     route: SocketRoutes.BuyMinePackRequest,
     enable: false,
     onDone: () => {
-      console.log('buy pack callback');
       handleBuyDone();
+      cb();
     },
     toastMessage: "Buy pack successfully!",
   });
@@ -78,7 +78,6 @@ export const useBuyMinePack = () => {
     const packIdNumber = Number(packId);
     packTypeRef.current = type;
     packIdRef.current = packIdNumber;
-    console.log('buy pack', packIdNumber, currentUser?.id);
     trigger({
       user_id: currentUser?.id,
       mine_pack_id: packIdNumber,

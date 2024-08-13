@@ -1,20 +1,18 @@
 "use client";
 
 import ConnectingApp from "@/components/common/ConnectingApp";
-import { HookGlobals } from "@/components/common/HookGlobals";
-import { EnergyRecoveryGlobal } from "@/features/tap-game/components/Energy";
+import {HookGlobals} from "@/components/common/HookGlobals";
+import {EnergyRecoveryGlobal} from "@/features/tap-game/components/Energy";
 import JoinTabGameDesktop from "@/features/tap-game/components/JoinTelegramDesktop";
 import TabBarMiniGameApp from "@/features/tap-game/components/menu";
-import { useActivePage } from "@/libs/hooks/useActivePage";
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
-import useUserAgent from "@/libs/hooks/useUserAgent";
-import { cn } from "@/utils/cn";
-import { useWebApp } from "@vkruglikov/react-telegram-web-app";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect } from "react";
-import { LocaleTypes } from "../i18n/settings";
-import { analytics } from "@/libs/firebase/app";
-import { useTelegram } from "@/libs/telegram/hooks/useTelegram";
+import {useActivePage} from "@/libs/hooks/useActivePage";
+import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
+import {cn} from "@/utils/cn";
+import {useParams, useRouter} from "next/navigation";
+import {useEffect} from "react";
+import {LocaleTypes} from "../i18n/settings";
+import {useSendSocketRequest} from "@/libs/hooks/useSendSocketRequest";
+import {SocketRoutes} from "@/libs/redux/features/socketSlice";
 
 export default function AuthLayout({
   children,
@@ -36,6 +34,19 @@ export default function AuthLayout({
     ) {
       router.push(`/${lng}/enter-referral`);
     }
+  }, [currentUser]);
+
+  const { trigger } = useSendSocketRequest({
+    route: SocketRoutes.PingPong,
+    enable: false,
+  });
+
+  useEffect(() => {
+    if (!currentUser) return;
+
+    setInterval(() => {
+      trigger();
+    }, 5000);
   }, [currentUser]);
 
   useEffect(() => {

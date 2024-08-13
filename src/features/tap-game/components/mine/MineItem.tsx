@@ -7,6 +7,7 @@ import {useBuyMinePack} from "@/features/tap-game/hooks/useBuyMinePack";
 import {PackType} from "@/features/tap-game/hooks/useGetListMinePack";
 import {useTranslation} from "@/app/[lng]/i18n/client";
 import ShadModal from "@/components/ui/ShadModal";
+import {formatDuration} from "@/utils/formatTime";
 
 interface MineItemProps {
   id: number;
@@ -16,6 +17,7 @@ interface MineItemProps {
   coinPerHour: number;
   price: number;
   packType: PackType;
+  duration: number;
 }
 const MineItem: FC<MineItemProps> = ({
   id,
@@ -24,11 +26,12 @@ const MineItem: FC<MineItemProps> = ({
   price,
   imgUrl,
   isActive,
-  packType
+  packType,
+  duration
 }) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
   const {t} = useTranslation('mine')
-  const {handleBuyPack, loading} = useBuyMinePack();
+  const {handleBuyPack, loading} = useBuyMinePack(() => setOpenModalConfirm(false));
   return (
     <>
       <div
@@ -62,7 +65,7 @@ const MineItem: FC<MineItemProps> = ({
                 className={"mr-2 h-5 w-5"}
               />
               <p className={"main-text-primary font-bold"}>
-                + {formatNumberWithCommas(coinPerHour)}
+                + {formatNumberWithCommas(coinPerHour, 3)}
               </p>
             </div>
           </div>
@@ -74,19 +77,21 @@ const MineItem: FC<MineItemProps> = ({
           }
           onClick={() => setOpenModalConfirm(true)}
         >
-          <p className={"main-text-secondary text-xs"}>{t('price')}</p>
-          <div className={"flex items-center gap-1"}>
-            <Image
-              width={12}
-              height={12}
-              src={"/img/tap-game/coin.webp"}
-              alt={"coin"}
-              className={"h-3 w-3"}
-            />
-            <p className={"main-text-primary text-xs font-bold"}>
-              {formatNumberWithCommas(price)}
-            </p>
-          </div>
+          {!isActive ? (<>
+            <p className={"main-text-secondary text-xs"}>{t('price')}</p>
+            <div className={"flex items-center gap-1"}>
+              <Image
+                width={12}
+                height={12}
+                src={"/img/tap-game/coin.webp"}
+                alt={"coin"}
+                className={"h-3 w-3"}
+              />
+              <p className={"main-text-primary text-xs font-bold"}>
+                {formatNumberWithCommas(price)}
+              </p>
+            </div>
+          </>) : (<p className={"main-text-secondary text-xs"}>Detail</p>)}
         </Button>
       </div>
       <ShadModal isOpen={openModalConfirm} onOpen={setOpenModalConfirm}>
@@ -102,7 +107,7 @@ const MineItem: FC<MineItemProps> = ({
             {/*/>*/}
           </div>
           <div className={'w-full flex items-center mb-6'}>
-            <div className={'flex flex-col gap-1 w-[50%] border-r main-border-divider-secondary'}>
+            <div className={'flex flex-col gap-1 w-[32%]'}>
               <p className={'main-text-secondary font-normal'}>Price</p>
               <div className={"flex items-center gap-1"}>
                 <Image
@@ -117,7 +122,15 @@ const MineItem: FC<MineItemProps> = ({
                 </p>
               </div>
             </div>
-            <div className={'flex flex-col gap-1 w-[50%] pl-1'}>
+            <div className={'flex flex-col items-center w-[32%] border-r border-l main-border-divider-secondary mx-2'}>
+              <div className={'flex flex-col gap-1'}>
+                <p className={'main-text-secondary font-normal'}>Duration</p>
+                <p className={"main-text-primary text-xs font-bold"}>
+                  {formatDuration(duration)}
+                </p>
+              </div>
+            </div>
+            <div className={'flex flex-col gap-1 w-[32%]'}>
               <p className={'main-text-secondary font-normal'}>Profit</p>
               <div className={"flex items-center gap-1"}>
                 <Image
@@ -128,7 +141,7 @@ const MineItem: FC<MineItemProps> = ({
                   className={"h-3 w-3"}
                 />
                 <p className={"main-text-primary text-xs font-bold"}>
-                  {formatNumberWithCommas(price)} / h
+                  {formatNumberWithCommas(coinPerHour, 3)}/h
                 </p>
               </div>
             </div>
@@ -143,7 +156,13 @@ const MineItem: FC<MineItemProps> = ({
               Buy
             </Button>
           )}
-        <Button variant={'outline'} className={'w-full rounded'}>Cancel</Button>
+        <Button
+          variant={isActive ? 'default' : 'outline'}
+          className={'w-full rounded'}
+          onClick={() => setOpenModalConfirm(false)}
+        >
+          Cancel
+        </Button>
         </div>
       </ShadModal>
     </>
