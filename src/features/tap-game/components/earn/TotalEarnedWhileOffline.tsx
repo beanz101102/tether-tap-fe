@@ -19,7 +19,7 @@ const ModalTotalEarnedWhileOffline: FC<ModalTotalEarnedWhileOfflineProps> = ({ i
       <div className={'px-3 pt-3 pb-6'}>
         <p className={'text-lg font-bold text-center main-text-primary w-full '}>Total USDT earned</p>
         <div className={'w-[64px] h-[64px] mx-auto mt-6 mb-3'}>
-          <Image src={'/img/tap-game/coin.svg'} width={64} height={63} alt={'coin'} className={'w-full h-full'} />
+          <Image src={'/img/tap-game/coin.webp'} width={64} height={63} alt={'coin'} className={'w-full h-full'} />
         </div>
         <p className={'main-text-primary text-xl font-semibold w-full text-center mb-3'}>
           +{formatNumberWithCommas(profit)}

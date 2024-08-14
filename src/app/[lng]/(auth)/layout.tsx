@@ -63,7 +63,7 @@ export default function AuthLayout({
     onDone: (cb: { data: { coins_bonus_from_last_time_online: number } }) => {
       isReadyToCallPingPongRef.current = true;
       setCoinGainedWhileOffline({
-        profit: cb?.data?.coins_bonus_from_last_time_online || 0,
+        profit: cb?.data?.coins_bonus_from_last_time_online ? Number(Number(cb?.data?.coins_bonus_from_last_time_online).toFixed(8)) : 0,
         isShowUp: true,
       });
     }
