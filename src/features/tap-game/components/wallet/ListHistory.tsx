@@ -45,7 +45,6 @@ const ListHistory = ({ title , listData, nextPage, isLoading, hasMore}: { title?
                 className={'relative'}
                 style={{overflow: 'hidden!important'}}
                 next={() => {
-                  console.log("nextPage")
                   nextPage();
                 }}
                 hasMore={hasMore}
