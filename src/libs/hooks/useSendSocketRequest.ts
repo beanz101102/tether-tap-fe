@@ -22,7 +22,7 @@ interface IuseSocketSendRequest<TInputData, TCallbackData> {
   enable?: boolean;
   toastMessage?: string;
   isValidate?: boolean;
-  onDone?: () => void;
+  onDone?: (data: TCallbackData & ISocketResponse) => void;
   onError?: () => void;
   isGetFromCache?: boolean;
   watch?: boolean;
@@ -82,7 +82,7 @@ export function useSendSocketRequest<TInputData = any, TCallbackData = any>(
           callback && callback(dataCallback);
 
           if (dataCallback?.code === 200) {
-            onDone && onDone();
+            onDone && onDone(dataCallback);
             toastMessage && !enable && toast.success(toastMessage);
           } else {
             onError && onError();
