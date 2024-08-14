@@ -48,7 +48,7 @@ export const useGetListMinePack = () => {
         name: pack.name,
         image: pack.image,
         cost: pack.cost,
-        upgradedAmt: pack.upgradedAmt,
+        upgradedAmt: Number(pack?.upgradedAmt) * 3600,
         duration: pack.duration,
         packType: pack.packType,
         isPurchased: pack.isPurchased,

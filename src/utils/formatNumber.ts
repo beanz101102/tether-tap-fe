@@ -120,7 +120,7 @@ export const formatNumberWithCommas = (number: number, precision: number = 0) =>
   }
 
   if (numberType < 1000) {
-    return numberType.toString();
+    return precision ? numberType.toPrecision(precision).toString() : numberType.toString();
   } else {
     return numberType.toLocaleString();
   }

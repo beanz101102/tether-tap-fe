@@ -60,7 +60,7 @@ const Wallet = () => {
           alt={"coin"}
         />
         <p className={"main-text-primary pl-2 text-3xl font-semibold"}>
-          {formatNumberWithCommas(Number(score))}
+          {formatNumberWithCommas(Number(Number(score).toFixed(7)))}
         </p>
       </div>
       <div className="mt-6 flex">

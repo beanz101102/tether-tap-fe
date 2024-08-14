@@ -4,6 +4,20 @@ import duration from 'dayjs/plugin/duration';
 // Extend Day.js with the duration plugin
 dayjs.extend(duration);
 
+export const getDurationTime = (seconds: string | number) => {
+  const normalizedSeconds = Number(seconds);
+
+  const durationObj = dayjs.duration(normalizedSeconds, 'seconds');
+
+  // Calculate total days, hours, minutes, and seconds
+  const totalDays = durationObj.asDays(); // Keep the fractional days as well
+  const totalHours = durationObj.asHours();
+  const totalMinutes = durationObj.asMinutes();
+  const totalSeconds = durationObj.asSeconds();
+
+  return { totalDays, totalHours, totalMinutes, totalSeconds };
+}
+
 export function formatDuration(seconds: string | number) {
   const normalizedSeconds = Number(seconds);
 

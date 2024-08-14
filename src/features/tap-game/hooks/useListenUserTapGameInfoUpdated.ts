@@ -47,6 +47,7 @@ export const useListenUserTapGameInfoUpdated = () => {
     setUserTabGameInfo({
       ...dataListen,
       energy_balance: energy,
+      coins_bonus_per_hour: Number(dataListen?.coins_bonus_per_hour) !== Number(userTapGameInfoClone?.coins_bonus_per_hour) ? Number(dataListen?.coins_bonus_per_hour) * 3600 : Number(userTapGameInfoClone?.coins_bonus_per_hour)
     });
     dispatch(
       addReceivedData({ route: SocketRoutes.onUserUpdated, data: null }),

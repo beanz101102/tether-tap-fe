@@ -1,14 +1,14 @@
 "use client";
-import { FC, useState, useEffect } from "react";
+import {FC, useState} from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
-import { useBuyMinePack } from "@/features/tap-game/hooks/useBuyMinePack";
-import { PackType } from "@/features/tap-game/hooks/useGetListMinePack";
-import { useTranslation } from "@/app/[lng]/i18n/client";
+import {Button} from "@/components/ui/button";
+import {formatNumberWithCommas} from "@/utils/formatNumber";
+import {useBuyMinePack} from "@/features/tap-game/hooks/useBuyMinePack";
+import {PackType} from "@/features/tap-game/hooks/useGetListMinePack";
+import {useTranslation} from "@/app/[lng]/i18n/client";
 import ShadModal from "@/components/ui/ShadModal";
 import dayjs from "dayjs";
-import {formatDuration} from "@/utils/formatTime";
+import {formatDuration, getDurationTime} from "@/utils/formatTime";
 import useCountdown from "@/libs/hooks/useCountdown";
 
 interface MineItemProps {
@@ -39,6 +39,27 @@ const MineItem: FC<MineItemProps> = ({
   const { handleBuyPack, loading } = useBuyMinePack(() =>
     setOpenModalConfirm(false)
   );
+
+  const calculateEstimatedProfit = () => {
+    const { totalDays, totalHours, totalMinutes, totalSeconds } = getDurationTime(duration);
+
+    if (packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND) {
+      // Calculate profit based on coins earned per hour
+      return Number(coinPerHour) * 24 * Number(totalDays);
+    }
+
+    if (packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_TAP) {
+      // Calculate profit based on coins earned per tap, assuming 4 taps per second
+      const assumingTapsPerSecond = 4;
+      const coinPerTap = coinPerHour / (24 * 3600); // Convert coinPerHour to coinPerSecond
+      const totalTaps = totalSeconds * assumingTapsPerSecond; // Total taps during the entire duration
+      return coinPerTap * totalTaps;
+    }
+
+    // Fallback
+    return 0;
+  }
+
 
   return (
     <>
@@ -118,49 +139,63 @@ const MineItem: FC<MineItemProps> = ({
             alt={name}
             className={"h-[76px] w-[76px] min-w-[76px] rounded-lg bg-[#27272A] p-2 mb-6 mx-auto"}
           />
-          <div className={"w-full flex items-center mb-6"}>
-            <div className={"flex flex-col gap-1 w-[32%]"}>
-              <p className={"main-text-secondary font-normal"}>Price</p>
-              <div className={"flex items-center gap-1"}>
-                <Image
-                  width={12}
-                  height={12}
-                  src={"/img/tap-game/coin.webp"}
-                  alt={"coin"}
-                  className={"h-3 w-3"}
-                />
-                <p className={"main-text-primary text-xs font-bold"}>
-                  {formatNumberWithCommas(price)}
-                </p>
-              </div>
-            </div>
-            <div
-              className={
-                "flex flex-col items-center w-[32%] border-r border-l main-border-divider-secondary mx-2"
-              }
-            >
+          <div className={'w-full mb-6 flex flex-col gap-2'}>
+            <div className={'w-full flex justify-between items-center'}>
               <div className={"flex flex-col gap-1"}>
-                <p className={"main-text-secondary font-normal"}>{isActive ? 'Time left' : 'Duration'}</p>
+                <p className={"main-text-secondary font-normal"}>Price</p>
+                <div className={"flex items-center gap-1"}>
+                  <Image
+                    width={12}
+                    height={12}
+                    src={"/img/tap-game/coin.webp"}
+                    alt={"coin"}
+                    className={"h-3 w-3"}
+                  />
+                  <p className={"main-text-primary text-xs font-bold"}>
+                    {formatNumberWithCommas(price)}
+                  </p>
+                </div>
+              </div>
+              <div className={"flex flex-col gap-1 justify-end items-end"}>
+                <p className={"main-text-secondary font-normal w-full text-end"}>{isActive ? 'Time left' : 'Duration'}</p>
                 <p className={"main-text-primary text-xs font-bold"}>
                   {isActive
-                    ? <TextTimeEnd endTimeUnix={dayjs(endTime ?? 0).unix()} />
+                    ? <TextTimeEnd endTimeUnix={dayjs(endTime ?? 0).unix()}/>
                     : formatDuration(duration)}
                 </p>
               </div>
             </div>
-            <div className={"flex flex-col gap-1 w-[32%]"}>
-              <p className={"main-text-secondary font-normal"}>Profit</p>
-              <div className={"flex items-center gap-1"}>
-                <Image
-                  width={12}
-                  height={12}
-                  src={"/img/tap-game/coin.webp"}
-                  alt={"coin"}
-                  className={"h-3 w-3"}
-                />
-                <p className={"main-text-primary text-xs font-bold"}>
-                  {formatNumberWithCommas(coinPerHour, 3)}/h
-                </p>
+            <div className={'w-full flex justify-between items-center'}>
+              <div className={"flex flex-col gap-1"}>
+                <p className={"main-text-secondary font-normal"}>{packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? 'Coin per hour' : 'Coin per tap'}</p>
+                <div className={"flex items-center gap-1"}>
+                  <Image
+                    width={12}
+                    height={12}
+                    src={"/img/tap-game/coin.webp"}
+                    alt={"coin"}
+                    className={"h-3 w-3"}
+                  />
+                  <p className={"main-text-primary text-xs font-bold"}>
+                    +{formatNumberWithCommas(coinPerHour, 3)}/{packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? 'h' : 'tap'}
+                  </p>
+                </div>
+              </div>
+              <div className={"flex flex-col gap-1 justify-end items-end"}>
+                <p
+                  className={"main-text-secondary font-normal w-full text-end"}>Estimated profit</p>
+                <div className={"flex items-center gap-1"}>
+                  <Image
+                    width={12}
+                    height={12}
+                    src={"/img/tap-game/coin.webp"}
+                    alt={"coin"}
+                    className={"h-3 w-3"}
+                  />
+                  <p className={"main-text-primary text-xs font-bold"}>
+                    {calculateEstimatedProfit() !== 0 ? `+${formatNumberWithCommas(calculateEstimatedProfit(), 3)}` : '--'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -188,8 +223,6 @@ const MineItem: FC<MineItemProps> = ({
 
 const TextTimeEnd = ({ endTimeUnix }:{endTimeUnix: number}) => {
   const { days, hours, minutes, seconds } = useCountdown(endTimeUnix * 1000);
-  console.log('endTime', minutes, seconds);
-
   return <p>{`${days}d ${hours}h ${minutes}m ${seconds}s`}</p>
 }
 export default MineItem;
