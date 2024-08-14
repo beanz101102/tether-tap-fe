@@ -1,20 +1,20 @@
 "use client";
 import NextImage from "@/components/common/next-image";
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
-import { useTranslation } from "react-i18next";
+import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
+import {useTranslation} from "react-i18next";
 import {atom, useAtom} from "jotai/index";
-import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
-import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import {formatNumberWithCommas} from "@/utils/formatNumber";
+import {Button} from "@/components/ui/button";
+import {ExternalLink} from "lucide-react";
 import ListHistory from "./ListHistory";
 import SelectChain from "./SelectChain";
 import Link from "next/link";
-import { getExplorerLink } from "@/utils/getExplorerLink";
+import {getExplorerLink} from "@/utils/getExplorerLink";
 import {useEffect, useState} from "react";
 import {api} from "@/trpc/react";
 import {uniqBy} from "lodash";
 import {ITransferTransactionHistory} from "@/features/tap-game/interfaces/transaction-history";
+import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
 
 const listTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]);
 
@@ -24,7 +24,7 @@ const Wallet = () => {
     keyPrefix: "wallet",
   });
   const { currentUser } = useGetCurrentUser();
-  const [score] = useAtom(ScoreAtom);
+  const score = useGetCurrentBalance();
 
   return (
     <div className={"flex w-full flex-col items-center justify-center"}>

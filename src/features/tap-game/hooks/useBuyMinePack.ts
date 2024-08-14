@@ -1,22 +1,18 @@
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
-import { useSendSocketRequest } from "@/libs/hooks/useSendSocketRequest";
-import { SocketRoutes } from "@/libs/redux/features/socketSlice";
-import {
-  ListMinePackAtom,
-  PackType,
-} from "@/features/tap-game/hooks/useGetListMinePack";
-import { useSetAtom } from "jotai";
-import { useCallback, useRef } from "react";
-import { useAtom } from "jotai/index";
-import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
-import { toast } from "react-toastify";
+import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
+import {useSendSocketRequest} from "@/libs/hooks/useSendSocketRequest";
+import {SocketRoutes} from "@/libs/redux/features/socketSlice";
+import {ListMinePackAtom, PackType,} from "@/features/tap-game/hooks/useGetListMinePack";
+import {useSetAtom} from "jotai";
+import {useCallback, useRef} from "react";
+import {toast} from "react-toastify";
+import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
 
 export const useBuyMinePack = (cb: () => void) => {
   const packTypeRef = useRef<PackType>(
     PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND,
   );
   const packIdRef = useRef<number>(1);
-  const [score] = useAtom(ScoreAtom);
+  const score = useGetCurrentBalance();
   const { currentUser } = useGetCurrentUser();
   const { trigger, loading } = useSendSocketRequest({
     route: SocketRoutes.BuyMinePackRequest,

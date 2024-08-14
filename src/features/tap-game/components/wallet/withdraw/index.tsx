@@ -11,7 +11,6 @@ import {useWithdraw} from "@/features/tap-game/hooks/useWithdraw";
 import {useAtom, useAtomValue} from "jotai/index";
 import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
 import NumberInput from "@/components/ui/NumberInput";
-import {useGetTokenInfo} from "@/features/tap-game/hooks/useGetTokenInfo";
 
 const Withdraw = () => {
   const [score] = useAtom(ScoreAtom);

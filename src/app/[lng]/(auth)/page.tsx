@@ -3,9 +3,7 @@
 import AnimatedNumber from "@/components/ui/animated-number";
 import WrapSkeleton from "@/components/ui/wrap-skeleton";
 import TapArea from "@/features/tap-game/components/TapArea";
-import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
 import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
-import {useAtom} from "jotai";
 import Image from "next/image";
 import {Info} from "lucide-react";
 import EnergyProgress from "@/features/tap-game/components/EnergyProgress";
@@ -15,11 +13,12 @@ import {Button} from "@/components/ui/button";
 import {useTranslation} from "../i18n/client";
 import {useRouter} from "next/navigation";
 import {formatNumberWithCommas} from "@/utils/formatNumber";
+import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
-  const [score] = useAtom(ScoreAtom);
   const { isLoading } = useGetUserTapGameInfo();
+  const score = useGetCurrentBalance();
 
   return (
     <div

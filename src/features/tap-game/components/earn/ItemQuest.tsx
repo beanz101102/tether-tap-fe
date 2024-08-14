@@ -1,25 +1,19 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import { useTranslation } from "@/app/[lng]/i18n/client";
+import {useTranslation} from "@/app/[lng]/i18n/client";
 import NextImage from "@/components/common/next-image";
-import { Button } from "@/components/ui/button";
-import {
-  KeyCheckUserSpecificActionStatus,
-  QuestType,
-} from "@/features/tap-game/interfaces/tap-game";
-import { useSendSocketRequest } from "@/libs/hooks/useSendSocketRequest";
-import { SocketRoutes } from "@/libs/redux/features/socketSlice";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
-import { useAtom } from "jotai";
-import { Check, ChevronRight } from "lucide-react";
-import { useMemo, useState } from "react";
-import { toast } from "react-toastify";
-import { ScoreAtom } from "../../constants/tap-game";
-import { useGetListQuest } from "../../hooks/useGetListQuest";
+import {Button} from "@/components/ui/button";
+import {KeyCheckUserSpecificActionStatus, QuestType,} from "@/features/tap-game/interfaces/tap-game";
+import {useSendSocketRequest} from "@/libs/hooks/useSendSocketRequest";
+import {SocketRoutes} from "@/libs/redux/features/socketSlice";
+import {formatNumberWithCommas} from "@/utils/formatNumber";
+import {Check, ChevronRight} from "lucide-react";
+import {useMemo, useState} from "react";
+import {useGetListQuest} from "../../hooks/useGetListQuest";
 import useFirestoreWrite from "@/libs/firebase/hooks/useFirestoreWrite";
-import { useInitData } from "@tma.js/sdk-react";
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
+import {useInitData} from "@tma.js/sdk-react";
+import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
 
 export interface ItemQuestProps {
   type: QuestType;
