@@ -97,7 +97,7 @@ const ListTransactionHistory = () => {
   const [page, setPage] = useState(1);
   const [listTransactionHistory, setListTransactionHistory] = useAtom(listTransactionHistoryAtom);
   const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery({
-    address: "0x39bd565363b2b7077c26629a4cec32d03096f71b" as string,
+    address: currentUser?.address as string,
     pageSize: 20,
     page: page,
     status: "all",
