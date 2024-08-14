@@ -26,6 +26,7 @@ const Tapper = () => {
           price={pack.cost}
           packType={pack.packType}
           duration={pack.duration}
+          endTime={pack.endTime}
         />
       ))}
     </div>

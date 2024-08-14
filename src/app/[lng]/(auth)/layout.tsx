@@ -45,7 +45,9 @@ export default function AuthLayout({
     if (!currentUser) return;
 
     setInterval(() => {
-      trigger();
+      trigger({
+        user_id: currentUser?.id
+      });
     }, 5000);
   }, [currentUser]);
 

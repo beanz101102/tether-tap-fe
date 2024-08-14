@@ -36,7 +36,7 @@ export const useBuyMinePack = (cb: () => void) => {
           return {
             ...prev,
             CoinsPerSecondPacks: prev.CoinsPerSecondPacks.map((pack) => {
-              if (pack.id === packIdRef.current) {
+              if (Number(pack.id) === packIdRef.current) {
                 return {
                   ...pack,
                   isPurchased: true,
@@ -53,7 +53,7 @@ export const useBuyMinePack = (cb: () => void) => {
           return {
             ...prev,
             CoinsPerTapPacks: prev.CoinsPerTapPacks.map((pack) => {
-              if (pack.id === packIdRef.current) {
+              if (Number(pack.id) === packIdRef.current) {
                 return {
                   ...pack,
                   isPurchased: true,
