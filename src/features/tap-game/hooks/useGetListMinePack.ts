@@ -16,6 +16,7 @@ export interface MinePack {
   endTime: string | null; // endTime should be a string or null
   isActive: boolean;
 }
+
 export enum PackType {
   MINE_PACK_FOR_EARN_COINS_PER_SECOND = "MINE_PACK_FOR_EARN_COINS_PER_SECOND",
   MINE_PACK_FOR_EARN_COINS_PER_TAP = "MINE_PACK_FOR_EARN_COINS_PER_TAP",
@@ -48,7 +49,7 @@ export const useGetListMinePack = () => {
         name: pack.name,
         image: pack.image,
         cost: pack.cost,
-        upgradedAmt: Number(pack?.upgradedAmt) * 3600,
+        upgradedAmt: pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? Number(pack?.upgradedAmt) * 3600 : Number(pack?.upgradedAmt),
         duration: pack.duration,
         packType: pack.packType,
         isPurchased: pack.isPurchased,
@@ -57,12 +58,19 @@ export const useGetListMinePack = () => {
         isActive: pack.isActive,
       }));
 
+      // Sort the packs by isActive or isPurchased being true
+      const sortedData = formattedData.sort((a, b) => {
+        if (a.isActive || a.isPurchased) return -1;
+        if (b.isActive || b.isPurchased) return 1;
+        return 0;
+      });
+
       // Split the packs by type
-      const perSecondPacks = formattedData.filter(
+      const perSecondPacks = sortedData.filter(
         (pack) =>
           pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND,
       );
-      const perTapPacks = formattedData.filter(
+      const perTapPacks = sortedData.filter(
         (pack) => pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_TAP,
       );
 

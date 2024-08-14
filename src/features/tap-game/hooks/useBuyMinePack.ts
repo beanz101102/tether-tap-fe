@@ -29,35 +29,53 @@ export const useBuyMinePack = (cb: () => void) => {
     switch (packTypeRef.current) {
       case PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND:
         setListMinePack((prev) => {
+          const updatedPacks = prev.CoinsPerSecondPacks.map((pack) => {
+            if (Number(pack.id) === packIdRef.current) {
+              return {
+                ...pack,
+                isPurchased: true,
+                isActive: true,
+              };
+            }
+            return pack;
+          });
+
+          // Move the purchased pack to the top of the list
+          const sortedPacks = updatedPacks.sort((a, b) => {
+            if (a.id === packIdRef.current) return -1;
+            if (b.id === packIdRef.current) return 1;
+            return 0;
+          });
+
           return {
             ...prev,
-            CoinsPerSecondPacks: prev.CoinsPerSecondPacks.map((pack) => {
-              if (Number(pack.id) === packIdRef.current) {
-                return {
-                  ...pack,
-                  isPurchased: true,
-                  isActive: true,
-                };
-              }
-              return pack;
-            }),
+            CoinsPerSecondPacks: sortedPacks,
           };
         });
         break;
       case PackType.MINE_PACK_FOR_EARN_COINS_PER_TAP:
         setListMinePack((prev) => {
+          const updatedPacks = prev.CoinsPerTapPacks.map((pack) => {
+            if (Number(pack.id) === packIdRef.current) {
+              return {
+                ...pack,
+                isPurchased: true,
+                isActive: true,
+              };
+            }
+            return pack;
+          });
+
+          // Move the purchased pack to the top of the list
+          const sortedPacks = updatedPacks.sort((a, b) => {
+            if (a.id === packIdRef.current) return -1;
+            if (b.id === packIdRef.current) return 1;
+            return 0;
+          });
+
           return {
             ...prev,
-            CoinsPerTapPacks: prev.CoinsPerTapPacks.map((pack) => {
-              if (Number(pack.id) === packIdRef.current) {
-                return {
-                  ...pack,
-                  isPurchased: true,
-                  isActive: true,
-                };
-              }
-              return pack;
-            }),
+            CoinsPerTapPacks: sortedPacks,
           };
         });
         break;
