@@ -46,7 +46,7 @@ const EnterReferral = () => {
       <Button
         variant={'outline'}
         loading={isLoadingSkipReferral}
-        className={"mt-4 w-full !h-[44px]  rounded-md !text-white"}
+        className={"mt-4 w-full !h-[44px] rounded-md"}
         onClick={handleSkipReferral}
       >
         Skip
