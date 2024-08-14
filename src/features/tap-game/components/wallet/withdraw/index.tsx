@@ -17,7 +17,10 @@ const Withdraw = () => {
   const [score] = useAtom(ScoreAtom);
   const [address, setAddress] = useState("");
   const [amount, setAmount] = useState("");
-  const {handleWithdraw, loading} = useWithdraw();
+  const {handleWithdraw, loading} = useWithdraw(() => {
+    setAddress("");
+    setAmount("");
+  });
   const chainId = useAtomValue(ChainIdAtom);
 
   const minWithdraw = 0.5;
