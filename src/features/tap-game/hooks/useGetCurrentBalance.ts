@@ -10,7 +10,7 @@ export const useGetCurrentBalance = () => {
   const [totalCoinPerHour] = useAtom(calculatorCoinPerSecondAtom);
   const { userTapGameInfo } = useGetUserTapGameInfo();
 
-  const increaseCoinTimes = totalCoinPerHour / userTapGameInfo?.coins_earned_per_tap;
+  const increaseCoinTimes = userTapGameInfo?.coins_earned_per_tap ? Number(totalCoinPerHour) / Number(userTapGameInfo?.coins_earned_per_tap) : 0;
   const realTimeBalance = useMemo(() => {
     return Number(score) + Number(((userTapGameInfo?.coins_earned_per_tap||0) * Math.floor(increaseCoinTimes)))
   }, [increaseCoinTimes, score, userTapGameInfo?.coins_earned_per_tap]);
