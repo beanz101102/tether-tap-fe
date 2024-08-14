@@ -14,6 +14,7 @@ import {useEffect, useState} from "react";
 import {api} from "@/trpc/react";
 import {ITransferTransactionHistory} from "@/features/tap-game/interfaces/transaction-history";
 import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
+import {uniqBy} from "lodash";
 
 const listTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]);
 
@@ -96,7 +97,7 @@ const ListTransactionHistory = () => {
   const [page, setPage] = useState(1);
   const [listTransactionHistory, setListTransactionHistory] = useAtom(listTransactionHistoryAtom);
   const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery({
-    address: currentUser?.address as string,
+    address: "0x39bd565363b2b7077c26629a4cec32d03096f71b" as string,
     pageSize: 20,
     page: page,
     status: "all",
@@ -107,10 +108,10 @@ const ListTransactionHistory = () => {
   useEffect(() => {
     if (!data || isLoading) return;
     if (page === 1) {
-      setListTransactionHistory(data?.listTransactionHistory as any[]);
+      setListTransactionHistory(uniqBy(data?.listTransactionHistory as any[],'id'));
     } else {
       setListTransactionHistory(
-        ([...listTransactionHistory, ...(data?.listTransactionHistory as any)]),
+        uniqBy([...listTransactionHistory, ...(data?.listTransactionHistory as any)], 'id'),
       );
     }
   }, [data, page, isLoading]);
@@ -118,7 +119,7 @@ const ListTransactionHistory = () => {
   return (
     <ListHistory
       listData={listTransactionHistory}
-      hasMore={page === data?.totalPages}
+      hasMore={data?.listTransactionHistory?.length === 20}
       isLoading={isLoading}
       nextPage={() => setPage(page + 1)}
     />

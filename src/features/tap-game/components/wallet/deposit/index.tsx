@@ -91,7 +91,7 @@ const ListTransactionHistory = () => {
   return (
     <ListHistory
       listData={listDepositTransactionHistory}
-      hasMore={page === data?.totalPages}
+      hasMore={data?.listTransactionHistory?.length === 20}
       isLoading={isLoading}
       nextPage={() => setPage(page + 1)}
       title="deposit_history" />
