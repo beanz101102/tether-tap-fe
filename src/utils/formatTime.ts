@@ -40,9 +40,3 @@ export function formatDuration(seconds: string | number) {
   // Join the parts with a space
   return formattedDuration.join(' ');
 }
-
-// Example usage:
-console.log(formatDuration(86461)); // Output: "1 day 1 hour"
-console.log(formatDuration(3662));  // Output: "1 hour 1 minute"
-console.log(formatDuration(75));    // Output: "1 minute 15 seconds"
-console.log(formatDuration(0));     // Output: "0 seconds"
