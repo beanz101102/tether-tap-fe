@@ -2,14 +2,13 @@
 import Image from "next/image";
 import WrapSkeleton from "@/components/ui/wrap-skeleton";
 import AnimatedNumber from "@/components/ui/animated-number";
-import { useAtom } from "jotai/index";
-import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
-import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
 import Holder from "@/features/tap-game/components/mine/Holder";
 import Tapper from "@/features/tap-game/components/mine/Tapper";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/Tabs";
 import {useTranslation} from "@/app/[lng]/i18n/client";
 import {formatNumberWithCommas} from "@/utils/formatNumber";
+import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
 
 enum EconomyType {
   HOLDER = "holder",
@@ -67,8 +66,8 @@ const MinePageContent = () => {
 const MinePageHeader = () => {
   const {t} = useTranslation('mine');
   const { userTapGameInfo } = useGetUserTapGameInfo();
-  const [score] = useAtom(ScoreAtom);
   const { isLoading } = useGetUserTapGameInfo();
+  const score = useGetCurrentBalance();
 
   return (
     <div className={"w-full"}>

@@ -1,8 +1,8 @@
 "use client";
-import { FC, LegacyRef, memo, useEffect, useRef, useState } from "react";
-import { useTap } from "@/features/tap-game/hooks/useTap";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
-import { cn } from "@/utils/cn";
+import {FC, LegacyRef, memo, useEffect, useRef, useState} from "react";
+import {useTap} from "@/features/tap-game/hooks/useTap";
+import {motion, useAnimation} from "framer-motion";
+import {cn} from "@/utils/cn";
 import NextImage from "@/components/common/next-image";
 
 interface TapAreaProps {

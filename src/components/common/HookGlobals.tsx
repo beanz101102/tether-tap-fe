@@ -1,11 +1,13 @@
 import { useGetListQuest } from "@/features/tap-game/hooks/useGetListQuest";
 import { memo } from "react";
 import {useGetTokenInfo} from "@/features/tap-game/hooks/useGetTokenInfo";
+import {useCalculatorCoinPerSecond} from "@/features/tap-game/hooks/useCalculatorCoinPerSecond";
 
 export const HookGlobals = memo(
   () => {
     useGetListQuest();
-    useGetTokenInfo()
+    useGetTokenInfo();
+    useCalculatorCoinPerSecond();
     return null;
   },
   () => true,
