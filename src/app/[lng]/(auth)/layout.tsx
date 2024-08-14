@@ -122,8 +122,8 @@ export default function AuthLayout({
                   <TabBarMiniGameApp />
                   <EnergyRecoveryGlobal />
                   <ModalTotalEarnedWhileOffline
-                    isOpen={isOpenModalProfitWhileOffline}
-                    setOpen={isOpen && !coinGainedWhileOffline.isShowUp && coinGainedWhileOffline?.profit}
+                    isOpen={isOpenModalProfitWhileOffline && !coinGainedWhileOffline.isShowUp && !!coinGainedWhileOffline?.profit}
+                    setOpen={setOpenModalProfitWhileOffline}
                     profit={coinGainedWhileOffline.profit}
                   />
                 </div>
