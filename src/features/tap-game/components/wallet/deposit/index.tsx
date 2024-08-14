@@ -80,10 +80,10 @@ const ListTransactionHistory = () => {
   useEffect(() => {
     if (!data || isLoading) return;
     if (page === 1) {
-      setListDepositTransactionHistory(uniqBy(data?.listTransactionHistory as any[], 'txHash'));
+      setListDepositTransactionHistory(data?.listTransactionHistory as any[]);
     } else {
       setListDepositTransactionHistory(
-        uniqBy([...listDepositTransactionHistory, ...(data?.listTransactionHistory as any)], 'txHash'),
+        [...listDepositTransactionHistory, ...(data?.listTransactionHistory as any)]
       );
     }
   }, [data, page, isLoading]);
