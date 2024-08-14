@@ -48,15 +48,13 @@ const MineItem: FC<MineItemProps> = ({
         }
       >
         <div className={"flex"}>
-          <div className={"h-14 w-14 min-w-14 rounded-lg bg-[#27272A] p-2"}>
-            {/*<Image*/}
-            {/*  width={32}*/}
-            {/*  height={32}*/}
-            {/*  src={imgUrl}*/}
-            {/*  alt={name}*/}
-            {/*  className={"h-14 w-14 min-w-14 rounded-lg bg-[#27272A] p-2"}*/}
-            {/*/>*/}
-          </div>
+          <Image
+            width={32}
+            height={32}
+            src={`/img/economic/${imgUrl}.svg`}
+            alt={name}
+            className={"h-14 w-14 min-w-14 rounded-lg bg-[#27272A] p-2"}
+          />
           <div className={"ml-2 flex flex-col"}>
             <p className={"main-text-primary xs:text-base text-sm font-bold"}>
               {name}
@@ -113,19 +111,13 @@ const MineItem: FC<MineItemProps> = ({
       <ShadModal isOpen={openModalConfirm} onOpen={setOpenModalConfirm}>
         <div className={"mx-4 my-6"}>
           <p className={"w-full text-center font-bold mb-6"}>{name}</p>
-          <div
-            className={
-              "h-[76px] w-[76px] min-w-[76px] rounded-lg bg-[#27272A] p-2 mb-6 mx-auto"
-            }
-          >
-            {/*<Image*/}
-            {/*  width={76}*/}
-            {/*  height={76}*/}
-            {/*  src={imgUrl}*/}
-            {/*  alt={name}*/}
-            {/*  className={"h-[76px] w-[76px] min-w-[76px]"}*/}
-            {/*/>*/}
-          </div>
+          <Image
+            width={76}
+            height={76}
+            src={`/img/economic/${imgUrl}.svg`}
+            alt={name}
+            className={"h-[76px] w-[76px] min-w-[76px] rounded-lg bg-[#27272A] p-2 mb-6 mx-auto"}
+          />
           <div className={"w-full flex items-center mb-6"}>
             <div className={"flex flex-col gap-1 w-[32%]"}>
               <p className={"main-text-secondary font-normal"}>Price</p>
