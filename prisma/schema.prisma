@@ -137,7 +137,7 @@ model TransferTransactionHistory {
   type      String    @map("type")
   status    String    @map("status")
   txHash    String    @unique @map("tx_hash") @db.VarChar(66)
-  token     Tokens    @relation(fields: [tokenID], references: [id]) // Establish relationship
+  token     Tokens?   @relation(fields: [tokenID], references: [id]) // Establish relationship
 
   @@map("transfer_transaction_history_models")
 }
