@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { atom, useAtom } from 'jotai';
+import {useEffect} from 'react';
+import {atom, useAtom} from 'jotai';
 import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
 
 export const calculatorCoinPerSecondAtom = atom<number>(0);
