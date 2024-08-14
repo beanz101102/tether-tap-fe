@@ -1,22 +1,36 @@
 "use client";
 import NextImage from "@/components/common/next-image";
-import {formatNumberWithCommas} from "@/utils/formatNumber";
-import {Button} from "@/components/ui/button";
-import SelectChain, {ChainIdAtom} from "../SelectChain";
-import {useTranslation} from "@/app/[lng]/i18n/client";
-import {Input} from "@/components/ui/input";
+import { formatNumberWithCommas } from "@/utils/formatNumber";
+import { Button } from "@/components/ui/button";
+import SelectChain, { ChainIdAtom } from "../SelectChain";
+import { useTranslation } from "@/app/[lng]/i18n/client";
+import { Input } from "@/components/ui/input";
 import * as React from "react";
-import {useCallback, useMemo, useState} from "react";
-import {useWithdraw} from "@/features/tap-game/hooks/useWithdraw";
-import {useAtom, useAtomValue} from "jotai/index";
-import {ScoreAtom} from "@/features/tap-game/constants/tap-game";
+import { useCallback, useMemo, useState } from "react";
+import { useWithdraw } from "@/features/tap-game/hooks/useWithdraw";
+import { useAtom, useAtomValue } from "jotai/index";
+import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
 import NumberInput from "@/components/ui/NumberInput";
+import ShadModal from "@/components/ui/ShadModal";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { AccordionItem } from "@radix-ui/react-accordion";
+import { useModal } from "@/libs/hooks/useModal";
+import { truncateAddress } from "@/utils/truncateAddress";
 
 const Withdraw = () => {
   const [score] = useAtom(ScoreAtom);
   const [address, setAddress] = useState("");
   const [amount, setAmount] = useState("");
-  const {handleWithdraw, loading} = useWithdraw(() => {
+  const {
+    open: isOpenModalConfirm,
+    setOpen: setOpenModalConfirm,
+    openModal: openModalConfirm,
+  } = useModal();
+  const { handleWithdraw, loading } = useWithdraw(() => {
     setAddress("");
     setAmount("");
   });
@@ -32,10 +46,14 @@ const Withdraw = () => {
   });
 
   const onMax = () => {
-      setAmount(String(balance))
-  }
+    setAmount(String(balance));
+  };
   const onWithdraw = useCallback(() => {
-    handleWithdraw({amount: Number(amount), receiver: address, chain_id: chainId});
+    handleWithdraw({
+      amount: Number(amount),
+      receiver: address,
+      chain_id: chainId,
+    });
   }, [amount, address, chainId]);
 
   const isAddressValid = useMemo(() => {
@@ -44,13 +62,19 @@ const Withdraw = () => {
   }, [address]);
 
   const isShowErrorAmountInput = useMemo(() => {
-    return Number(amount) > Number(balance ?? 0) || Number(amount) < minWithdraw
-  }, [amount, balance])
-
+    return (
+      Number(amount) > Number(balance ?? 0) || Number(amount) < minWithdraw
+    );
+  }, [amount, balance]);
 
   const isDisableButtonWithdraw = useMemo(() => {
-    return isShowErrorAmountInput ||  !isAddressValid || address?.trim() === '' || amount?.trim() === ''
-  },[isShowErrorAmountInput, isAddressValid, address, amount])
+    return (
+      isShowErrorAmountInput ||
+      !isAddressValid ||
+      address?.trim() === "" ||
+      amount?.trim() === ""
+    );
+  }, [isShowErrorAmountInput, isAddressValid, address, amount]);
 
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
@@ -70,28 +94,32 @@ const Withdraw = () => {
       <div className="mt-4 w-full">
         <Input
           onChange={(e) => {
-              setAddress(e?.target?.value);
+            setAddress(e?.target?.value);
           }}
-          error={!isAddressValid && address?.trim() !== '' ? t("invalid_address") : ""}
+          error={
+            !isAddressValid && address?.trim() !== ""
+              ? t("invalid_address")
+              : ""
+          }
           value={address}
-          className="main-border-color w-full main-text-primary border"
+          className="main-border-color main-text-primary w-full border"
           placeholder={t("enter_address_wallet")}
         />
       </div>
-      <div className="main-bg-default main-text-secondary font-normal main-border-color mt-5 w-full rounded-lg border px-2 py-3 text-sm">
+      <div className="main-bg-default main-text-secondary main-border-color mt-5 w-full rounded-lg border px-2 py-3 text-sm font-normal">
         <p className="main-text-secondary text-sm font-normal">{t("amount")}</p>
         <div className="flex items-center justify-between">
           <NumberInput
             onValueChange={(e) => {
-                  setAmount(e?.target?.value);
-              }}
+              setAmount(e?.target?.value);
+            }}
             value={amount}
             placeholder="0.0"
-            className="w-[60%] main-text-primary border-none !pl-0 text-[20px]"
+            className="main-text-primary w-[60%] border-none !pl-0 text-[20px]"
           />
           <div className="flex">
             <NextImage
-              className="h-5 mr-2 w-5"
+              className="mr-2 h-5 w-5"
               src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
               alt="usdt logo"
             />
@@ -99,34 +127,153 @@ const Withdraw = () => {
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <p className="main-text-muted">{t("min")}: {formatNumberWithCommas(minWithdraw)} USDT</p>
+          <p className="main-text-muted">
+            {t("min")}: {formatNumberWithCommas(minWithdraw)} USDT
+          </p>
           <div className="flex">
-            <p>{t("balance")}: {formatNumberWithCommas(Number(balance))}</p>
-            <button onClick={onMax} className="main-text-brand ml-2">{t("max")}</button>
+            <p>
+              {t("balance")}: {formatNumberWithCommas(Number(balance))}
+            </p>
+            <button onClick={onMax} className="main-text-brand ml-2">
+              {t("max")}
+            </button>
           </div>
         </div>
       </div>
-     <div className={"w-full"}>
-       {
-         amount?.trim() !== '' && isShowErrorAmountInput &&
-           <p className="main-text-danger text-left text-sm font-normal mt-[2px]">
-             {Number(amount) > Number(balance ?? 0) ? tValidate('err_balance') : Number(amount) < minWithdraw ? tValidate('min_amount_withdraw', {
-               amount: minWithdraw,
-             }) : ''}
-           </p>
-       }
-     </div>
+      <div className={"w-full"}>
+        {amount?.trim() !== "" && isShowErrorAmountInput && (
+          <p className="main-text-danger mt-[2px] text-left text-sm font-normal">
+            {Number(amount) > Number(balance ?? 0)
+              ? tValidate("err_balance")
+              : Number(amount) < minWithdraw
+                ? tValidate("min_amount_withdraw", {
+                    amount: minWithdraw,
+                  })
+                : ""}
+          </p>
+        )}
+      </div>
       <Button
         loading={loading}
         disabled={isDisableButtonWithdraw}
-        variant={'common'}
-        onClick={onWithdraw}
+        variant={"common"}
+        onClick={openModalConfirm}
         className={"mt-8 w-full"}
       >
-        {t('transfer')}
-        </Button>
+        {t("transfer")}
+      </Button>
+      <ModalConfirm
+        toAddress={address}
+        isOpen={isOpenModalConfirm}
+        setOpen={setOpenModalConfirm}
+        onConfirm={onWithdraw}
+        amount={Number(amount ?? 0)}
+      />
     </div>
   );
 };
 
 export default Withdraw;
+
+interface ModalConfirmProps {
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onConfirm: () => void;
+  toAddress: string;
+  amount: number;
+}
+
+const ModalConfirm = ({
+  isOpen,
+  onConfirm,
+  setOpen,
+  toAddress,
+  amount,
+}: ModalConfirmProps) => {
+  const { t } = useTranslation("wallet");
+  const feeWithdraw = 0.5;
+  return (
+    <ShadModal isOpen={isOpen} onOpen={setOpen}>
+      <div className={"w-full"}>
+        <p className={"main-text-primary pb-6 pt-3 text-lg font-semibold"}>
+          {t("withdraw")}
+        </p>
+        <div className={"main-border-color rounded-lg border p-3"}>
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1" className="!p-0">
+              <AccordionTrigger className="!p-0">
+                <div className="flex w-full items-center justify-between">
+                  <p className="main-text-read text-base font-normal">
+                    {t("transaction_value")}
+                  </p>
+                  <p className="main-text-primary pr-1 text-base font-medium">
+                    {formatNumberWithCommas(amount)} USDT
+                  </p>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="!border-none !pb-0 !pt-2">
+                <div
+                  className={
+                    "main-bg-teritary main-text-read rounded-lg px-4 py-2 text-base font-normal"
+                  }
+                >
+                  <div className={"flex w-full items-center justify-between"}>
+                    <p>{t("to")}</p>
+                    <p className={"main-text-primary font-medium"}>
+                      {truncateAddress(toAddress)}
+                    </p>
+                  </div>
+                  <div
+                    className={"mt-2 flex w-full items-center justify-between"}
+                  >
+                    <p>{t("amount")}</p>
+                    <p className={"main-text-primary font-medium"}>
+                      {formatNumberWithCommas(amount)}
+                    </p>
+                  </div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+          <div
+            className={
+              "main-border-color mt-2 flex w-full items-center justify-between border-t pt-2"
+            }
+          >
+            <p className={"main-text-read text-base font-normal"}>
+              {t("transaction_fees")}
+            </p>
+            <div className="main-text-primary flex items-center text-lg font-medium">
+              <NextImage
+                src="/img/tap-game/coin.webp"
+                alt="coin"
+                className="mr-2 h-5 w-5"
+              />
+              {feeWithdraw} USDT
+            </div>
+          </div>
+        </div>
+        <div className={"mt-6 flex w-full items-center justify-between"}>
+          <p className={"main-text-read text-base font-normal"}>
+            {t("total_received")}
+          </p>
+          <div className="main-text-primary flex items-center text-lg font-semibold">
+            <NextImage
+              src="/img/tap-game/coin.webp"
+              alt="coin"
+              className="mr-2 h-5 w-5"
+            />
+            {formatNumberWithCommas(amount - feeWithdraw)} USDT
+          </div>
+        </div>
+        <Button
+          variant={"common"}
+          className={"mt-6 !h-10 w-full"}
+          onClick={onConfirm}
+        >
+          {t("confirm")}
+        </Button>
+      </div>
+    </ShadModal>
+  );
+};
