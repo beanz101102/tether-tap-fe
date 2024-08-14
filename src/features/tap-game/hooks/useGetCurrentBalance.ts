@@ -6,5 +6,6 @@ import {calculatorCoinPerSecondAtom} from "@/features/tap-game/hooks/useCalculat
 export const useGetCurrentBalance = () => {
   const [score] = useAtom(ScoreAtom);
   const [totalCoinPerHour] = useAtom(calculatorCoinPerSecondAtom);
-  return score + totalCoinPerHour;
+  console.log('real balance', Number(score), Number(totalCoinPerHour), Number(score) + Number(totalCoinPerHour), String(Number(score) + Number(totalCoinPerHour)));
+  return Number(score) + Number(totalCoinPerHour);
 };
