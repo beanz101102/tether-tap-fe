@@ -50,8 +50,8 @@ const MineItem: FC<MineItemProps> = ({
 
     if (packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_TAP) {
       // Calculate profit based on coins earned per tap, assuming 4 taps per second
-      const assumingTapsPerSecond = 4;
-      const coinPerTap = coinPerHour / (24 * 3600); // Convert coinPerHour to coinPerSecond
+      const assumingTapsPerSecond = 1;
+      const coinPerTap = coinPerHour;
       const totalTaps = totalSeconds * assumingTapsPerSecond; // Total taps during the entire duration
       return coinPerTap * totalTaps;
     }
@@ -183,7 +183,7 @@ const MineItem: FC<MineItemProps> = ({
               </div>
               <div className={"flex flex-col gap-1 justify-end items-end"}>
                 <p
-                  className={"main-text-secondary font-normal w-full text-end"}>Estimated profit</p>
+                  className={"main-text-secondary font-normal w-full text-end"}>Estimated earned</p>
                 <div className={"flex items-center gap-1"}>
                   <Image
                     width={12}
