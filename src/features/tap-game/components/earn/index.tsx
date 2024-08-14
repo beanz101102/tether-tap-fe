@@ -38,21 +38,21 @@ const ListQuest = () => {
   const {t} = useTranslation("tap-game", {keyPrefix: "earn"});
   const {checkUserSpecificActionStatusData, loading} = useGetListQuest();
   const listQuestData: ItemQuestProps[] = [
-    {
-      questDetail: {
-        title: "follow_twitter",
-        action_url: "https://t.me/MineLordChannel",
-      },
-      type: QuestType.TWITTER,
-      isClaim:
-        (checkUserSpecificActionStatusData &&
-          checkUserSpecificActionStatusData[
-            KeyCheckUserSpecificActionStatus.FOLLOW_TWITTER
-          ]) ??
-        false,
-      coins: 0.000001,
-      key: KeyCheckUserSpecificActionStatus?.FOLLOW_TWITTER,
-    },
+    // {
+    //   questDetail: {
+    //     title: "follow_twitter",
+    //     action_url: "https://t.me/MineLordChannel",
+    //   },
+    //   type: QuestType.TWITTER,
+    //   isClaim:
+    //     (checkUserSpecificActionStatusData &&
+    //       checkUserSpecificActionStatusData[
+    //         KeyCheckUserSpecificActionStatus.FOLLOW_TWITTER
+    //       ]) ??
+    //     false,
+    //   coins: 0.000001,
+    //   key: KeyCheckUserSpecificActionStatus?.FOLLOW_TWITTER,
+    // },
     {
       questDetail: {
         title: "join_telegram_channel",
