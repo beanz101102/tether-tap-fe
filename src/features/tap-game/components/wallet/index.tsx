@@ -12,7 +12,6 @@ import Link from "next/link";
 import {getExplorerLink} from "@/utils/getExplorerLink";
 import {useEffect, useState} from "react";
 import {api} from "@/trpc/react";
-import {uniqBy} from "lodash";
 import {ITransferTransactionHistory} from "@/features/tap-game/interfaces/transaction-history";
 import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
 
@@ -108,10 +107,10 @@ const ListTransactionHistory = () => {
   useEffect(() => {
     if (!data || isLoading) return;
     if (page === 1) {
-      setListTransactionHistory(uniqBy(data?.listTransactionHistory as any[], 'txHash'));
+      setListTransactionHistory(data?.listTransactionHistory as any[]);
     } else {
       setListTransactionHistory(
-        uniqBy([...listTransactionHistory, ...(data?.listTransactionHistory as any)], 'txHash'),
+        ([...listTransactionHistory, ...(data?.listTransactionHistory as any)]),
       );
     }
   }, [data, page, isLoading]);
