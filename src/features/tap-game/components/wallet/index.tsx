@@ -2,18 +2,19 @@
 import NextImage from "@/components/common/next-image";
 import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
 import {useTranslation} from "react-i18next";
-import {atom, useAtom} from "jotai/index";
+import {atom, useAtom, useAtomValue} from "jotai/index";
 import {formatNumberWithCommas} from "@/utils/formatNumber";
 import {Button} from "@/components/ui/button";
 import {ExternalLink} from "lucide-react";
 import ListHistory from "./ListHistory";
-import SelectChain from "./SelectChain";
+import SelectChain, {ChainIdAtom} from "./SelectChain";
 import Link from "next/link";
 import {getExplorerLink} from "@/utils/getExplorerLink";
 import {useEffect, useState} from "react";
 import {api} from "@/trpc/react";
 import {ITransferTransactionHistory} from "@/features/tap-game/interfaces/transaction-history";
 import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
+import {uniqBy} from "lodash";
 
 const listTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]);
 
@@ -22,6 +23,7 @@ const Wallet = () => {
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
+  const currentChainId = useAtomValue(ChainIdAtom)
   const { currentUser } = useGetCurrentUser();
   const score = useGetCurrentBalance();
 
@@ -40,7 +42,7 @@ const Wallet = () => {
           />
           <p
             className={
-              "main-text-secondary text:sm xs:text-base pl-1 font-medium"
+              "main-text-secondary text:sm xs:text-base pl-1 font-medium truncate max-w-[160px]"
             }
           >
             {currentUser?.name}
@@ -77,7 +79,7 @@ const Wallet = () => {
       <Link
         className={"mt-3"}
         target={"_blank"}
-        href={getExplorerLink(currentUser?.address ?? "", "address")}
+        href={getExplorerLink(currentUser?.address ?? "", "address", currentChainId)}
       >
         <div className="flex items-center">
           <ExternalLink className="main-text-brand mr-1 h-4 w-4" />
@@ -107,10 +109,10 @@ const ListTransactionHistory = () => {
   useEffect(() => {
     if (!data || isLoading) return;
     if (page === 1) {
-      setListTransactionHistory(data?.listTransactionHistory as any[]);
+      setListTransactionHistory(uniqBy(data?.listTransactionHistory as any[],'id'));
     } else {
       setListTransactionHistory(
-        ([...listTransactionHistory, ...(data?.listTransactionHistory as any)]),
+        uniqBy([...listTransactionHistory, ...(data?.listTransactionHistory as any)], 'id'),
       );
     }
   }, [data, page, isLoading]);
@@ -118,7 +120,7 @@ const ListTransactionHistory = () => {
   return (
     <ListHistory
       listData={listTransactionHistory}
-      hasMore={page === data?.totalPages}
+      hasMore={data?.listTransactionHistory?.length === 20}
       isLoading={isLoading}
       nextPage={() => setPage(page + 1)}
     />

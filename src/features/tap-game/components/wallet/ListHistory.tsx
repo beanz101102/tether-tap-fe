@@ -37,7 +37,7 @@ const ListHistory = ({ title , listData, nextPage, isLoading, hasMore}: { title?
             <div className="w-[25%] p-2 text-right">{t("status")}</div>
           </div>
           <div className="content">
-            {isLoading ? (
+            {isLoading && listData?.length === 0 ? (
               <Loading/>
             ) : listData?.length > 0 ? (
               <InfiniteScroll

@@ -15,7 +15,7 @@ const Tapper = () => {
   }
 
   return (
-    <div className={"pb-[66px]"}>
+    <div>
       {listMinePack.CoinsPerTapPacks.map((pack, index) => (
         <MineItem
           id={pack.id}
