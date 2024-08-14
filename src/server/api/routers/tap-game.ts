@@ -96,42 +96,46 @@ export const tapGameRouter = createTRPCRouter({
       const statusFilter =
         status === 'all' ? ['deposit', 'withdraw'] : [status];
 
+      const whereCondition = status === 'all'
+        ? {
+          OR: [
+            { from: address, type: { in: statusFilter } },
+            { to: address, type: { in: statusFilter } },
+          ],
+        }
+        : status === 'withdraw'
+          ? { from: address, type: { in: statusFilter } }
+          : { to: address, type: { in: statusFilter } };
+
       const [totalRecords, listTransactionHistory] = await Promise.all([
         ctx.db.transferTransactionHistory.count({
-          where: {
-            to: address,
-            type: {
-              in: statusFilter, // Using status filter
-            },
-          },
+          where: whereCondition,
         }),
         ctx.db.transferTransactionHistory.findMany({
-          where: {
-            to: address,
-            type: {
-              in: statusFilter, // Using status filter
-            },
-          },
+          where: whereCondition,
           skip: (page - 1) * pageSize,
           take: pageSize,
           orderBy: {
             createdAt: 'desc',
           },
           include: {
-            token: {
-              select: {
-                chainId: true,
-              },
-            },
+            token: true,
           },
-        }),
+        })
       ]);
+
+      const safeListTransactionHistory = listTransactionHistory.map(transaction => ({
+        ...transaction,
+        token: transaction.token || null,
+      }));
+
 
       return {
         totalRecords,
-        listTransactionHistory,
+        listTransactionHistory: safeListTransactionHistory,
         totalPages: Math.ceil(totalRecords / pageSize),
         currentPage: page,
       };
     })
+
 });

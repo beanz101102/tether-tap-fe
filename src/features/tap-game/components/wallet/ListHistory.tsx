@@ -59,6 +59,8 @@ const ListHistory = ({ title , listData, nextPage, isLoading, hasMore}: { title?
                         : data?.status === 'failed'
                           ? 'rgb(244 63 94)'
                           : 'rgb(124 58 237)';
+
+                    const isDeposit = data?.type === 'deposit'
                     return (
                       <div
                         key={`history-row-${idx}`}
@@ -74,7 +76,7 @@ const ListHistory = ({ title , listData, nextPage, isLoading, hasMore}: { title?
                         <div
                           className="main-border-color flex w-[33%] flex-col items-center justify-center border-r p-2">
                           {
-                            data?.status === 'failed' ? <p style={{color: colorByStatus}}>
+                            data?.status === 'failed' || data?.status === 'pending' ? <p style={{color: colorByStatus}}>
                               {t(data?.type)}
                               </p> :
                               <a
@@ -96,8 +98,11 @@ const ListHistory = ({ title , listData, nextPage, isLoading, hasMore}: { title?
                         </div>
                         <div className="w-[33%] main-border-color border-r p-2">
                           <div
+                            style={{
+                              color:  isDeposit ? 'rgb(16 185 129)' : 'rgb(244 63 94)'
+                            }}
                             className="main-text-success flex items-center justify-end text-sm  font-medium md:text-base">
-                            + {formatNumberWithCommas(Number(data.value ?? 0))}
+                            {isDeposit ? '+' : '-'} {formatNumberWithCommas(Number(data.value ?? 0))}
                             <NextImage
                               src="/img/tap-game/coin.webp"
                               alt="coin"
