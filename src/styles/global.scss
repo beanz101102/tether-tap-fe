@@ -532,7 +532,7 @@
   }
 
   .main-button-outline {
-    @apply main-border-divider-primary rounded-md border bg-transparent text-slate-800 dark:text-zinc-100 dark:hover:border-[#52525B] dark:hover:text-slate-800;
+    @apply main-border-divider-primary rounded-md border bg-transparent text-slate-800 dark:text-zinc-100 dark:hover:border-[#52525B] dark:hover:text-slate-800 dark:hover:bg-gray-50;
   }
 
   .main-button-fill {

@@ -16,7 +16,7 @@ interface ListChainProps {
   logo: string;
   chain_id: number;
 }
-export const ChainIdAtom = atom<number>(ChainId.BASE);
+export const ChainIdAtom = atom<number>(ChainId.BNB);
 const SelectChain = () => {
   const setChainId = useSetAtom(ChainIdAtom);
   const { t } = useTranslation("tap-game", { keyPrefix: "wallet" });
@@ -53,7 +53,8 @@ const SelectChain = () => {
           setIndexSelect(e);
           setChainId(listChain[Number(e)]?.chain_id || 0);
         }}
-        defaultValue={"bnb_chain"}
+        value={indexSelect}
+        defaultValue={"0"}
       >
         <SelectTrigger className="main-border-color shadow-noe main-text-primary main-bg-default focus:main-bg-default border px-3 py-2 focus:outline-none">
           <SelectValue className="shadow-none focus:outline-none">

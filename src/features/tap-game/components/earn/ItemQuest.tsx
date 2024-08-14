@@ -86,7 +86,11 @@ const ItemQuest = ({ data }: { data: ItemQuestProps }) => {
     <div
       onClick={() => {
         if (linkOpened || isClaimedLocal) return;
-        window.open(questDetail?.action_url);
+        if (type === QuestType.TELEGRAM) {
+          window.Telegram.WebApp.openTelegramLink(questDetail.action_url);
+        } else {
+          window.Telegram.WebApp.openLink(questDetail.action_url);
+        }
         setLinkOpened(true);
       }}
       className={
