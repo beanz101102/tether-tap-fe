@@ -15,7 +15,7 @@ const Holder = () => {
   }
 
   return (
-    <div className={"pb-[66px]"}>
+    <div>
       {listMinePack.CoinsPerSecondPacks.map((pack, index) => (
         <MineItem
           id={pack.id}
