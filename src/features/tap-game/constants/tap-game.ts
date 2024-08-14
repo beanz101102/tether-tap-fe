@@ -12,6 +12,11 @@ export interface UserCoinsLevelInfo {
   current_level_name: string;
 }
 
+export const ActionType = {
+  INCREASE: 'INCREASE',
+  DECREASE: 'DECREASE',
+};
+
 export interface UserTapGameInfo {
   bonus_coins_from_last_time_online: number;
   coins_balance: number;

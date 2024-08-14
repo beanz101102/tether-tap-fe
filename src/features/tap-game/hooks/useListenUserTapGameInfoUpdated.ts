@@ -10,7 +10,7 @@ import { useAtom } from "jotai/index";
 import { cloneDeep } from "lodash";
 import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { ScoreAtom } from "../constants/tap-game";
+import {ActionType, ScoreAtom} from "../constants/tap-game";
 import { userTapGameInfoAtom } from "./useGetUserTapGameInfo";
 
 export const useListenUserTapGameInfoUpdated = () => {
@@ -40,9 +40,33 @@ export const useListenUserTapGameInfoUpdated = () => {
         ? dataListen?.energy_balance
         : userTapGameInfoClone?.energy_balance;
 
+
+    const coins =
+      Number(userTapGameInfoClone?.coins_balance) < Number(dataListen?.coins_balance)
+        ? dataListen?.coins_balance
+        : userTapGameInfoClone?.coins_balance;
+
     if (new BigNumber(score).isLessThan(dataListen?.coins_balance)) {
       setScore(dataListen?.coins_balance.toString());
     }
+
+    const handleCalculatorBalance = () => {
+      if (dataListen?.data_info_if_has_changed?.changed_amount && userTapGameInfoClone?.coins_balance) {
+        let newBalance = Number(score);
+        if (dataListen?.data_info_if_has_changed?.action_type === ActionType.DECREASE) {
+          newBalance -= dataListen?.data_info_if_has_changed?.changed_amount;
+        } else {
+          newBalance += dataListen?.data_info_if_has_changed?.changed_amount;
+        }
+
+
+        setScore(newBalance?.toString());
+        return newBalance;
+      }
+
+      return dataListen?.coins_balance < score ? coins : userTapGameInfoClone?.coins_balance;
+    };
+
 
     setUserTabGameInfo({
       ...dataListen,
