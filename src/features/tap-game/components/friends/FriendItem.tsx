@@ -1,5 +1,8 @@
 import NextImage from "@/components/common/next-image";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
+import {
+  formatNumberWithCommas,
+  formatNumberWithNumeral,
+} from "@/utils/formatNumber";
 import { FC } from "react";
 import { useTranslation } from "@/app/[lng]/i18n/client";
 
@@ -8,6 +11,7 @@ interface FriendItemProps {
   name: string;
   friendCoins: number;
   coinEarned: number;
+  totalBenefits: number;
 }
 
 const FriendItem: FC<FriendItemProps> = ({
@@ -15,6 +19,7 @@ const FriendItem: FC<FriendItemProps> = ({
   friendCoins,
   coinEarned,
   name,
+  totalBenefits,
 }) => {
   const { t } = useTranslation("tap-game", {
     keyPrefix: "friends",
@@ -25,7 +30,7 @@ const FriendItem: FC<FriendItemProps> = ({
         "main-bg-primary flex w-full items-center justify-between rounded-lg px-4 py-2"
       }
     >
-      <div className={"flex w-[75%] max-w-[75%] items-center gap-2"}>
+      <div className={"flex items-center gap-2"}>
         <div className={"h-10 w-10 overflow-hidden rounded-full"}>
           <NextImage
             src={avatar || "/img/richard.svg"}
@@ -43,12 +48,12 @@ const FriendItem: FC<FriendItemProps> = ({
               className={"h-4 w-4"}
             />
             <p className={"main-text-primary text-sm font-semibold"}>
-              {formatNumberWithCommas(Number(friendCoins))}
+              {formatNumberWithNumeral(Number(friendCoins), 7)}
             </p>
           </div>
         </div>
       </div>
-      <div className={"flex w-[25%] flex-col items-center justify-end"}>
+      <div className={"flex flex-col items-center justify-end"}>
         <p className={"main-text-muted ml-auto text-right text-sm font-normal"}>
           {t("coin_earn")}
         </p>
@@ -61,7 +66,10 @@ const FriendItem: FC<FriendItemProps> = ({
             />
           </div>
           <p className={"main-text-warning pl-1 text-sm font-semibold"}>
-            {formatNumberWithCommas(Number(coinEarned))}
+            {formatNumberWithNumeral(
+              Number(coinEarned) + Number(totalBenefits),
+              7,
+            )}
           </p>
         </div>
       </div>

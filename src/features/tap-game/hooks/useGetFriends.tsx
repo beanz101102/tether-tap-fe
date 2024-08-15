@@ -5,7 +5,7 @@ import { FriendsAtom } from "@/features/tap-game/constants/tap-game";
 import { convertBigIntInArray } from "@/utils/convertBigIntInArray";
 import { FriendData } from "@/features/tap-game/interfaces/tap-game";
 import { api } from "@/trpc/react";
-import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
+import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
 
 export const useGetFriends = () => {
   const [hasMore, setHasMore] = useState(true);

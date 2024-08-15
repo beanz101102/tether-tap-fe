@@ -17,6 +17,7 @@ export interface FriendData {
   changed_amount: number;
   display_name: string;
   total_coins_earned: number;
+  total_benefits: number;
 }
 
 export enum SpecificActionStatus {

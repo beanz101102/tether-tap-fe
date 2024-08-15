@@ -15,23 +15,28 @@ export const tapGameRouter = createTRPCRouter({
       const skip = (page - 1) * limit;
 
       const result = await ctx.db.$queryRaw`
-      SELECT
-      u.id,
-      u.name as display_name,
-      u.avatar as avatar_url,
-      COALESCE(c.balance, 0) AS total_coins_earned,
-      COALESCE((t.changed_amount), 0) AS changed_amount
-      FROM
-        referrals r
-      JOIN
-        users u ON r.user_id_referee = u.id
-      LEFT JOIN
-        tap_game_user_coins c ON r.user_id_referee = c.user_id
-      LEFT JOIN
-        tap_game_tracking_histories t ON t.user_id = r.user_id_referee AND t.action_reason = 'INVITED_BY_FRIEND'
-      WHERE
-        r.user_id_referer = ${userId}
-      LIMIT ${limit} OFFSET ${skip}
+        SELECT
+            u.id,
+            u.name as display_name,
+            u.avatar as avatar_url,
+            COALESCE(c.balance, 0) AS total_coins_earned,
+            COALESCE(t.changed_amount, 0) AS changed_amount,
+            COALESCE(SUM(DISTINCT b.changed_amount), 0) AS total_benefits
+        FROM
+            referrals r
+        JOIN
+            users u ON r.user_id_referee = u.id
+        LEFT JOIN
+            tap_game_user_coins c ON r.user_id_referee = c.user_id
+        LEFT JOIN
+            tap_game_tracking_histories t ON t.user_id = r.user_id_referee AND t.action_reason = 'INVITED_BY_FRIEND'
+        LEFT JOIN
+            tap_game_tracking_histories b ON b.user_id = ${userId} AND b.action_reason = CONCAT('BENEFITS_FROM_IVT_FRIEND_', r.user_id_referee)
+        WHERE
+            r.user_id_referer = ${userId}
+        GROUP BY
+            u.id, u.name, u.avatar, c.balance, t.changed_amount
+        LIMIT ${limit} OFFSET ${skip}
 `;
 
       return result;

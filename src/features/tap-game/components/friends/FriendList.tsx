@@ -27,20 +27,19 @@ const FriendList = () => {
             "mt-10 flex h-full w-full flex-col items-center justify-center"
           }
         >
-
-                <p
-                    className={
-                        "main-text-secondary w-[80%] my-2 text-center text-base font-normal"
-                    }
-                >
-                    {t("empty_list_friend")}
-                </p>
+          <p
+            className={
+              "main-text-secondary my-2 w-[80%] text-center text-base font-normal"
+            }
+          >
+            {t("empty_list_friend")}
+          </p>
         </div>
       );
     }
 
-      return (
-          <div>
+    return (
+      <div>
         <div>
           {friends.map((friend, idx) => {
             return (
@@ -51,6 +50,7 @@ const FriendList = () => {
                   name={friend?.display_name}
                   avatar={friend?.avatar_url || "/img/richard.svg"}
                   coinEarned={friend?.changed_amount}
+                  totalBenefits={friend?.total_benefits}
                 />
               </div>
             );
