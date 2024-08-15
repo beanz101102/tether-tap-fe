@@ -20,6 +20,7 @@ import {
 import { AccordionItem } from "@radix-ui/react-accordion";
 import { useModal } from "@/libs/hooks/useModal";
 import { truncateAddress } from "@/utils/truncateAddress";
+import { useGetCurrentBalance } from "@/features/tap-game/hooks/useGetCurrentBalance";
 
 const Withdraw = () => {
   const [score] = useAtom(ScoreAtom);
@@ -33,6 +34,7 @@ const Withdraw = () => {
   const { handleWithdraw, loading } = useWithdraw(() => {
     setAddress("");
     setAmount("");
+    setOpenModalConfirm(false);
   });
   const chainId = useAtomValue(ChainIdAtom);
 
@@ -168,6 +170,7 @@ const Withdraw = () => {
         setOpen={setOpenModalConfirm}
         onConfirm={onWithdraw}
         amount={Number(amount ?? 0)}
+        isLoadingConfirm={loading}
       />
     </div>
   );
@@ -181,6 +184,7 @@ interface ModalConfirmProps {
   onConfirm: () => void;
   toAddress: string;
   amount: number;
+  isLoadingConfirm: boolean;
 }
 
 const ModalConfirm = ({
@@ -189,24 +193,42 @@ const ModalConfirm = ({
   setOpen,
   toAddress,
   amount,
+  isLoadingConfirm,
 }: ModalConfirmProps) => {
   const { t } = useTranslation("wallet");
+  const { t: tUpgrade } = useTranslation("tap-game", {
+    keyPrefix: "upgrade",
+  });
+
+  const currentBalance = useGetCurrentBalance();
   const feeWithdraw = 0.5;
+
+  const isShowErr = useMemo(
+    () => Number(currentBalance) - Number(amount + feeWithdraw) <= 0,
+    [currentBalance, amount, feeWithdraw],
+  );
+
   return (
     <ShadModal isOpen={isOpen} onOpen={setOpen}>
       <div className={"w-full"}>
-        <p className={"main-text-primary pb-6 pt-3 text-lg font-semibold"}>
+        <p className={"main-text-primary pb-3 pt-3 text-lg font-semibold"}>
           {t("withdraw")}
+        </p>
+        <p className="mb-1 text-right text-sm font-normal">
+          {t("avail")}:{" "}
+          <span className="font-medium">
+            {formatNumberWithCommas(Number(currentBalance))} USDT
+          </span>
         </p>
         <div className={"main-border-color rounded-lg border p-3"}>
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1" className="!p-0">
               <AccordionTrigger className="!p-0">
                 <div className="flex w-full items-center justify-between">
-                  <p className="main-text-read text-base font-normal">
+                  <p className="main-text-read !text-sm !font-normal">
                     {t("transaction_value")}
                   </p>
-                  <p className="main-text-primary pr-1 text-base font-medium">
+                  <p className="main-text-primary pr-1 !text-sm !font-medium">
                     {formatNumberWithCommas(amount)} USDT
                   </p>
                 </div>
@@ -214,7 +236,7 @@ const ModalConfirm = ({
               <AccordionContent className="!border-none !pb-0 !pt-2">
                 <div
                   className={
-                    "main-bg-teritary main-text-read rounded-lg px-4 py-2 text-base font-normal"
+                    "main-bg-teritary main-text-read rounded-lg px-4 py-2 text-sm font-normal"
                   }
                 >
                   <div className={"flex w-full items-center justify-between"}>
@@ -240,10 +262,10 @@ const ModalConfirm = ({
               "main-border-color mt-2 flex w-full items-center justify-between border-t pt-2"
             }
           >
-            <p className={"main-text-read text-base font-normal"}>
+            <p className={"main-text-read text-sm font-normal"}>
               {t("transaction_fees")}
             </p>
-            <div className="main-text-primary flex items-center text-lg font-medium">
+            <div className="main-text-primary flex items-center !text-sm font-medium">
               <NextImage
                 src="/img/tap-game/coin.webp"
                 alt="coin"
@@ -253,23 +275,30 @@ const ModalConfirm = ({
             </div>
           </div>
         </div>
-        <div className={"mt-6 flex w-full items-center justify-between"}>
-          <p className={"main-text-read text-base font-normal"}>
+        {isShowErr && (
+          <p className="main-text-danger mt-1 text-sm font-normal">
+            {tUpgrade("err_balance")}
+          </p>
+        )}
+        <div className={"mt-4 flex w-full items-center justify-between"}>
+          <p className={"main-text-read text-sm font-normal"}>
             {t("total_received")}
           </p>
-          <div className="main-text-primary flex items-center text-lg font-semibold">
+          <div className="main-text-primary flex items-center text-base font-semibold">
             <NextImage
               src="/img/tap-game/coin.webp"
               alt="coin"
               className="mr-2 h-5 w-5"
             />
-            {formatNumberWithCommas(amount - feeWithdraw)} USDT
+            {formatNumberWithCommas(amount)} USDT
           </div>
         </div>
         <Button
           variant={"common"}
           className={"mt-6 !h-10 w-full"}
           onClick={onConfirm}
+          disabled={isShowErr}
+          loading={isLoadingConfirm}
         >
           {t("confirm")}
         </Button>
