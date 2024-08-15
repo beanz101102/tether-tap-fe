@@ -45,7 +45,10 @@ export const useGetListMinePack = () => {
   const setMinePackPurchased = useSetAtom(WatchMinePackPurchasedAtom);
 
   useEffect(() => {
-    if (listMinePack?.CoinsPerTapPacks?.length !== 0 || listMinePack?.CoinsPerSecondPacks?.length !== 0) return;
+    if (listMinePack?.CoinsPerTapPacks?.length !== 0 || listMinePack?.CoinsPerSecondPacks?.length !== 0) {
+      setIsLoading(false);
+      return;
+    }
 
     if (!isQueryLoading && data) {
       const formattedData: MinePack[] = data.map((pack: MinePack) => {
