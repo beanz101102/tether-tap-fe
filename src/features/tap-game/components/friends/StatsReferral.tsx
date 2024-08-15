@@ -6,10 +6,10 @@ const StatsReferral = () => {
   return (
     <div className="flex w-full items-stretch justify-between">
       <div className="w-[49%]">
-        <ItemStatsReferral title={"normal_title"} value={0.000001} />
+        <ItemStatsReferral title={"normal_title"} value={0.00001} />
       </div>
       <div className="w-[49%]">
-        <ItemStatsReferral title={"premium_title"} value={0.000001} />
+        <ItemStatsReferral title={"premium_title"} value={0.00002} />
       </div>
     </div>
   );
