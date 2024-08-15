@@ -1,6 +1,9 @@
 "use client";
 import NextImage from "@/components/common/next-image";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
+import {
+  formatNumberWithCommas,
+  formatNumberWithNumeral,
+} from "@/utils/formatNumber";
 import { Button } from "@/components/ui/button";
 import SelectChain, { ChainIdAtom } from "../SelectChain";
 import { useTranslation } from "@/app/[lng]/i18n/client";
@@ -134,7 +137,10 @@ const Withdraw = () => {
           </p>
           <div className="flex">
             <p>
-              {t("balance")}: {formatNumberWithCommas(Number(balance))}
+              {t("balance")}:{" "}
+              {Number(balance) > 0
+                ? formatNumberWithNumeral(Number(balance), 7)
+                : 0}
             </p>
             <button onClick={onMax} className="main-text-brand ml-2">
               {t("max")}
@@ -217,7 +223,10 @@ const ModalConfirm = ({
         <p className="mb-1 text-right text-sm font-normal">
           {t("avail")}:{" "}
           <span className="font-medium">
-            {formatNumberWithCommas(Number(currentBalance))} USDT
+            {Number(currentBalance) > 0
+              ? formatNumberWithNumeral(Number(currentBalance), 7)
+              : 0}{" "}
+            USDT
           </span>
         </p>
         <div className={"main-border-color rounded-lg border p-3"}>
