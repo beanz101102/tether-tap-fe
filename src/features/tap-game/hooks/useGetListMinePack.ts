@@ -45,6 +45,8 @@ export const useGetListMinePack = () => {
   const setMinePackPurchased = useSetAtom(WatchMinePackPurchasedAtom);
 
   useEffect(() => {
+    if (listMinePack?.CoinsPerTapPacks?.length !== 0 || listMinePack?.CoinsPerSecondPacks?.length !== 0) return;
+
     if (!isQueryLoading && data) {
       const formattedData: MinePack[] = data.map((pack: MinePack) => {
         // Add the purchased pack to the list of purchased packs
