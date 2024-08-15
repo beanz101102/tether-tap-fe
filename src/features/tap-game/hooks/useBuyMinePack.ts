@@ -6,6 +6,7 @@ import {useSetAtom} from "jotai";
 import {useCallback, useRef} from "react";
 import {toast} from "react-toastify";
 import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
+import dayjs from "dayjs";
 
 export const useBuyMinePack = (cb: () => void) => {
   const packTypeRef = useRef<PackType>(
@@ -26,15 +27,18 @@ export const useBuyMinePack = (cb: () => void) => {
   const setListMinePack = useSetAtom(ListMinePackAtom);
 
   const handleBuyDone = useCallback(() => {
+    const currentTime = dayjs();
     switch (packTypeRef.current) {
       case PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND:
         setListMinePack((prev) => {
           const updatedPacks = prev.CoinsPerSecondPacks.map((pack) => {
             if (Number(pack.id) === packIdRef.current) {
+              const endTime = currentTime.add(pack.duration, 'second').toISOString();
               return {
                 ...pack,
                 isPurchased: true,
                 isActive: true,
+                endTime,
               };
             }
             return pack;
@@ -57,10 +61,12 @@ export const useBuyMinePack = (cb: () => void) => {
         setListMinePack((prev) => {
           const updatedPacks = prev.CoinsPerTapPacks.map((pack) => {
             if (Number(pack.id) === packIdRef.current) {
+              const endTime = currentTime.add(pack.duration, 'second').toISOString();
               return {
                 ...pack,
                 isPurchased: true,
                 isActive: true,
+                endTime,
               };
             }
             return pack;
@@ -82,7 +88,7 @@ export const useBuyMinePack = (cb: () => void) => {
       default:
         break;
     }
-  }, []);
+  }, [setListMinePack]);
 
   const handleBuyPack = (packId: number, type: PackType, price: number) => {
     if (Number(score) < price) {
