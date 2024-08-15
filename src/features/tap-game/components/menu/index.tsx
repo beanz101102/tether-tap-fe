@@ -31,8 +31,8 @@ const TabBarMiniGameApp = () => {
   const isEarnPageActive = useActivePage("earn");
   const isFriendsPageActive = useActivePage("referral");
   const isWalletPageActive = useActivePage("wallet");
-  const isDepositPageActive = useActivePage("deposit");
-  const isWithdrawPageActive = useActivePage("withdraw");
+  const isDepositPageActive = useActivePage("wallet/deposit");
+  const isWithdrawPageActive = useActivePage("wallet/withdraw");
   const isMinePageActive = useActivePage("mine");
 
   // Determine if home page is active
