@@ -10,7 +10,7 @@ import { useAtom } from "jotai/index";
 import { cloneDeep } from "lodash";
 import { useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import {ActionType, ScoreAtom} from "../constants/tap-game";
+import { ActionType, ScoreAtom } from "../constants/tap-game";
 import { userTapGameInfoAtom } from "./useGetUserTapGameInfo";
 
 export const useListenUserTapGameInfoUpdated = () => {
@@ -40,9 +40,9 @@ export const useListenUserTapGameInfoUpdated = () => {
         ? dataListen?.energy_balance
         : userTapGameInfoClone?.energy_balance;
 
-
     const coins =
-      Number(userTapGameInfoClone?.coins_balance) < Number(dataListen?.coins_balance)
+      Number(userTapGameInfoClone?.coins_balance) <
+      Number(dataListen?.coins_balance)
         ? dataListen?.coins_balance
         : userTapGameInfoClone?.coins_balance;
 
@@ -51,27 +51,38 @@ export const useListenUserTapGameInfoUpdated = () => {
     }
 
     const handleCalculatorBalance = () => {
-      if (dataListen?.data_info_if_has_changed?.changed_amount && userTapGameInfoClone?.coins_balance) {
+      if (
+        dataListen?.data_info_if_has_changed?.changed_amount &&
+        userTapGameInfoClone?.coins_balance
+      ) {
         let newBalance = Number(score);
-        if (dataListen?.data_info_if_has_changed?.action_type === ActionType.DECREASE) {
+        if (
+          dataListen?.data_info_if_has_changed?.action_type ===
+          ActionType.DECREASE
+        ) {
           newBalance -= dataListen?.data_info_if_has_changed?.changed_amount;
         } else {
           newBalance += dataListen?.data_info_if_has_changed?.changed_amount;
         }
 
-
         setScore(newBalance?.toString());
         return newBalance;
       }
 
-      return dataListen?.coins_balance < score ? coins : userTapGameInfoClone?.coins_balance;
+      return dataListen?.coins_balance < score
+        ? coins
+        : userTapGameInfoClone?.coins_balance;
     };
-
 
     setUserTabGameInfo({
       ...dataListen,
       energy_balance: energy,
-      coins_bonus_per_hour: Number(dataListen?.coins_bonus_per_hour) !== Number(userTapGameInfoClone?.coins_bonus_per_hour) ? Number(dataListen?.coins_bonus_per_hour) * 3600 : Number(userTapGameInfoClone?.coins_bonus_per_hour)
+      coins_bonus_per_hour:
+        Number(dataListen?.coins_bonus_per_hour) !==
+        Number(userTapGameInfoClone?.coins_bonus_per_hour)
+          ? Number(dataListen?.coins_bonus_per_hour) * 3600
+          : Number(userTapGameInfoClone?.coins_bonus_per_hour),
+      coins_balance: handleCalculatorBalance(),
     });
     dispatch(
       addReceivedData({ route: SocketRoutes.onUserUpdated, data: null }),
