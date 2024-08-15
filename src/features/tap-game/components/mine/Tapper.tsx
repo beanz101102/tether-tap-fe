@@ -21,7 +21,7 @@ const Tapper = () => {
           id={pack.id}
           name={pack.name}
           imgUrl={pack.image}
-          isActive={pack.isPurchased}
+          isActive={pack.isActive}
           coinPerHour={pack.upgradedAmt}
           price={pack.cost}
           packType={pack.packType}

@@ -1,5 +1,5 @@
 "use client";
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {formatNumberWithCommas} from "@/utils/formatNumber";
@@ -40,6 +40,11 @@ const MineItem: FC<MineItemProps> = ({
   const { handleBuyPack, loading } = useBuyMinePack(() =>
     setOpenModalConfirm(false)
   );
+
+  useEffect(() => {
+    // close modal when after the current pack is expired
+    setOpenModalConfirm(false);
+  }, [id]);
 
   const calculateEstimatedProfit = () => {
     const { totalDays, totalHours, totalMinutes, totalSeconds } = getDurationTime(duration);

@@ -34,14 +34,13 @@ export const useBuyMinePack = (cb: () => void) => {
     const currentTime = dayjs();
     const endTime = currentTime.add(pack.duration, 'second').toISOString();
 
-    // Do not this logic cause the pack newest will have greater than 10 days to expire
     // // Add the purchased pack to the list of purchased packs
-    // setMinePackPurchased(prev => {
-    //   return [...prev, {
-    //     ...pack,
-    //     endTime,
-    //   }];
-    // })
+    setMinePackPurchased(prev => {
+      return [...prev, {
+        ...pack,
+        endTime,
+      }];
+    })
 
     // Update the pack properties
     return {
