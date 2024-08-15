@@ -275,11 +275,6 @@ const ModalConfirm = ({
               {t("transaction_fees")}
             </p>
             <div className="main-text-primary flex items-center !text-sm font-medium">
-              <NextImage
-                src="/img/tap-game/coin.webp"
-                alt="coin"
-                className="mr-2 h-5 w-5"
-              />
               {feeWithdraw} USDT
             </div>
           </div>
@@ -299,7 +294,7 @@ const ModalConfirm = ({
               alt="coin"
               className="mr-2 h-5 w-5"
             />
-            {formatNumberWithCommas(amount)} USDT
+            {formatNumberWithCommas(Number(amount) - feeWithdraw)} USDT
           </div>
         </div>
         <Button
