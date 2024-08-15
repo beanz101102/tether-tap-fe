@@ -48,8 +48,8 @@ export const useWatchExpiredPacks = () => {
 
             return {
               ...prev,
-              CoinsPerSecondPacks: updatedCoinsPerSecondPacks,
-              CoinsPerTapPacks: updatedCoinsPerTapPacks,
+              CoinsPerSecondPacks: updatedCoinsPerSecondPacks.sort((a, b) => (a.isPurchased ? -1 : 1)),
+              CoinsPerTapPacks: updatedCoinsPerTapPacks.sort((a, b) => (a.isPurchased ? -1 : 1)),
             };
           });
         } else if (pack.endTime && endTime.diff(currentTime, 'hour') <= 1) {
