@@ -2,9 +2,10 @@
   "withdraw": "Withdraw",
   "avail": "Avail",
   "transaction_value": "Transaction value",
-  "transaction_fees":  "Transaction fees",
+  "transaction_fees": "Transaction fees",
   "total_received": "Total Received",
   "confirm": "Confirm",
   "to": "To",
-  "amount": "Amount"
+  "amount": "Amount",
+  "toast_withdraw": "Request withdrawal initiated!"
 }
