@@ -70,8 +70,11 @@ export default function AuthLayout({
   });
 
   useEffect(() => {
-    getCoinGainedWhileOffline();
-  }, []);
+    if (!currentUser) return;
+    getCoinGainedWhileOffline({
+      user_id: currentUser?.id
+    });
+  }, [currentUser]);
 
   useEffect(() => {
     if (!userTapGameInfo?.coins_bonus_per_hour || !coinGainedWhileOffline?.profit) return;
