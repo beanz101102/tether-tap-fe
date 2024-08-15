@@ -81,6 +81,7 @@ export default function AuthLayout({
     const profitPerSecond = userTapGameInfo?.coins_bonus_per_hour / 3600;
     const profitGainedWhileOffline = coinGainedWhileOffline?.profit;
     const timeOffline = profitGainedWhileOffline / profitPerSecond;
+    console.log('timeOffline', timeOffline, profitGainedWhileOffline, profitPerSecond);
     if (timeOffline > 15) {
       setCoinGainedWhileOffline(prev => {
         return {

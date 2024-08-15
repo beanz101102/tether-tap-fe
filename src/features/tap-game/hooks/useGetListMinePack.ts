@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
 import { api } from "@/trpc/react";
 import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
+import {useSetAtom} from "jotai/index";
+import {WatchMinePackPurchasedAtom} from "@/features/tap-game/hooks/useBuyMinePack";
 
 export interface MinePack {
   id: number;
@@ -36,27 +38,34 @@ export const useGetListMinePack = () => {
   const [listMinePack, setListMinePack] = useAtom(ListMinePackAtom);
   const [isLoading, setIsLoading] = useState(true);
   const { currentUser } = useGetCurrentUser();
-
   const { data, isLoading: isQueryLoading } = api.tapGame.getMinePacks.useQuery(
     { userId: Number(currentUser?.id) },
     { enabled: !!currentUser?.id },
   );
+  const setMinePackPurchased = useSetAtom(WatchMinePackPurchasedAtom);
 
   useEffect(() => {
     if (!isQueryLoading && data) {
-      const formattedData: MinePack[] = data.map((pack: MinePack) => ({
-        id: pack.id,
-        name: pack.name,
-        image: pack.image,
-        cost: pack.cost,
-        upgradedAmt: pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? Number(pack?.upgradedAmt) * 3600 : Number(pack?.upgradedAmt),
-        duration: pack.duration,
-        packType: pack.packType,
-        isPurchased: pack.isPurchased,
-        userPackId: pack.userPackId,
-        endTime: pack.endTime,
-        isActive: pack.isActive,
-      }));
+      const formattedData: MinePack[] = data.map((pack: MinePack) => {
+        // Add the purchased pack to the list of purchased packs
+        if (pack.isPurchased) {
+          setMinePackPurchased((prev) => [...prev, pack]);
+        }
+
+        return {
+          id: pack.id,
+          name: pack.name,
+          image: pack.image,
+          cost: pack.cost,
+          upgradedAmt: pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? Number(pack?.upgradedAmt) * 3600 : Number(pack?.upgradedAmt),
+          duration: pack.duration,
+          packType: pack.packType,
+          isPurchased: pack.isPurchased,
+          userPackId: pack.userPackId,
+          endTime: pack.endTime,
+          isActive: pack.isActive,
+        };
+      });
 
       // Sort the packs by isActive or isPurchased being true
       const sortedData = formattedData.sort((a, b) => {
