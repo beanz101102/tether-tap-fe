@@ -6,5 +6,6 @@
   "total_received": "Total Received",
   "confirm": "Confirm",
   "to": "To",
-  "amount": "Amount"
+  "amount": "Amount",
+  "toast_withdraw": "Request withdrawal initiated!"
 }

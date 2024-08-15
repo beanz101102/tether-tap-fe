@@ -7,6 +7,7 @@ import { initHapticFeedback, initWeb } from "@tma.js/sdk";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
 
 interface TabBarMiniGameAppProps {
   name: string;
@@ -30,11 +31,20 @@ const TabBarMiniGameApp = () => {
   const isEarnPageActive = useActivePage("earn");
   const isFriendsPageActive = useActivePage("referral");
   const isWalletPageActive = useActivePage("wallet");
+  const isDepositPageActive = useActivePage("deposit");
+  const isWithdrawPageActive = useActivePage("withdraw");
   const isMinePageActive = useActivePage("mine");
 
   // Determine if home page is active
-  const isActiveHomePage =
-    isHomePageActive || isBoostPageActive || isRoadmapPageActive;
+  const isActiveHomePage = useMemo(
+    () => isHomePageActive || isBoostPageActive || isRoadmapPageActive,
+    [isHomePageActive, isBoostPageActive, isRoadmapPageActive],
+  );
+
+  const isActiveWalletPage = useMemo(
+    () => isWalletPageActive || isWithdrawPageActive || isDepositPageActive,
+    [isWalletPageActive, isDepositPageActive, isWithdrawPageActive],
+  );
 
   const itemTabBar: TabBarMiniGameAppProps[] = [
     {
@@ -59,7 +69,7 @@ const TabBarMiniGameApp = () => {
       name: "wallet",
       path: "/wallet",
       imgUrl: "wallet.webp",
-      isActive: isWalletPageActive,
+      isActive: isActiveWalletPage,
     },
     {
       name: "friends",
