@@ -10,6 +10,7 @@ import ShadModal from "@/components/ui/ShadModal";
 import dayjs from "dayjs";
 import {formatDuration, getDurationTime} from "@/utils/formatTime";
 import useCountdown from "@/libs/hooks/useCountdown";
+import {cn} from "@/utils/cn";
 
 interface MineItemProps {
   id: number;
@@ -68,7 +69,7 @@ const MineItem: FC<MineItemProps> = ({
           "my-2 flex w-full items-center justify-between gap-2 rounded bg-[#18181B] px-3 py-2"
         }
       >
-        <div className={"flex"}>
+        <div className={cn("flex", !isActive ? 'opacity-60' : 'opacity-100')}>
           <Image
             width={32}
             height={32}
