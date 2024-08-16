@@ -1,16 +1,16 @@
 "use client";
-import {FC, useEffect, useState} from "react";
+import { FC, useEffect, useState } from "react";
 import Image from "next/image";
-import {Button} from "@/components/ui/button";
-import {formatNumberWithCommas} from "@/utils/formatNumber";
-import {useBuyMinePack} from "@/features/tap-game/hooks/useBuyMinePack";
-import {PackType} from "@/features/tap-game/hooks/useGetListMinePack";
-import {useTranslation} from "@/app/[lng]/i18n/client";
+import { Button } from "@/components/ui/button";
+import { formatNumberWithCommas } from "@/utils/formatNumber";
+import { useBuyMinePack } from "@/features/tap-game/hooks/useBuyMinePack";
+import { PackType } from "@/features/tap-game/hooks/useGetListMinePack";
+import { useTranslation } from "@/app/[lng]/i18n/client";
 import ShadModal from "@/components/ui/ShadModal";
 import dayjs from "dayjs";
-import {formatDuration, getDurationTime} from "@/utils/formatTime";
+import { formatDuration, getDurationTime } from "@/utils/formatTime";
 import useCountdown from "@/libs/hooks/useCountdown";
-import {cn} from "@/utils/cn";
+import { cn } from "@/utils/cn";
 
 interface MineItemProps {
   id: number;
@@ -25,20 +25,20 @@ interface MineItemProps {
 }
 
 const MineItem: FC<MineItemProps> = ({
-                                       id,
-                                       coinPerHour,
-                                       name,
-                                       price,
-                                       imgUrl,
-                                       isActive,
-                                       packType,
-                                       duration,
-                                       endTime,
-                                     }) => {
+  id,
+  coinPerHour,
+  name,
+  price,
+  imgUrl,
+  isActive,
+  packType,
+  duration,
+  endTime,
+}) => {
   const [openModalConfirm, setOpenModalConfirm] = useState(false);
   const { t } = useTranslation("mine");
   const { handleBuyPack, loading } = useBuyMinePack(() =>
-    setOpenModalConfirm(false)
+    setOpenModalConfirm(false),
   );
 
   useEffect(() => {
@@ -47,7 +47,8 @@ const MineItem: FC<MineItemProps> = ({
   }, [id]);
 
   const calculateEstimatedProfit = () => {
-    const { totalDays, totalHours, totalMinutes, totalSeconds } = getDurationTime(duration);
+    const { totalDays, totalHours, totalMinutes, totalSeconds } =
+      getDurationTime(duration);
 
     if (packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND) {
       // Calculate profit based on coins earned per hour
@@ -64,8 +65,7 @@ const MineItem: FC<MineItemProps> = ({
 
     // Fallback
     return 0;
-  }
-
+  };
 
   return (
     <>
@@ -74,7 +74,7 @@ const MineItem: FC<MineItemProps> = ({
           "my-2 flex w-full items-center justify-between gap-2 rounded bg-[#18181B] px-3 py-2"
         }
       >
-        <div className={cn("flex", !isActive ? 'opacity-60' : 'opacity-100')}>
+        <div className={cn("flex", !isActive ? "opacity-60" : "opacity-100")}>
           <Image
             width={32}
             height={32}
@@ -90,7 +90,7 @@ const MineItem: FC<MineItemProps> = ({
               {t(
                 packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND
                   ? "coin_per_hour"
-                  : "coin_per_tap"
+                  : "coin_per_tap",
               )}
             </p>
             <div className={"flex items-center gap-1"}>
@@ -131,24 +131,28 @@ const MineItem: FC<MineItemProps> = ({
               </div>
             </>
           ) : (
-            <p className={"main-text-secondary text-xs"}>Detail</p>
+            <p className={"main-text-secondary text-xs"}>{t("detail")}</p>
           )}
         </Button>
       </div>
       <ShadModal isOpen={openModalConfirm} onOpen={setOpenModalConfirm}>
-        <div className={"mx-4 my-6"}>
-          <p className={"w-full text-center font-bold mb-6"}>{name}</p>
+        <div className={"my-6"}>
+          <p className={"mb-6 w-full text-center font-bold"}>{name}</p>
           <Image
             width={76}
             height={76}
             src={`/img/economic/${imgUrl}.svg`}
             alt={name}
-            className={"h-[76px] w-[76px] min-w-[76px] rounded-lg bg-[#27272A] p-2 mb-6 mx-auto"}
+            className={
+              "mx-auto mb-6 h-[76px] w-[76px] min-w-[76px] rounded-lg bg-[#27272A] p-2"
+            }
           />
-          <div className={'w-full mb-6 flex flex-col gap-2'}>
-            <div className={'w-full flex justify-between items-center'}>
+          <div className={"mb-6 flex w-full flex-col gap-2"}>
+            <div className={"flex w-full items-center justify-between"}>
               <div className={"flex flex-col gap-1"}>
-                <p className={"main-text-secondary font-normal"}>Price</p>
+                <p className={"main-text-secondary font-normal"}>
+                  {t("price")}
+                </p>
                 <div className={"flex items-center gap-1"}>
                   <Image
                     width={12}
@@ -162,18 +166,28 @@ const MineItem: FC<MineItemProps> = ({
                   </p>
                 </div>
               </div>
-              <div className={"flex flex-col gap-1 justify-end items-end"}>
-                <p className={"main-text-secondary font-normal w-full text-end"}>{isActive ? 'Time left' : 'Duration'}</p>
+              <div className={"flex flex-col items-end justify-end gap-1"}>
+                <p
+                  className={"main-text-secondary w-full text-end font-normal"}
+                >
+                  {t(isActive ? "time_left" : "duration")}
+                </p>
                 <p className={"main-text-primary text-xs font-bold"}>
-                  {isActive
-                    ? <TextTimeEnd endTimeUnix={dayjs(endTime ?? 0).unix()}/>
-                    : formatDuration(duration)}
+                  {isActive ? (
+                    <TextTimeEnd endTimeUnix={dayjs(endTime ?? 0).unix()} />
+                  ) : (
+                    formatDuration(duration)
+                  )}
                 </p>
               </div>
             </div>
-            <div className={'w-full flex justify-between items-center'}>
+            <div className={"flex w-full items-center justify-between"}>
               <div className={"flex flex-col gap-1"}>
-                <p className={"main-text-secondary font-normal"}>{packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? 'Coin per hour' : 'Coin per tap'}</p>
+                <p className={"main-text-secondary font-normal"}>
+                  {packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND
+                    ? "Coin per hour"
+                    : "Coin per tap"}
+                </p>
                 <div className={"flex items-center gap-1"}>
                   <Image
                     width={12}
@@ -183,13 +197,19 @@ const MineItem: FC<MineItemProps> = ({
                     className={"h-3 w-3"}
                   />
                   <p className={"main-text-primary text-xs font-bold"}>
-                    +{formatNumberWithCommas(coinPerHour, 3)}/{packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? 'h' : 'tap'}
+                    +{formatNumberWithCommas(coinPerHour, 3)}/
+                    {packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND
+                      ? "h"
+                      : "tap"}
                   </p>
                 </div>
               </div>
-              <div className={"flex flex-col gap-1 justify-end items-end"}>
+              <div className={"flex flex-col items-end justify-end gap-1"}>
                 <p
-                  className={"main-text-secondary font-normal w-full text-end"}>Estimated earned</p>
+                  className={"main-text-secondary w-full text-end font-normal"}
+                >
+                  {t("est_earn")}
+                </p>
                 <div className={"flex items-center gap-1"}>
                   <Image
                     width={12}
@@ -199,7 +219,9 @@ const MineItem: FC<MineItemProps> = ({
                     className={"h-3 w-3"}
                   />
                   <p className={"main-text-primary text-xs font-bold"}>
-                    {calculateEstimatedProfit() !== 0 ? `+${formatNumberWithCommas(calculateEstimatedProfit(), 3)}` : '--'}
+                    {calculateEstimatedProfit() !== 0
+                      ? `+${formatNumberWithCommas(calculateEstimatedProfit(), 3)}`
+                      : "--"}
                   </p>
                 </div>
               </div>
@@ -210,9 +232,9 @@ const MineItem: FC<MineItemProps> = ({
               disabled={loading || isActive}
               loading={loading}
               onClick={() => handleBuyPack(id, packType, price)}
-              className={"w-full rounded mb-4"}
+              className={"mb-4 w-full rounded"}
             >
-              Buy
+              {t("buy")}
             </Button>
           )}
           <Button
@@ -220,15 +242,16 @@ const MineItem: FC<MineItemProps> = ({
             className={"w-full rounded"}
             onClick={() => setOpenModalConfirm(false)}
           >
-            Cancel
+            {t("cancel")}
           </Button>
         </div>
       </ShadModal>
     </>
-  )};
+  );
+};
 
-const TextTimeEnd = ({ endTimeUnix }:{endTimeUnix: number}) => {
+const TextTimeEnd = ({ endTimeUnix }: { endTimeUnix: number }) => {
   const { days, hours, minutes, seconds } = useCountdown(endTimeUnix * 1000);
-  return <p>{`${days}d ${hours}h ${minutes}m ${seconds}s`}</p>
-}
+  return <p>{`${days}d ${hours}h ${minutes}m ${seconds}s`}</p>;
+};
 export default MineItem;

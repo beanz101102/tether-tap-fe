@@ -8,5 +8,13 @@
   "earn_offline": "Earn offline up to 1 hours.",
   "coin_per_hour": "Coin per hour",
   "coin_per_tap": "Coin per tap",
-  "price": "Price"
+  "price": "Price",
+  "insufficient_balance_mine": "Not enough coins to buy this pack!",
+  "buy_pack_success": "Buy pack successfully!",
+  "detail": "Detail",
+  "est_earn": "Estimated earned",
+  "buy": "Buy",
+  "cancel": "Cancel",
+  "time_left": "Time left",
+  "duration": "Duration"
 }
