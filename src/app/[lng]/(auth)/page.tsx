@@ -168,7 +168,7 @@ const TapPageHeader = () => {
             }
           >
             <Trans
-              t={t}
+              t={tMine}
               i18nKey={`des_modal_about_mine`}
               components={{
                 // eslint-disable-next-line
