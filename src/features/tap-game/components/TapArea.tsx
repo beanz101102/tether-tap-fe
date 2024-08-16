@@ -4,6 +4,7 @@ import { useTap } from "@/features/tap-game/hooks/useTap";
 import { motion, useAnimation } from "framer-motion";
 import { cn } from "@/utils/cn";
 import NextImage from "@/components/common/next-image";
+import { useGetUserTapGameInfo } from "../hooks/useGetUserTapGameInfo";
 
 interface TapAreaProps {
   className?: string;
@@ -13,7 +14,7 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
   const { taps, setTaps, handleTap, isDisable } = useTap();
   const controls = useAnimation();
   const tapAreaRef = useRef<HTMLDivElement>();
-
+  const { userTapGameInfo } = useGetUserTapGameInfo();
   const animateCoin = async () => {
     await controls.start({
       scale: [1, 0.95, 1],
@@ -55,7 +56,7 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
         event.preventDefault();
       }}
       className={cn(
-        "tap-area scrollbar-hide relative flex h-[70vh] min-h-[300px] w-full items-start justify-center overflow-x-hidden ",
+        "scrollbar-hide relative flex h-[70vh] min-h-[300px] w-full items-start justify-center overflow-x-hidden ",
         className && className,
       )}
     >
@@ -96,7 +97,10 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
             }}
           >
             <p className={"text-3xl font-extrabold text-white"}>
-              +{isNaN(tap.value) ? 0 : tap.value.toString()}
+              +
+              {isNaN(tap.value)
+                ? 0
+                : userTapGameInfo?.coins_earned_per_tap?.toString()}
             </p>
           </div>
         );
