@@ -56,7 +56,7 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
         event.preventDefault();
       }}
       className={cn(
-        "scrollbar-hide relative flex h-[70vh] min-h-[300px] w-full items-start justify-center overflow-x-hidden ",
+        "tap-area scrollbar-hide relative flex h-[70vh] min-h-[300px] w-full items-start justify-center overflow-x-hidden ",
         className && className,
       )}
     >
