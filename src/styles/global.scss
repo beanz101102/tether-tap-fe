@@ -532,7 +532,7 @@
   }
 
   .main-button-outline {
-    @apply main-border-divider-primary rounded-md border bg-transparent text-slate-800 dark:text-zinc-100 dark:hover:border-[#52525B] dark:hover:text-slate-800 dark:hover:bg-gray-50;
+    @apply main-border-divider-primary rounded-md border bg-transparent text-slate-800 dark:text-zinc-100 dark:hover:border-[#52525B] dark:hover:bg-gray-50 dark:hover:text-slate-800;
   }
 
   .main-button-fill {
@@ -912,4 +912,14 @@ input[type="range"]:focus::-ms-fill-upper {
 .content {
   overflow-y: auto;
   max-height: 100%; /* Adjust according to your header height */
+}
+
+.tap-area img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.tap-area img {
+  touch-action: none;
+  overflow: hidden;
 }

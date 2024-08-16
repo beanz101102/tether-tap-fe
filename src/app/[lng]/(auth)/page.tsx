@@ -1,19 +1,19 @@
 "use client";
 
-import AnimatedNumber from "@/components/ui/animated-number";
-import WrapSkeleton from "@/components/ui/wrap-skeleton";
-import TapArea from "@/features/tap-game/components/TapArea";
-import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
-import Image from "next/image";
-import {Info} from "lucide-react";
-import EnergyProgress from "@/features/tap-game/components/EnergyProgress";
 import ShadModal from "@/components/ui/ShadModal";
-import {useState} from "react";
-import {Button} from "@/components/ui/button";
-import {useTranslation} from "../i18n/client";
-import {useRouter} from "next/navigation";
-import {formatNumberWithCommas} from "@/utils/formatNumber";
-import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
+import AnimatedNumber from "@/components/ui/animated-number";
+import { Button } from "@/components/ui/button";
+import WrapSkeleton from "@/components/ui/wrap-skeleton";
+import EnergyProgress from "@/features/tap-game/components/EnergyProgress";
+import TapArea from "@/features/tap-game/components/TapArea";
+import { useGetCurrentBalance } from "@/features/tap-game/hooks/useGetCurrentBalance";
+import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import { formatNumberWithCommas } from "@/utils/formatNumber";
+import { Info } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useTranslation } from "../i18n/client";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
@@ -119,7 +119,13 @@ const TapPageHeader = () => {
               {t("profit_per_hour")}
             </p>
             <div className={"flex items-center justify-center"}>
-              <p className={"main-text-primary font-bold"}>+{formatNumberWithCommas(userTapGameInfo?.coins_bonus_per_hour ?? 0, 3)}</p>
+              <p className={"main-text-primary font-bold"}>
+                +
+                {formatNumberWithCommas(
+                  userTapGameInfo?.coins_bonus_per_hour ?? 0,
+                  3,
+                )}
+              </p>
               <Image
                 width={20}
                 height={20}

@@ -1,8 +1,8 @@
 "use client";
-import {FC, LegacyRef, memo, useEffect, useRef, useState} from "react";
-import {useTap} from "@/features/tap-game/hooks/useTap";
-import {motion, useAnimation} from "framer-motion";
-import {cn} from "@/utils/cn";
+import { FC, LegacyRef, memo, useEffect, useRef, useState } from "react";
+import { useTap } from "@/features/tap-game/hooks/useTap";
+import { motion, useAnimation } from "framer-motion";
+import { cn } from "@/utils/cn";
 import NextImage from "@/components/common/next-image";
 
 interface TapAreaProps {
@@ -13,7 +13,6 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
   const { taps, setTaps, handleTap, isDisable } = useTap();
   const controls = useAnimation();
   const tapAreaRef = useRef<HTMLDivElement>();
-  const [tapTimer, setTapTimer] = useState<NodeJS.Timeout | null>(null);
 
   const animateCoin = async () => {
     await controls.start({
@@ -56,7 +55,7 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
         event.preventDefault();
       }}
       className={cn(
-        "scrollbar-hide relative flex h-[70vh] min-h-[300px] w-full items-start justify-center overflow-x-hidden ",
+        "tap-area scrollbar-hide relative flex h-[70vh] min-h-[300px] w-full items-start justify-center overflow-x-hidden ",
         className && className,
       )}
     >
@@ -97,12 +96,11 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
             }}
           >
             <p className={"text-3xl font-extrabold text-white"}>
-              +{isNaN(tap.value) ? 0 : tap.value}
+              +{isNaN(tap.value) ? 0 : tap.value.toString()}
             </p>
           </div>
         );
       })}
-
     </div>
   );
 });
