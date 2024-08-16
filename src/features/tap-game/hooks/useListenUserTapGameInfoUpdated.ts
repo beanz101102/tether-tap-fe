@@ -60,9 +60,13 @@ export const useListenUserTapGameInfoUpdated = () => {
           dataListen?.data_info_if_has_changed?.action_type ===
           ActionType.DECREASE
         ) {
-          newBalance -= dataListen?.data_info_if_has_changed?.changed_amount;
+          newBalance -= Number(
+            dataListen?.data_info_if_has_changed?.changed_amount,
+          );
         } else {
-          newBalance += dataListen?.data_info_if_has_changed?.changed_amount;
+          newBalance += Number(
+            dataListen?.data_info_if_has_changed?.changed_amount,
+          );
         }
 
         setScore(newBalance?.toString());
