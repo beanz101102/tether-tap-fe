@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "../i18n/client";
 import { AnimatedCounter } from "react-animated-counter";
+import { Trans } from "react-i18next";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
@@ -86,6 +87,7 @@ const TapPageHeader = () => {
   const [isOpenModalAboutGainCoin, setIsOpenModalAboutGainCoin] =
     useState(false);
   const { t } = useTranslation("tap-game");
+  const { t: tMine } = useTranslation("mine");
   const { userTapGameInfo } = useGetUserTapGameInfo();
   const router = useRouter();
 
@@ -165,9 +167,14 @@ const TapPageHeader = () => {
               "main-text-secondary mx-auto w-[80%] text-center text-sm font-normal"
             }
           >
-            Tap the{" "}
-            <span className={"main-text-primary font-semibold"}>Mine</span> and
-            buy upgrades to earn coin faster
+            <Trans
+              t={t}
+              i18nKey={`des_modal_about_mine`}
+              components={{
+                // eslint-disable-next-line
+                span: <span className="main-text-primary font-semibold" />,
+              }}
+            />
           </p>
           <p className={"main-text-primary text-base font-bold"}>
             {t("earn_offline")}

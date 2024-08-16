@@ -16,5 +16,6 @@
   "buy": "Buy",
   "cancel": "Cancel",
   "time_left": "Time left",
-  "duration": "Duration"
+  "duration": "Duration",
+  "des_modal_about_mine": "Tap the <span>Mine</span> and buy upgrades to earn coin faster"
 }
