@@ -1,8 +1,8 @@
-import {useAtom, useSetAtom} from "jotai";
+import {useAtom, useSetAtom} from "jotai/index";
 import {WatchMinePackPurchasedAtom} from "@/features/tap-game/hooks/useBuyMinePack";
-import {ListMinePackAtom, MinePack} from "@/features/tap-game/hooks/useGetListMinePack";
 import {useEffect} from "react";
 import dayjs from "dayjs";
+import {ListMinePackAtom, MinePack} from "@/features/tap-game/hooks/useGetListMinePack";
 
 export const useWatchExpiredPacks = () => {
   const [purchasedPacks, setMinePackPurchased] = useAtom(WatchMinePackPurchasedAtom);
@@ -10,8 +10,7 @@ export const useWatchExpiredPacks = () => {
 
   useEffect(() => {
     if (purchasedPacks.length === 0) return;
-    // Watch the list of purchased packs to check if any pack has expired, and update the list accordingly
-    // Only watch the pack that has the end time less than 1 hour
+
     const handleWatchTheListPackPurchased = setInterval(() => {
       const currentTime = dayjs();
       let updatedPurchasedPacks: MinePack[] = [];
@@ -20,7 +19,6 @@ export const useWatchExpiredPacks = () => {
         const endTime = dayjs(pack.endTime);
 
         if (pack.endTime && endTime.isBefore(currentTime)) {
-          // If the pack has expired, update its properties
           setListMinePack((prev) => {
             const updatedCoinsPerSecondPacks = prev.CoinsPerSecondPacks.map(p => {
               if (p.id === pack.id) {
@@ -46,22 +44,35 @@ export const useWatchExpiredPacks = () => {
               return p;
             });
 
+            // Sort the packs: active packs first, followed by non-active packs ordered by cost
+            const sortedCoinsPerSecondPacks = updatedCoinsPerSecondPacks.sort((a, b) => {
+              if (a.isPurchased !== b.isPurchased) {
+                return a.isPurchased ? -1 : 1; // Active packs first
+              }
+              return a.cost - b.cost; // Then sort by cost
+            });
+
+            const sortedCoinsPerTapPacks = updatedCoinsPerTapPacks.sort((a, b) => {
+              if (a.isPurchased !== b.isPurchased) {
+                return a.isPurchased ? -1 : 1; // Active packs first
+              }
+              return a.cost - b.cost; // Then sort by cost
+            });
+
             return {
               ...prev,
-              CoinsPerSecondPacks: updatedCoinsPerSecondPacks.sort((a, b) => (a.isPurchased ? -1 : 1)),
-              CoinsPerTapPacks: updatedCoinsPerTapPacks.sort((a, b) => (a.isPurchased ? -1 : 1)),
+              CoinsPerSecondPacks: sortedCoinsPerSecondPacks,
+              CoinsPerTapPacks: sortedCoinsPerTapPacks,
             };
           });
         } else if (pack.endTime && endTime.diff(currentTime, 'hour') <= 1) {
-          // If the pack is still active and the end time is within 1 hour, keep it in the list
           updatedPurchasedPacks.push(pack);
         }
       });
 
-      // Update the state with the filtered list of active packs
       setMinePackPurchased(updatedPurchasedPacks);
     }, 1000);
 
-    return () => clearInterval(handleWatchTheListPackPurchased); // Clear the interval when the component unmounts
+    return () => clearInterval(handleWatchTheListPackPurchased);
   }, [purchasedPacks, setMinePackPurchased, setListMinePack]);
 };
