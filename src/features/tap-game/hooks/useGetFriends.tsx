@@ -12,11 +12,16 @@ export const useGetFriends = () => {
   const [friends, setFriends] = useAtom(FriendsAtom);
   const [page, setPage] = useState(1);
   const { currentUser } = useGetCurrentUser();
-  const { data, isLoading } = api.tapGame.getFriends.useQuery({
-    userId: Number(currentUser?.id),
-    page: page,
-    limit: 10,
-  });
+  const { data, isLoading } = api.tapGame.getFriends.useQuery(
+    {
+      userId: Number(currentUser?.id),
+      page: page,
+      limit: 10,
+    },
+    {
+      refetchInterval: 20000,
+    },
+  );
 
   const friendsDataMapping = convertBigIntInArray(
     data as FriendData[],
