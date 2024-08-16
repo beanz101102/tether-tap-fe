@@ -1,21 +1,19 @@
 "use client";
 import NextImage from "@/components/common/next-image";
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
-import { useTranslation } from "react-i18next";
-import { atom, useAtom, useAtomValue } from "jotai/index";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
 import { Button } from "@/components/ui/button";
+import { useGetCurrentBalance } from "@/features/tap-game/hooks/useGetCurrentBalance";
+import { ITransferTransactionHistory } from "@/features/tap-game/interfaces/transaction-history";
+import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
+import { api } from "@/trpc/react";
+import { getExplorerLink } from "@/utils/getExplorerLink";
+import { atom, useAtom, useAtomValue } from "jotai/index";
+import { uniqBy } from "lodash";
 import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import ListHistory from "./ListHistory";
 import SelectChain, { ChainIdAtom } from "./SelectChain";
-import Link from "next/link";
-import { getExplorerLink } from "@/utils/getExplorerLink";
-import { useEffect, useState } from "react";
-import { api } from "@/trpc/react";
-import { ITransferTransactionHistory } from "@/features/tap-game/interfaces/transaction-history";
-import { useGetCurrentBalance } from "@/features/tap-game/hooks/useGetCurrentBalance";
-import { uniqBy } from "lodash";
-import { AnimatedCounter } from "react-animated-counter";
 
 const listTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]);
 
@@ -61,18 +59,11 @@ const Wallet = () => {
           alt={"coin"}
         />
         <p className={"main-text-primary pl-2 text-3xl font-semibold"}>
-          <AnimatedCounter
-            value={Number(score ?? 0)}
-            color="white"
-            decrementColor="white"
-            incrementColor="white"
-            decimalPrecision={7}
-            includeDecimals
-            includeCommas
-            fontSize="30px"
-            containerStyles={{
-              fontWeight: "600",
-            }}
+          <AnimatedNumber
+            value={Number(Number(score ?? 0).toFixed(7))}
+            hasComma={true}
+            size={30}
+            duration={200}
           />
         </p>
       </div>

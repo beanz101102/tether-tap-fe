@@ -1,15 +1,14 @@
 "use client";
-import Image from "next/image";
-import WrapSkeleton from "@/components/ui/wrap-skeleton";
+import { useTranslation } from "@/app/[lng]/i18n/client";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import AnimatedNumber from "@/components/ui/animated-number";
-import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import WrapSkeleton from "@/components/ui/wrap-skeleton";
 import Holder from "@/features/tap-game/components/mine/Holder";
 import Tapper from "@/features/tap-game/components/mine/Tapper";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
-import { useTranslation } from "@/app/[lng]/i18n/client";
-import { formatNumberWithCommas } from "@/utils/formatNumber";
 import { useGetCurrentBalance } from "@/features/tap-game/hooks/useGetCurrentBalance";
-import { AnimatedCounter } from "react-animated-counter";
+import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import { formatNumberWithCommas } from "@/utils/formatNumber";
+import Image from "next/image";
 
 enum EconomyType {
   HOLDER = "holder",
@@ -89,17 +88,11 @@ const MinePageHeader = () => {
             className={"mr-2"}
           />
           <WrapSkeleton className={"h-[25px] w-[60px]"} isSkeleton={isLoading}>
-            <AnimatedCounter
-              value={Number(score ?? 0)}
-              color="white"
-              decrementColor="white"
-              incrementColor="white"
-              decimalPrecision={7}
-              includeCommas
-              fontSize="30px"
-              containerStyles={{
-                fontWeight: "600",
-              }}
+            <AnimatedNumber
+              value={Number(Number(score ?? 0).toFixed(7))}
+              hasComma={true}
+              size={30}
+              duration={200}
             />
           </WrapSkeleton>
         </div>

@@ -13,9 +13,8 @@ import { Info } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useTranslation } from "../i18n/client";
-import { AnimatedCounter } from "react-animated-counter";
 import { Trans } from "react-i18next";
+import { useTranslation } from "../i18n/client";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
@@ -56,17 +55,11 @@ export default function Home() {
               className={"h-[25px] w-[60px]"}
               isSkeleton={isLoading}
             >
-              <AnimatedCounter
-                value={Number(score ?? 0)}
-                color="white"
-                decrementColor="white"
-                incrementColor="white"
-                decimalPrecision={7}
-                includeCommas
-                fontSize="30px"
-                containerStyles={{
-                  fontWeight: "600",
-                }}
+              <AnimatedNumber
+                value={Number(Number(score ?? 0).toFixed(7))}
+                hasComma={true}
+                size={30}
+                duration={200}
               />
             </WrapSkeleton>
           </div>
