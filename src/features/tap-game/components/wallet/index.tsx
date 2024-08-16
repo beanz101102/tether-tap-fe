@@ -66,7 +66,8 @@ const Wallet = () => {
             color="white"
             decrementColor="white"
             incrementColor="white"
-            decimalPrecision={6}
+            decimalPrecision={7}
+            includeDecimals
             includeCommas
             fontSize="30px"
             containerStyles={{
