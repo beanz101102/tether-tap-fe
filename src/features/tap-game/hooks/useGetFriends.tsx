@@ -39,6 +39,8 @@ export const useGetFriends = () => {
     });
   }, [JSON.stringify(friendsDataMapping), data, isLoading]);
 
+  console.log("friends", friends);
+
   return {
     friends,
     handleGetMore: () => setPage((prev) => prev + 1),
