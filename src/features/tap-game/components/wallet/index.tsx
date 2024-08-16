@@ -1,29 +1,29 @@
 "use client";
 import NextImage from "@/components/common/next-image";
-import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
-import {useTranslation} from "react-i18next";
-import {atom, useAtom, useAtomValue} from "jotai/index";
-import {formatNumberWithCommas} from "@/utils/formatNumber";
-import {Button} from "@/components/ui/button";
-import {ExternalLink} from "lucide-react";
+import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
+import { useTranslation } from "react-i18next";
+import { atom, useAtom, useAtomValue } from "jotai/index";
+import { formatNumberWithCommas } from "@/utils/formatNumber";
+import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
 import ListHistory from "./ListHistory";
-import SelectChain, {ChainIdAtom} from "./SelectChain";
+import SelectChain, { ChainIdAtom } from "./SelectChain";
 import Link from "next/link";
-import {getExplorerLink} from "@/utils/getExplorerLink";
-import {useEffect, useState} from "react";
-import {api} from "@/trpc/react";
-import {ITransferTransactionHistory} from "@/features/tap-game/interfaces/transaction-history";
-import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
-import {uniqBy} from "lodash";
+import { getExplorerLink } from "@/utils/getExplorerLink";
+import { useEffect, useState } from "react";
+import { api } from "@/trpc/react";
+import { ITransferTransactionHistory } from "@/features/tap-game/interfaces/transaction-history";
+import { useGetCurrentBalance } from "@/features/tap-game/hooks/useGetCurrentBalance";
+import { uniqBy } from "lodash";
+import { AnimatedCounter } from "react-animated-counter";
 
 const listTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]);
-
 
 const Wallet = () => {
   const { t } = useTranslation("tap-game", {
     keyPrefix: "wallet",
   });
-  const currentChainId = useAtomValue(ChainIdAtom)
+  const currentChainId = useAtomValue(ChainIdAtom);
   const { currentUser } = useGetCurrentUser();
   const score = useGetCurrentBalance();
 
@@ -42,7 +42,7 @@ const Wallet = () => {
           />
           <p
             className={
-              "main-text-secondary text:sm xs:text-base pl-1 font-medium truncate max-w-[160px]"
+              "main-text-secondary text:sm xs:text-base max-w-[160px] truncate pl-1 font-medium"
             }
           >
             {currentUser?.name}
@@ -61,7 +61,18 @@ const Wallet = () => {
           alt={"coin"}
         />
         <p className={"main-text-primary pl-2 text-3xl font-semibold"}>
-          {formatNumberWithCommas(Number(Number(score).toFixed(7)))}
+          <AnimatedCounter
+            value={Number(score ?? 0)}
+            color="white"
+            decrementColor="white"
+            incrementColor="white"
+            decimalPrecision={6}
+            includeCommas
+            fontSize="30px"
+            containerStyles={{
+              fontWeight: "600",
+            }}
+          />
         </p>
       </div>
       <div className="mt-6 flex">
@@ -79,7 +90,11 @@ const Wallet = () => {
       <Link
         className={"mt-3"}
         target={"_blank"}
-        href={getExplorerLink(currentUser?.address ?? "", "address", currentChainId)}
+        href={getExplorerLink(
+          currentUser?.address ?? "",
+          "address",
+          currentChainId,
+        )}
       >
         <div className="flex items-center">
           <ExternalLink className="main-text-brand mr-1 h-4 w-4" />
@@ -87,7 +102,7 @@ const Wallet = () => {
         </div>
       </Link>
       <div className={"w-full px-4"}>
-      <ListTransactionHistory/>
+        <ListTransactionHistory />
       </div>
     </div>
   );
@@ -96,23 +111,33 @@ const Wallet = () => {
 const ListTransactionHistory = () => {
   const { currentUser } = useGetCurrentUser();
   const [page, setPage] = useState(1);
-  const [listTransactionHistory, setListTransactionHistory] = useAtom(listTransactionHistoryAtom);
-  const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery({
-    address: currentUser?.address as string,
-    pageSize: 20,
-    page: page,
-    status: "all",
-  }, {
-    refetchInterval: 10000
-  });
+  const [listTransactionHistory, setListTransactionHistory] = useAtom(
+    listTransactionHistoryAtom,
+  );
+  const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery(
+    {
+      address: currentUser?.address as string,
+      pageSize: 20,
+      page: page,
+      status: "all",
+    },
+    {
+      refetchInterval: 10000,
+    },
+  );
 
   useEffect(() => {
     if (!data || isLoading) return;
     if (page === 1) {
-      setListTransactionHistory(uniqBy(data?.listTransactionHistory as any[],'id'));
+      setListTransactionHistory(
+        uniqBy(data?.listTransactionHistory as any[], "id"),
+      );
     } else {
       setListTransactionHistory(
-        uniqBy([...listTransactionHistory, ...(data?.listTransactionHistory as any)], 'id'),
+        uniqBy(
+          [...listTransactionHistory, ...(data?.listTransactionHistory as any)],
+          "id",
+        ),
       );
     }
   }, [data, page, isLoading]);
@@ -124,7 +149,7 @@ const ListTransactionHistory = () => {
       isLoading={isLoading}
       nextPage={() => setPage(page + 1)}
     />
-  )
-}
+  );
+};
 
 export default Wallet;

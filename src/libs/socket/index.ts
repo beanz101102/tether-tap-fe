@@ -28,7 +28,9 @@ export const useConnectSocket = () => {
             if (data?.code === 200) {
               setUserTabGameInfo({
                 ...data?.data,
-                coins_bonus_per_hour: data?.data?.coins_bonus_per_hour ? Number(data?.data?.coins_bonus_per_hour) * 3600 : 0
+                coins_bonus_per_hour: data?.data?.coins_bonus_per_hour
+                  ? Number(data?.data?.coins_bonus_per_hour)
+                  : 0,
               });
               setScore(data?.data?.coins_balance ?? 0);
               nano.on(SocketRoutes.onUserUpdated, (data: unknown) => {

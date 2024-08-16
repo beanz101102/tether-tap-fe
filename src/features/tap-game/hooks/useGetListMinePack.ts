@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { atom, useAtom } from "jotai";
 import { api } from "@/trpc/react";
 import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
-import {useSetAtom} from "jotai/index";
-import {WatchMinePackPurchasedAtom} from "@/features/tap-game/hooks/useBuyMinePack";
+import { useSetAtom } from "jotai/index";
+import { WatchMinePackPurchasedAtom } from "@/features/tap-game/hooks/useBuyMinePack";
 
 export interface MinePack {
   id: number;
@@ -45,7 +45,10 @@ export const useGetListMinePack = () => {
   const setMinePackPurchased = useSetAtom(WatchMinePackPurchasedAtom);
 
   useEffect(() => {
-    if (listMinePack?.CoinsPerTapPacks?.length !== 0 || listMinePack?.CoinsPerSecondPacks?.length !== 0) {
+    if (
+      listMinePack?.CoinsPerTapPacks?.length !== 0 ||
+      listMinePack?.CoinsPerSecondPacks?.length !== 0
+    ) {
       setIsLoading(false);
       return;
     }
@@ -62,7 +65,7 @@ export const useGetListMinePack = () => {
           name: pack.name,
           image: pack.image,
           cost: pack.cost,
-          upgradedAmt: pack.packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND ? Number(pack?.upgradedAmt) * 3600 : Number(pack?.upgradedAmt),
+          upgradedAmt: Number(pack?.upgradedAmt),
           duration: pack.duration,
           packType: pack.packType,
           isPurchased: pack.isPurchased,

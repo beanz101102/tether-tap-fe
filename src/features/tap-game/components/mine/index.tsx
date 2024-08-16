@@ -2,13 +2,14 @@
 import Image from "next/image";
 import WrapSkeleton from "@/components/ui/wrap-skeleton";
 import AnimatedNumber from "@/components/ui/animated-number";
-import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
 import Holder from "@/features/tap-game/components/mine/Holder";
 import Tapper from "@/features/tap-game/components/mine/Tapper";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/Tabs";
-import {useTranslation} from "@/app/[lng]/i18n/client";
-import {formatNumberWithCommas} from "@/utils/formatNumber";
-import {useGetCurrentBalance} from "@/features/tap-game/hooks/useGetCurrentBalance";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
+import { useTranslation } from "@/app/[lng]/i18n/client";
+import { formatNumberWithCommas } from "@/utils/formatNumber";
+import { useGetCurrentBalance } from "@/features/tap-game/hooks/useGetCurrentBalance";
+import { AnimatedCounter } from "react-animated-counter";
 
 enum EconomyType {
   HOLDER = "holder",
@@ -25,7 +26,7 @@ const Mine = () => {
 };
 
 const MinePageContent = () => {
-  const {t} =  useTranslation('mine');
+  const { t } = useTranslation("mine");
   return (
     <Tabs
       defaultValue={EconomyType.HOLDER}
@@ -39,7 +40,7 @@ const MinePageContent = () => {
           <p
             className={"main-text-red max-w-full truncate text-xs font-medium"}
           >
-            {t('holder')}
+            {t("holder")}
           </p>
         </TabsTrigger>
         <TabsTrigger
@@ -49,7 +50,7 @@ const MinePageContent = () => {
           <p
             className={"main-text-red max-w-full truncate text-xs font-medium"}
           >
-            {t('tapper')}
+            {t("tapper")}
           </p>
         </TabsTrigger>
       </TabsList>
@@ -64,7 +65,7 @@ const MinePageContent = () => {
 };
 
 const MinePageHeader = () => {
-  const {t} = useTranslation('mine');
+  const { t } = useTranslation("mine");
   const { userTapGameInfo } = useGetUserTapGameInfo();
   const { isLoading } = useGetUserTapGameInfo();
   const score = useGetCurrentBalance();
@@ -76,7 +77,7 @@ const MinePageHeader = () => {
           "main-text-secondary mt-6 w-full text-center text-sm font-medium"
         }
       >
-        {t('your_coin_balance')}
+        {t("your_coin_balance")}
       </p>
       <div className={"mb-3 h-full w-full px-4 pt-3"}>
         <div className={"flex items-center justify-center"}>
@@ -88,11 +89,17 @@ const MinePageHeader = () => {
             className={"mr-2"}
           />
           <WrapSkeleton className={"h-[25px] w-[60px]"} isSkeleton={isLoading}>
-            <AnimatedNumber
-              value={Number(Number(score ?? 0).toFixed(7))}
-              hasComma={true}
-              size={30}
-              duration={200}
+            <AnimatedCounter
+              value={Number(score ?? 0)}
+              color="white"
+              decrementColor="white"
+              incrementColor="white"
+              decimalPrecision={6}
+              includeCommas
+              fontSize="30px"
+              containerStyles={{
+                fontWeight: "600",
+              }}
             />
           </WrapSkeleton>
         </div>
@@ -105,7 +112,7 @@ const MinePageHeader = () => {
           }
         >
           <p className={"main-text-secondary text-xs font-medium"}>
-            {t('earn_per_hour')}
+            {t("earn_per_hour")}
           </p>
           <div className={"flex items-center gap-1"}>
             <Image
@@ -116,7 +123,11 @@ const MinePageHeader = () => {
               className={"mr-2 h-5 w-5"}
             />
             <p className={"main-text-primary font-bold"}>
-              +{formatNumberWithCommas(userTapGameInfo?.coins_bonus_per_hour ?? 0, 3)}
+              +
+              {formatNumberWithCommas(
+                userTapGameInfo?.coins_bonus_per_hour ?? 0,
+                3,
+              )}
             </p>
           </div>
         </div>
@@ -127,7 +138,7 @@ const MinePageHeader = () => {
           }
         >
           <p className={"main-text-secondary text-xs font-medium"}>
-            {t('earn_per_tap')}
+            {t("earn_per_tap")}
           </p>
           <div className={"flex items-center gap-1"}>
             <Image
@@ -148,10 +159,10 @@ const MinePageHeader = () => {
           "main-text-secondary my-1 w-full text-center text-xs font-medium"
         }
       >
-        {t('boost_economic')}
+        {t("boost_economic")}
       </p>
       <p className={"main-text-primary w-full text-center text-sm font-normal"}>
-        {t('earn_offline')}
+        {t("earn_offline")}
       </p>
     </div>
   );

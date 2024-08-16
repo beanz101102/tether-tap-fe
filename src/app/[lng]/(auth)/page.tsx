@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useTranslation } from "../i18n/client";
+import { AnimatedCounter } from "react-animated-counter";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
@@ -54,11 +55,17 @@ export default function Home() {
               className={"h-[25px] w-[60px]"}
               isSkeleton={isLoading}
             >
-              <AnimatedNumber
-                value={Number(Number(score ?? 0).toFixed(7))}
-                hasComma={true}
-                size={30}
-                duration={200}
+              <AnimatedCounter
+                value={Number(score ?? 0)}
+                color="white"
+                decrementColor="white"
+                incrementColor="white"
+                decimalPrecision={6}
+                includeCommas
+                fontSize="30px"
+                containerStyles={{
+                  fontWeight: "600",
+                }}
               />
             </WrapSkeleton>
           </div>
