@@ -80,7 +80,7 @@ export const useListenUserTapGameInfoUpdated = () => {
       coins_bonus_per_hour:
         Number(dataListen?.coins_bonus_per_hour) !==
         Number(userTapGameInfoClone?.coins_bonus_per_hour)
-          ? Number(dataListen?.coins_bonus_per_hour)
+          ? Number(dataListen?.coins_bonus_per_hour) * 3600
           : Number(userTapGameInfoClone?.coins_bonus_per_hour),
       coins_balance: handleCalculatorBalance(),
     });

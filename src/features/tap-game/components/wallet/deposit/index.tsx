@@ -84,12 +84,19 @@ const ListTransactionHistory = () => {
   useEffect(() => {
     if (!data || isLoading) return;
     if (page === 1) {
-      setListDepositTransactionHistory(data?.listTransactionHistory as any[]);
+      setListDepositTransactionHistory(
+        uniqBy(data?.listTransactionHistory as any[], "id"),
+      );
     } else {
-      setListDepositTransactionHistory([
-        ...listDepositTransactionHistory,
-        ...(data?.listTransactionHistory as any),
-      ]);
+      setListDepositTransactionHistory(
+        uniqBy(
+          [
+            ...listDepositTransactionHistory,
+            ...(data?.listTransactionHistory as any),
+          ],
+          "id",
+        ),
+      );
     }
   }, [data, page, isLoading]);
 
