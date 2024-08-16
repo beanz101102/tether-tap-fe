@@ -1,9 +1,13 @@
 "use client";
 import NextImage from "@/components/common/next-image";
-import {KeyCheckUserSpecificActionStatus, QuestType,} from "../../interfaces/tap-game";
-import ItemQuest, {ItemQuestProps} from "./ItemQuest";
-import {useTranslation} from "@/app/[lng]/i18n/client";
-import {useGetListQuest} from "@/features/tap-game/hooks/useGetListQuest";
+import {
+  KeyCheckUserSpecificActionStatus,
+  QuestType,
+} from "../../interfaces/tap-game";
+import ItemQuest, { ItemQuestProps } from "./ItemQuest";
+import { useTranslation } from "@/app/[lng]/i18n/client";
+import { useGetListQuest } from "@/features/tap-game/hooks/useGetListQuest";
+import { urlTelegramChannel } from "../../constants/tap-game";
 
 const Earn = () => {
   const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
@@ -29,14 +33,14 @@ const Earn = () => {
       <p className={"main-text-secondary mt-2 text-center text-sm font-normal"}>
         {t("des_earn_more_coin")}
       </p>
-      <ListQuest/>
+      <ListQuest />
     </div>
   );
 };
 
 const ListQuest = () => {
-  const {t} = useTranslation("tap-game", {keyPrefix: "earn"});
-  const {checkUserSpecificActionStatusData, loading} = useGetListQuest();
+  const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
+  const { checkUserSpecificActionStatusData, loading } = useGetListQuest();
   const listQuestData: ItemQuestProps[] = [
     // {
     //   questDetail: {
@@ -56,7 +60,7 @@ const ListQuest = () => {
     {
       questDetail: {
         title: "join_telegram_channel",
-        action_url: "https://t.me/pepe",
+        action_url: urlTelegramChannel ?? "",
       },
       type: QuestType.TELEGRAM,
       isClaim:

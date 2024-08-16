@@ -13,8 +13,8 @@ export interface UserCoinsLevelInfo {
 }
 
 export const ActionType = {
-  INCREASE: 'INCREASE',
-  DECREASE: 'DECREASE',
+  INCREASE: "INCREASE",
+  DECREASE: "DECREASE",
 };
 
 export interface UserTapGameInfo {
@@ -35,4 +35,6 @@ export const ChainId = {
   ETH: process.env.NEXT_PUBLIC_IS_DEV ? 5 : 1,
   BASE: process.env.NEXT_PUBLIC_IS_DEV ? 84532 : 8453,
   ARB: process.env.NEXT_PUBLIC_IS_DEV ? 421613 : 42161,
-}
+};
+
+export const urlTelegramChannel = process.env.NEXT_PUBLIC_URL_TELEGRAM_CHANNEL;
