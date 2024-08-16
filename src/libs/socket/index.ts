@@ -66,6 +66,8 @@ export const useConnectSocket = () => {
         },
         (data: any) => {
           if (data?.code === 200) {
+            console.log("InitConnect", data?.data);
+
             setCurrentUser(data?.data);
           } else if (data.code === 5002) {
             nano.request(
@@ -76,6 +78,7 @@ export const useConnectSocket = () => {
               },
               (data: any) => {
                 if (data?.code === 200) {
+                  console.log("Register", data?.data);
                   setCurrentUser(data?.data);
                   getUserTapGame();
                   callback();
