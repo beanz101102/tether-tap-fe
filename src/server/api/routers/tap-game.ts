@@ -21,7 +21,7 @@ export const tapGameRouter = createTRPCRouter({
             u.avatar as avatar_url,
             COALESCE(c.balance, 0) AS total_coins_earned,
             COALESCE(t.changed_amount, 0) AS changed_amount,
-            COALESCE(SUM(DISTINCT b.changed_amount), 0) AS total_benefits
+            COALESCE(SUM(b.changed_amount), 0) AS total_benefits
         FROM
             referrals r
         JOIN
@@ -78,7 +78,10 @@ export const tapGameRouter = createTRPCRouter({
         upgradedAmt: pack.upgraded_amt.toString(), // Convert Decimal to string
         duration: pack.duration,
         packType: pack.pack_type,
-        isPurchased: pack.user_pack_id !== null && pack.end_time !== null && new Date(pack.end_time) > new Date(),
+        isPurchased:
+          pack.user_pack_id !== null &&
+          pack.end_time !== null &&
+          new Date(pack.end_time) > new Date(),
         userPackId: pack.user_pack_id,
         endTime: pack.end_time,
         isActive: pack.end_time ? new Date(pack.end_time) > new Date() : false,
