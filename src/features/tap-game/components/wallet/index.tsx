@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ListHistory from "./ListHistory";
 import SelectChain, { ChainIdAtom } from "./SelectChain";
+import AnimatedNumber from "@/components/ui/animated-number";
 
 const listTransactionHistoryAtom = atom<ITransferTransactionHistory[]>([]);
 
