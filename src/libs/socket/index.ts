@@ -5,22 +5,10 @@ import { useAtom } from "jotai";
 import { userTapGameInfoAtom } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
 import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
 import { useDispatch } from "react-redux";
+import { useInitData } from "@tma.js/sdk-react";
 
 export const useConnectSocket = () => {
-  const initData = {
-    authDate: "Sat Jun 29 2024 21:43:24 GMT+0700 (Indochina Time)",
-    chatInstance: "-6193176154102234457",
-    chatType: "sender",
-    hash: "01d0880618f99b99289ae590c7b5a466b44f29e71babd257eb2dc463c54c9bb6",
-    user: {
-      allowsWriteToPm: true,
-      firstName: "Beanz",
-      id: 1886171394,
-      languageCode: "en",
-      lastName: "",
-      username: "beanz02",
-    },
-  };
+  const initData = useInitData();
 
   const { setCurrentUser } = useGetCurrentUser();
   const [, setUserTabGameInfo] = useAtom(userTapGameInfoAtom);
