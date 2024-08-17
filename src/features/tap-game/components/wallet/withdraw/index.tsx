@@ -210,7 +210,7 @@ const ModalConfirm = ({
   const feeWithdraw = 0.5;
 
   const isShowErr = useMemo(
-    () => Number(currentBalance) - Number(amount + feeWithdraw) <= 0,
+    () => Number(amount + feeWithdraw) > Number(currentBalance),
     [currentBalance, amount, feeWithdraw],
   );
 
