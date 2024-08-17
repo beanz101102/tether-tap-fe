@@ -21,6 +21,4 @@ export const useCalculatorCoinPerSecond = () => {
 
     return () => clearInterval(interval); // Clean up interval on unmount
   }, [coinsPerSecond]);
-
-  console.log('currentTotal', currentTotal);
 };
