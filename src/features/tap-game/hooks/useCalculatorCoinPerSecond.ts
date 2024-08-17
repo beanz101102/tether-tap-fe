@@ -1,6 +1,6 @@
-import {useEffect} from 'react';
-import {atom, useAtom} from 'jotai';
-import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import { useEffect } from "react";
+import { atom, useAtom } from "jotai";
+import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
 
 export const calculatorCoinPerSecondAtom = atom<number>(0);
 
@@ -11,10 +11,11 @@ export const useCalculatorCoinPerSecond = () => {
   const coinsPerSecond = coinsPerHour / 3600; // Calculate coins per second
 
   useEffect(() => {
+    if (coinsPerHour === 0) return;
     const interval = setInterval(() => {
-      setCurrentTotal(prevTotal => {
+      setCurrentTotal((prevTotal) => {
         const newTotal = prevTotal + coinsPerSecond;
-        return Math.min(newTotal, coinsPerHour); // Ensure we don't exceed coinsPerHour
+        return newTotal; // Ensure we don't exceed coinsPerHour
       });
     }, 1000);
 
