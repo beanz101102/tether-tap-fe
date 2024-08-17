@@ -14,7 +14,7 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
   const { taps, setTaps, handleTap, isDisable } = useTap();
   const controls = useAnimation();
   const tapAreaRef = useRef<HTMLDivElement>();
-  const { userTapGameInfo } = useGetUserTapGameInfo();
+  const { userTapGameInfo, isLoading } = useGetUserTapGameInfo();
   const animateCoin = async () => {
     await controls.start({
       scale: [1, 0.95, 1],
@@ -45,7 +45,7 @@ const TapArea: FC<TapAreaProps> = memo(({ className }) => {
     <div
       ref={tapAreaRef as LegacyRef<HTMLDivElement>}
       onTouchStart={(e) => {
-        // if (isLoading) return;
+        if (isLoading) return;
         handleTap(e);
         animateCoin();
       }}
