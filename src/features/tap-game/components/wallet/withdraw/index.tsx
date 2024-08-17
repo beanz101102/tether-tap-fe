@@ -209,11 +209,6 @@ const ModalConfirm = ({
   const currentBalance = useGetCurrentBalance();
   const feeWithdraw = 0.5;
 
-  const isShowErr = useMemo(
-    () => Number(amount + feeWithdraw) > Number(currentBalance),
-    [currentBalance, amount, feeWithdraw],
-  );
-
   return (
     <ShadModal isOpen={isOpen} onOpen={setOpen}>
       <div className={"w-full"}>
@@ -279,11 +274,11 @@ const ModalConfirm = ({
             </div>
           </div>
         </div>
-        {isShowErr && (
+        {/* {isShowErr && (
           <p className="main-text-danger mt-1 text-sm font-normal">
             {tUpgrade("err_balance")}
           </p>
-        )}
+        )} */}
         <div className={"mt-4 flex w-full items-center justify-between"}>
           <p className={"main-text-read text-sm font-normal"}>
             {t("total_received")}
@@ -301,7 +296,7 @@ const ModalConfirm = ({
           variant={"common"}
           className={"mt-6 !h-10 w-full"}
           onClick={onConfirm}
-          disabled={isShowErr}
+          // disabled={isShowErr}
           loading={isLoadingConfirm}
         >
           {t("confirm")}
