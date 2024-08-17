@@ -1,21 +1,21 @@
 "use client";
 
 import ConnectingApp from "@/components/common/ConnectingApp";
-import {HookGlobals} from "@/components/common/HookGlobals";
-import {EnergyRecoveryGlobal} from "@/features/tap-game/components/Energy";
+import { HookGlobals } from "@/components/common/HookGlobals";
+import { EnergyRecoveryGlobal } from "@/features/tap-game/components/Energy";
 import JoinTabGameDesktop from "@/features/tap-game/components/JoinTelegramDesktop";
 import TabBarMiniGameApp from "@/features/tap-game/components/menu";
-import {useActivePage} from "@/libs/hooks/useActivePage";
-import {useGetCurrentUser} from "@/libs/hooks/useGetCurrentUser";
-import {cn} from "@/utils/cn";
-import {useParams, useRouter} from "next/navigation";
-import {useEffect, useRef, useState} from "react";
-import {LocaleTypes} from "../i18n/settings";
-import {useSendSocketRequest} from "@/libs/hooks/useSendSocketRequest";
-import {SocketRoutes} from "@/libs/redux/features/socketSlice";
+import { useActivePage } from "@/libs/hooks/useActivePage";
+import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
+import { cn } from "@/utils/cn";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { LocaleTypes } from "../i18n/settings";
+import { useSendSocketRequest } from "@/libs/hooks/useSendSocketRequest";
+import { SocketRoutes } from "@/libs/redux/features/socketSlice";
 import ModalTotalEarnedWhileOffline from "@/features/tap-game/components/earn/TotalEarnedWhileOffline";
-import {atom, useAtom} from "jotai";
-import {useGetUserTapGameInfo} from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import { atom, useAtom } from "jotai";
+import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
 
 export interface ICoinGainedWhileOfflineAtom {
   profit: number;
@@ -31,8 +31,11 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isOpenModalProfitWhileOffline, setOpenModalProfitWhileOffline] = useState(true);
-  const [coinGainedWhileOffline, setCoinGainedWhileOffline] = useAtom(coinGainedWhileOfflineAtom);
+  const [isOpenModalProfitWhileOffline, setOpenModalProfitWhileOffline] =
+    useState(true);
+  const [coinGainedWhileOffline, setCoinGainedWhileOffline] = useAtom(
+    coinGainedWhileOfflineAtom,
+  );
   const { userTapGameInfo } = useGetUserTapGameInfo();
   const router = useRouter();
   const lng = useParams()?.lng as LocaleTypes;
@@ -57,33 +60,55 @@ export default function AuthLayout({
     enable: false,
   });
 
-  const {trigger: getCoinGainedWhileOffline} = useSendSocketRequest({
+  const { trigger: getCoinGainedWhileOffline } = useSendSocketRequest({
     route: SocketRoutes.GetCoinsBonusFromLastTimeOnline,
+    callback: (cb) => {
+      console.log("cb_getCoinsBonusFromLastTimeOnline", cb);
+    },
     enable: false,
     onDone: (cb: { data: { coins_bonus_from_last_time_online: number } }) => {
       isReadyToCallPingPongRef.current = true;
       setCoinGainedWhileOffline({
-        profit: cb?.data?.coins_bonus_from_last_time_online ? Number(Number(cb?.data?.coins_bonus_from_last_time_online).toFixed(8)) : 0,
+        profit: cb?.data?.coins_bonus_from_last_time_online
+          ? Number(
+              Number(cb?.data?.coins_bonus_from_last_time_online).toFixed(8),
+            )
+          : 0,
         isShowUp: true,
       });
-    }
+    },
   });
 
   useEffect(() => {
     if (!currentUser) return;
     getCoinGainedWhileOffline({
-      user_id: currentUser?.id
+      user_id: currentUser?.id,
     });
   }, [currentUser]);
 
   useEffect(() => {
-    if (!userTapGameInfo?.coins_bonus_per_hour || !coinGainedWhileOffline?.profit) return;
+    console.log(
+      "userTapGameInfo?.coins_bonus_per_hour",
+      userTapGameInfo?.coins_bonus_per_hour,
+      "coinGainedWhileOffline?.profit",
+      coinGainedWhileOffline?.profit,
+    );
+    if (
+      !userTapGameInfo?.coins_bonus_per_hour ||
+      !coinGainedWhileOffline?.profit
+    )
+      return;
     const profitPerSecond = userTapGameInfo?.coins_bonus_per_hour / 3600;
     const profitGainedWhileOffline = coinGainedWhileOffline?.profit;
     const timeOffline = profitGainedWhileOffline / profitPerSecond;
-    console.log('timeOffline', timeOffline, profitGainedWhileOffline, profitPerSecond);
+    console.log(
+      "timeOffline",
+      timeOffline,
+      profitGainedWhileOffline,
+      profitPerSecond,
+    );
     if (timeOffline > 15) {
-      setCoinGainedWhileOffline(prev => {
+      setCoinGainedWhileOffline((prev) => {
         return {
           ...prev,
           isShowUp: false,
@@ -98,7 +123,7 @@ export default function AuthLayout({
     setInterval(() => {
       if (!isReadyToCallPingPongRef.current) return;
       trigger({
-        user_id: currentUser?.id
+        user_id: currentUser?.id,
       });
     }, 5000);
   }, [currentUser]);
@@ -126,7 +151,11 @@ export default function AuthLayout({
                   <TabBarMiniGameApp />
                   <EnergyRecoveryGlobal />
                   <ModalTotalEarnedWhileOffline
-                    isOpen={isOpenModalProfitWhileOffline && !coinGainedWhileOffline.isShowUp && !!coinGainedWhileOffline?.profit}
+                    isOpen={
+                      isOpenModalProfitWhileOffline &&
+                      !coinGainedWhileOffline.isShowUp &&
+                      !!coinGainedWhileOffline?.profit
+                    }
                     setOpen={setOpenModalProfitWhileOffline}
                     profit={coinGainedWhileOffline.profit}
                   />
