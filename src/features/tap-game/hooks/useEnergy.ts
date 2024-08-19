@@ -5,9 +5,9 @@ import {UserTapGameInfo} from "@/features/tap-game/constants/tap-game";
 export const useEnergy = () => {
   const { setUserTabGameInfo, userTapGameInfo } = useGetUserTapGameInfo();
   const handleEnergy = (newEnergy: number) => {
-    setUserTabGameInfo(prev => {
+    setUserTabGameInfo((prev: UserTapGameInfo) => {
       return {
-        ...prev,
+        ...(prev as UserTapGameInfo),
         energy_balance: newEnergy,
       }
     });
