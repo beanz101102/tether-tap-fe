@@ -123,7 +123,7 @@ export default function AuthLayout({
       profitGainedWhileOffline,
       profitPerSecond,
     );
-    if (timeOffline > 5) {
+    if (timeOffline > 3 && coinGainedWhileOffline?.profit !== 0) {
       setCoinGainedWhileOffline((prev) => {
         return {
           ...prev,
@@ -170,7 +170,8 @@ export default function AuthLayout({
                     isOpen={
                       isOpenModalProfitWhileOffline &&
                       !coinGainedWhileOffline.isShowUp &&
-                      !!coinGainedWhileOffline?.profit
+                      !!coinGainedWhileOffline?.profit &&
+                      coinGainedWhileOffline?.profit > 0
                     }
                     setOpen={setOpenModalProfitWhileOffline}
                     profit={coinGainedWhileOffline.profit}
