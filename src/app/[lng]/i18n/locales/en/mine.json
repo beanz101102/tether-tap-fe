@@ -17,5 +17,7 @@
   "cancel": "Cancel",
   "time_left": "Time left",
   "duration": "Duration",
-  "des_modal_about_mine": "Tap the <span>Mine</span> and buy upgrades to earn coin faster"
+  "des_modal_about_mine": "Tap the <span>Mine</span> and buy upgrades to earn coin faster",
+  "mine_offline_title": "Total USDT earned",
+  "mine_offline_des": "Welcome back! Here's the USDT you earned offline. Check the app often to earn more and explore exciting mining packages!"
 }

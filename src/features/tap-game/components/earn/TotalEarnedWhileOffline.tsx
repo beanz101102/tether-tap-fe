@@ -5,6 +5,7 @@ import ShadModal from "@/components/ui/ShadModal";
 import Image from "next/image";
 import {useAtom} from "jotai";
 import {coinGainedWhileOfflineAtom} from "@/app/[lng]/(auth)/layout";
+import {useTranslation} from "@/app/[lng]/i18n/client";
 
 interface ModalTotalEarnedWhileOfflineProps {
   isOpen: boolean;
@@ -13,11 +14,12 @@ interface ModalTotalEarnedWhileOfflineProps {
 }
 
 const ModalTotalEarnedWhileOffline: FC<ModalTotalEarnedWhileOfflineProps> = ({ isOpen, setOpen, profit }) => {
+  const { t } = useTranslation("mine");
   return (
     <ShadModal isOpen={isOpen} onOpen={setOpen}>
       <CleanUpComponent />
       <div className={'px-3 pt-3 pb-6'}>
-        <p className={'text-lg font-bold text-center main-text-primary w-full '}>Total USDT earned</p>
+        <p className={'text-lg font-bold text-center main-text-primary w-full '}>{t('mine_offline_title')}</p>
         <div className={'w-[64px] h-[64px] mx-auto mt-6 mb-3'}>
           <Image src={'/img/tap-game/coin.webp'} width={64} height={63} alt={'coin'} className={'w-full h-full'} />
         </div>
@@ -25,7 +27,7 @@ const ModalTotalEarnedWhileOffline: FC<ModalTotalEarnedWhileOfflineProps> = ({ i
           +{formatNumberWithCommas(profit)}
         </p>
         <p className={'main-text-secondary text-sm font-normal mb-6 w-full text-center'}>
-          Welcome back! Here's the USDT you earned offline. Check the app often to earn more and explore exciting mining packages!
+          {t('mine_offline_des')}
         </p>
         <Button
           className={'rounded-2xl w-full'}
