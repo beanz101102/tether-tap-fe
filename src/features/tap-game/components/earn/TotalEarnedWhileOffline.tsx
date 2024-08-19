@@ -24,7 +24,9 @@ const ModalTotalEarnedWhileOffline: FC<ModalTotalEarnedWhileOfflineProps> = ({ i
         <p className={'main-text-primary text-xl font-semibold w-full text-center mb-3'}>
           +{formatNumberWithCommas(profit)}
         </p>
-        <p className={'main-text-secondary text-sm font-normal mb-6 w-full text-center'}>The economy has been extremely active while you were offline. Check back regularly to collect your coins.</p>
+        <p className={'main-text-secondary text-sm font-normal mb-6 w-full text-center'}>
+          Welcome back! Here's the USDT you earned offline. Check the app often to earn more and explore exciting mining packages!
+        </p>
         <Button
           className={'rounded-2xl w-full'}
           onClick={() => {
