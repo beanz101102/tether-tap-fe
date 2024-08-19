@@ -80,7 +80,7 @@ export default function AuthLayout({
   });
 
   useEffect(() => {
-    if (!currentUser || !userTapGameInfo || isLoading) return;
+    if (!currentUser || !userTapGameInfo || isLoading || isReadyToCallPingPongRef.current) return;
 
     let retryCount = 0; // Initialize retry count
     const maxRetryCount = 10; // Maximum retry count
@@ -149,6 +149,12 @@ export default function AuthLayout({
       WebApp.expand();
     }
   }, [WebApp]);
+
+  useEffect(() => {
+    console.log('open modal', isOpenModalProfitWhileOffline,
+      !coinGainedWhileOffline.isShowUp,
+      coinGainedWhileOffline?.profit);
+  }, [isOpenModalProfitWhileOffline, coinGainedWhileOffline.isShowUp, coinGainedWhileOffline?.profit]);
 
   return (
     <div>
