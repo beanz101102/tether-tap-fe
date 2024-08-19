@@ -21,7 +21,7 @@ export const tapGameRouter = createTRPCRouter({
             u.avatar as avatar_url,
             COALESCE(c.balance, 0) AS total_coins_earned,
             COALESCE(t.changed_amount, 0) AS changed_amount,
-            COALESCE(SUM(b.changed_amount), 0) AS total_benefits
+            r.rewards_earned AS total_benefits
         FROM
             referrals r
         JOIN
@@ -35,7 +35,7 @@ export const tapGameRouter = createTRPCRouter({
         WHERE
             r.user_id_referer = ${userId}
         GROUP BY
-            u.id, u.name, u.avatar, c.balance, t.changed_amount
+            u.id, u.name, u.avatar, c.balance, t.changed_amount, r.rewards_earned
         LIMIT ${limit} OFFSET ${skip}
 `;
 
