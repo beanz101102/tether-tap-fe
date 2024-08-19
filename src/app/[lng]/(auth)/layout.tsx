@@ -44,7 +44,6 @@ export default function AuthLayout({
   const { currentUser } = useGetCurrentUser();
   const isMobile = true;
   const WebApp = window?.Telegram?.WebApp;
-  const isReadyToCallPingPongRef = useRef<boolean>(false);
   useEffect(() => {
     if (
       currentUser &&
@@ -59,48 +58,6 @@ export default function AuthLayout({
     route: SocketRoutes.PingPong,
     enable: false,
   });
-
-  const { trigger: getCoinGainedWhileOffline } = useSendSocketRequest({
-    route: SocketRoutes.GetCoinsBonusFromLastTimeOnline,
-    callback: (cb) => {
-      console.log("cb_getCoinsBonusFromLastTimeOnline", cb);
-    },
-    enable: false,
-    onDone: (cb: { data: { coins_bonus_from_last_time_online: number } }) => {
-      isReadyToCallPingPongRef.current = true;
-      setCoinGainedWhileOffline({
-        profit: cb?.data?.coins_bonus_from_last_time_online
-          ? Number(
-              Number(cb?.data?.coins_bonus_from_last_time_online).toFixed(8),
-            )
-          : 0,
-        isShowUp: true,
-      });
-    },
-  });
-
-  useEffect(() => {
-    if (!currentUser || !userTapGameInfo || isLoading || isReadyToCallPingPongRef.current) return;
-
-    let retryCount = 0; // Initialize retry count
-    const maxRetryCount = 10; // Maximum retry count
-
-    const attemptGetCoinGainedWhileOffline = () => {
-      getCoinGainedWhileOffline({
-        user_id: currentUser?.id,
-      });
-
-      retryCount++; // Increment the retry count
-
-      if (retryCount > maxRetryCount) {
-        isReadyToCallPingPongRef.current = true; // Stop retrying after maxRetryCount attempts
-      } else if (!isReadyToCallPingPongRef.current) {
-        setTimeout(attemptGetCoinGainedWhileOffline, 3000); // Retry after 3 seconds
-      }
-    };
-
-    attemptGetCoinGainedWhileOffline(); // Initial call
-  }, [currentUser, userTapGameInfo, isLoading]);
 
   useEffect(() => {
     console.log(
@@ -123,7 +80,7 @@ export default function AuthLayout({
       profitGainedWhileOffline,
       profitPerSecond,
     );
-    if (timeOffline > 5 && coinGainedWhileOffline?.profit !== 0) {
+    if (timeOffline > 20 && coinGainedWhileOffline?.profit !== 0) {
       setCoinGainedWhileOffline((prev) => {
         return {
           ...prev,
@@ -137,7 +94,6 @@ export default function AuthLayout({
     if (!currentUser) return;
 
     setInterval(() => {
-      if (!isReadyToCallPingPongRef.current) return;
       trigger({
         user_id: currentUser?.id,
       });

@@ -6,11 +6,17 @@ import { userTapGameInfoAtom } from "@/features/tap-game/hooks/useGetUserTapGame
 import { ScoreAtom } from "@/features/tap-game/constants/tap-game";
 import { useDispatch } from "react-redux";
 import { useInitData } from "@tma.js/sdk-react";
+import {useEffect, useRef, useState} from "react";
+import {useAppSelector} from "@/libs/redux/hooks";
+import {coinGainedWhileOfflineAtom} from "@/app/[lng]/(auth)/layout";
 
 export const useConnectSocket = () => {
   const initData = useInitData();
 
   const { setCurrentUser } = useGetCurrentUser();
+  const [_, setCoinGainedWhileOffline] = useAtom(
+    coinGainedWhileOfflineAtom,
+  );
   const [, setUserTabGameInfo] = useAtom(userTapGameInfoAtom);
   const [, setScore] = useAtom(ScoreAtom);
   const dataToConnect = JSON.parse(JSON.stringify(initData)).initData;
@@ -40,11 +46,10 @@ export const useConnectSocket = () => {
                 );
               });
             }
+            console.log('GetUserTapGameInfo invoked');
           },
         );
       };
-
-      getUserTapGame();
 
       nano.request(
         "SessionConnect.InitConnect",
@@ -55,7 +60,33 @@ export const useConnectSocket = () => {
         (data: any) => {
           if (data?.code === 200) {
             console.log("InitConnect", data?.data);
+            // Get coins bonus from last time online
+            nano.request(
+              SocketRoutes.GetCoinsBonusFromLastTimeOnline,
+              {
+                user_id: data?.data?.id,
+              },
+              (cb: { data: { coins_bonus_from_last_time_online: number } }) => {
+                setCoinGainedWhileOffline({
+                  profit: cb?.data?.coins_bonus_from_last_time_online || 0,
+                  isShowUp: true,
+                });
+                console.log('GetCoinsBonusFromLastTimeOnline invoked');
+              },
+            );
 
+            nano.request(
+              SocketRoutes.PingPong,
+              {
+                user_id: data?.data?.id,
+              },
+              (data: any) => {
+                console.log('ping pong invoked');
+              },
+            );
+
+
+            getUserTapGame();
             setCurrentUser(data?.data);
           } else if (data.code === 5002) {
             nano.request(
