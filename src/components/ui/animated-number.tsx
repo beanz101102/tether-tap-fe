@@ -23,7 +23,8 @@ const AnimatedNumber = ({
   ...restProps
 }: AnimatedNumberProps) => {
   const numberArray = useMemo(() => {
-    const reversedNumberArray = String(value).split('').reverse();
+    const stringValue = value === 0 ? value.toString() : value.toFixed(7);
+    const reversedNumberArray = stringValue.split('').reverse();
     if (typeof minDigits === 'number' && reversedNumberArray.length < minDigits) {
       const lackOfDigits = minDigits - reversedNumberArray.length;
       Array.from({ length: lackOfDigits }).forEach(() => {

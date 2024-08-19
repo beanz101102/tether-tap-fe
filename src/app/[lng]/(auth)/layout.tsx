@@ -36,7 +36,7 @@ export default function AuthLayout({
   const [coinGainedWhileOffline, setCoinGainedWhileOffline] = useAtom(
     coinGainedWhileOfflineAtom,
   );
-  const { userTapGameInfo } = useGetUserTapGameInfo();
+  const { userTapGameInfo, isLoading } = useGetUserTapGameInfo();
   const router = useRouter();
   const lng = useParams()?.lng as LocaleTypes;
   const isHomePage = useActivePage("/");
@@ -80,11 +80,27 @@ export default function AuthLayout({
   });
 
   useEffect(() => {
-    if (!currentUser) return;
-    getCoinGainedWhileOffline({
-      user_id: currentUser?.id,
-    });
-  }, [currentUser]);
+    if (!currentUser || !userTapGameInfo || isLoading) return;
+
+    let retryCount = 0; // Initialize retry count
+    const maxRetryCount = 10; // Maximum retry count
+
+    const attemptGetCoinGainedWhileOffline = () => {
+      getCoinGainedWhileOffline({
+        user_id: currentUser?.id,
+      });
+
+      retryCount++; // Increment the retry count
+
+      if (retryCount > maxRetryCount) {
+        isReadyToCallPingPongRef.current = true; // Stop retrying after maxRetryCount attempts
+      } else if (!isReadyToCallPingPongRef.current) {
+        setTimeout(attemptGetCoinGainedWhileOffline, 3000); // Retry after 3 seconds
+      }
+    };
+
+    attemptGetCoinGainedWhileOffline(); // Initial call
+  }, [currentUser, userTapGameInfo, isLoading]);
 
   useEffect(() => {
     console.log(
@@ -107,7 +123,7 @@ export default function AuthLayout({
       profitGainedWhileOffline,
       profitPerSecond,
     );
-    if (timeOffline > 15) {
+    if (timeOffline > 1) {
       setCoinGainedWhileOffline((prev) => {
         return {
           ...prev,
@@ -122,9 +138,9 @@ export default function AuthLayout({
 
     setInterval(() => {
       if (!isReadyToCallPingPongRef.current) return;
-      trigger({
-        user_id: currentUser?.id,
-      });
+      // trigger({
+      //   user_id: currentUser?.id,
+      // });
     }, 5000);
   }, [currentUser]);
 
