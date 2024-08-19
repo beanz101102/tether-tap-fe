@@ -138,9 +138,9 @@ export default function AuthLayout({
 
     setInterval(() => {
       if (!isReadyToCallPingPongRef.current) return;
-      // trigger({
-      //   user_id: currentUser?.id,
-      // });
+      trigger({
+        user_id: currentUser?.id,
+      });
     }, 5000);
   }, [currentUser]);
 
