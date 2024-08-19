@@ -90,6 +90,14 @@ export const useTap = () => {
     }
   };
 
+  const debouncedHandleMainLogic = debounce(
+    (touches: React.Touch[], rect: DOMRect) => {
+      handlePushAnimation(touches, rect);
+      handleUpdateCorePoint(touches.length);
+    },
+    50,
+  );
+
   const handleTap = useCallback(
     (event: TouchEvent<HTMLDivElement>) => {
       event.preventDefault();
@@ -110,15 +118,7 @@ export const useTap = () => {
       debouncedHandleMainLogic(touches, rect);
       hapticFeedback.impactOccurred("heavy");
     },
-    [],
-  );
-
-  const debouncedHandleMainLogic = debounce(
-    (touches: React.Touch[], rect: DOMRect) => {
-      handlePushAnimation(touches, rect);
-      handleUpdateCorePoint(touches.length);
-    },
-    50,
+    [debouncedHandleMainLogic],
   );
 
   useEffect(() => {
