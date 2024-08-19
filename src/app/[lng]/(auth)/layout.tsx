@@ -123,7 +123,7 @@ export default function AuthLayout({
       profitGainedWhileOffline,
       profitPerSecond,
     );
-    if (timeOffline > 1) {
+    if (timeOffline > 5) {
       setCoinGainedWhileOffline((prev) => {
         return {
           ...prev,
