@@ -15,65 +15,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Trans } from "react-i18next";
 import { useTranslation } from "../i18n/client";
+import WhackAMole from "@/features/whale-a-mole";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
   const { isLoading } = useGetUserTapGameInfo();
   const score = useGetCurrentBalance();
 
-  return (
-    <div
-      style={{
-        backgroundColor: "black",
-        boxShadow: "0px -4px 4px 0px rgba(0, 0, 0, 0.25)",
-        backgroundImage: "url(/img/tap-game/tap-bg.webp)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-      className="relative h-[100vh]"
-    >
-      <TapPageHeader />
-      <div className={""}>
-        <p
-          className={
-            "main-text-secondary mt-6 w-full text-center text-sm font-medium"
-          }
-        >
-          {t("your_balance_coin")}
-        </p>
-        <div className={"mb-2 h-full w-full px-4 pt-3"}>
-          <div className={"flex items-center justify-center"}>
-            <Image
-              width={32}
-              height={32}
-              src={"/img/tap-game/coin.webp"}
-              alt={"coin"}
-              className={"mr-2"}
-            />
-            <WrapSkeleton
-              className={"h-[25px] w-[60px]"}
-              isSkeleton={isLoading}
-            >
-              <AnimatedNumber
-                value={Number(Number(score ?? 0).toFixed(7))}
-                hasComma={true}
-                size={30}
-                duration={200}
-              />
-            </WrapSkeleton>
-          </div>
-        </div>
-
-        <div className="">
-          <TapArea />
-        </div>
-        <div className={"absolute bottom-[90px] left-0 mb-2 w-full px-4"}>
-          <EnergyProgress />
-        </div>
-      </div>
-    </div>
-  );
+  return <WhackAMole />;
 }
 
 const TapPageHeader = () => {
