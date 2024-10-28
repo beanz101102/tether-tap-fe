@@ -187,7 +187,7 @@ const LoadingOverlay = ({
   };
 
   return (
-    <div className="main-text-primary fixed inset-0 z-50 flex flex-col items-center justify-center bg-black !bg-opacity-50">
+    <div className="main-text-primary fixed inset-0 z-50 flex flex-col items-center justify-center bg-white !bg-opacity-50">
       {/* Loading Spinner or Message */}
       {showErr ? (
         <div className="flex flex-col items-center">

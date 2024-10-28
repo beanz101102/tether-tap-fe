@@ -66,6 +66,7 @@ const ShadModal: FC<ShadModalProps> = ({
       <Drawer
         open={isMobile && isOpen}
         onOpenChange={isMobile ? onOpen : () => {}}
+        disablePreventScroll
       >
         <DrawerTrigger asChild>{trigger}</DrawerTrigger>
         <DrawerContent
@@ -75,9 +76,6 @@ const ShadModal: FC<ShadModalProps> = ({
             isHFull ? "max-h-[97vh]" : "max-h-[90vh]",
             isTelegram ? "!h-auto" : "",
           )}
-          style={{
-            boxShadow: "0px -8px 30px 0px rgba(255, 255, 255, 0.15)"
-          }}
         >
           {header && (
             <DrawerHeader>

@@ -16,13 +16,34 @@ import { useState } from "react";
 import { Trans } from "react-i18next";
 import { useTranslation } from "../i18n/client";
 import WhackAMole from "@/features/whale-a-mole";
+import NextImage from "@/components/common/next-image";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
   const { isLoading } = useGetUserTapGameInfo();
   const score = useGetCurrentBalance();
 
-  return <WhackAMole />;
+  return (
+    <div className="overflow-hidden">
+      <TapPageHeader />
+      <div className="mx-auto my-4 flex w-fit items-center justify-center gap-2">
+        <NextImage
+          src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+          alt="usdt"
+          className="h-8 w-8"
+        />
+        <WrapSkeleton className={"h-[25px] w-[60px]"} isSkeleton={isLoading}>
+          <AnimatedNumber
+            value={Number(Number(score ?? 0).toFixed(7))}
+            hasComma={true}
+            size={30}
+            duration={200}
+          />
+        </WrapSkeleton>
+      </div>
+      <WhackAMole />;
+    </div>
+  );
 }
 
 const TapPageHeader = () => {
@@ -51,7 +72,9 @@ const TapPageHeader = () => {
             <Image
               width={20}
               height={20}
-              src={"/img/tap-game/coin.webp"}
+              src={
+                "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+              }
               alt={"coin"}
               className={"mr-2 h-5 w-5"}
             />
@@ -60,10 +83,7 @@ const TapPageHeader = () => {
             </p>
           </div>
         </div>
-        <div
-          className={"flex w-[50%] items-center"}
-          onClick={() => setIsOpenModalAboutGainCoin(true)}
-        >
+        <div className={"flex w-[50%] items-center"}>
           <div className={"main-border-divider-secondary h-[35px] border-l"} />
           <div className={"flex w-full flex-col items-end px-3 py-2"}>
             <p className={"main-text-secondary text-xs font-medium"}>
@@ -80,55 +100,16 @@ const TapPageHeader = () => {
               <Image
                 width={20}
                 height={20}
-                src={"/img/tap-game/coin.webp"}
+                src={
+                  "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+                }
                 alt={"coin"}
                 className={"mx-2 h-5 w-5"}
               />
-              <Info className={"main-text-secondary h-4 w-4"} />
             </div>
           </div>
         </div>
       </div>
-      <ShadModal
-        isOpen={isOpenModalAboutGainCoin}
-        onOpen={setIsOpenModalAboutGainCoin}
-      >
-        <div className={"flex flex-col items-center justify-center gap-5 pt-2"}>
-          <Image
-            src={"/img/tap-game/money_bag_earn.webp"}
-            alt={"boost earning"}
-            width={130}
-            height={88}
-            className={"h-[88px] w-[130px]"}
-          />
-          <p className={"main-text-primary text-2xl font-semibold"}>
-            {t("boost_your_earning")}
-          </p>
-          <p
-            className={
-              "main-text-secondary mx-auto w-[80%] text-center text-sm font-normal"
-            }
-          >
-            <Trans
-              t={tMine}
-              i18nKey={`des_modal_about_mine`}
-              components={{
-                // eslint-disable-next-line
-                span: <span className="main-text-primary font-semibold" />,
-              }}
-            />
-          </p>
-          <p className={"main-text-primary text-base font-bold"}>
-            {t("earn_offline")}
-          </p>
-          <Button
-            className={"h-[44px] w-full"}
-            onClick={() => router.push("/mine")}
-          >
-            {t("open_economic")}
-          </Button>
-        </div>
-      </ShadModal>
     </>
   );
 };

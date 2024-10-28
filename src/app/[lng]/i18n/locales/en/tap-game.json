@@ -28,7 +28,7 @@
   "coming_soon": "Coming <span>soon</span>",
   "earn": {
     "earn_more_coin": "Earn more coin",
-    "des_earn_more_coin": "Complete the quest to get Tether coin",
+    "des_earn_more_coin": "Complete exciting quests to earn valuable Tether coins! Start your rewarding journey now",
     "quest": "Quest",
     "go": "Go",
     "check": "Check",
@@ -72,33 +72,33 @@
     "min_amount_withdraw": "Minimum amount to withdraw is {{amount}} USDT"
   },
   "friends": {
-    "referral_reward": "Referral Rewards",
+    "referral_reward": "Earn Together, Win Together!",
     "friend": "Friend",
-    "premium": "Premium friend",
-    "empty_state": "No friends found",
-    "list_friends": "List Friends",
-    "title": "Friends",
-    "description": "Invite friends to get more coins",
+    "premium": "Premium Friend",
+    "empty_state": "Your friend list is empty. Start inviting friends!",
+    "list_friends": "Your Friends",
+    "title": "Friends & Rewards",
+    "description": "Team up with friends and multiply your earnings!",
     "rewards": {
-      "normal_title": "Invite Friends",
-      "premium_title": "Invite Telegram Premium Friends",
-      "normal": "coins for you and your friends",
-      "premium": "coins for you and your friends (If your friend has Telegram Premium)"
+      "normal_title": "Invite & Earn",
+      "premium_title": "Premium Friends Bonus",
+      "normal": "Both you and your friend get bonus coins instantly!",
+      "premium": "Get 5x more coins when inviting Telegram Premium friends!"
     },
-    "share_friends": "Share to friends",
-    "des_share_friends": "Share to earn more coins.",
-    "show_more": "Show 10 more results",
+    "share_friends": "Share with Friends",
+    "des_share_friends": "Share with friends to multiply your earnings!",
+    "show_more": "Show 10 more friends",
     "share_with_friends": {
-      "title": "Rise as a PEPE LORD and Earn Tokens!",
-      "desc_1": "Get 5M Coins for each referee!",
-      "desc_2": "Extra 25M Coins with Telegram Premium!"
+      "title": "Become a PEPE LORD & Start Earning!",
+      "desc_1": "Earn 5M Bonus Coins for Each Friend You Invite!",
+      "desc_2": "Premium Bonus: Get 25M Extra Coins with Telegram Premium!"
     },
-    "invite_friend": "Invite Friend",
-    "des_invite_friend": "Invite friends to get more token",
-    "share_link": "Share link to friend",
-    "copy_link": "Copy Link",
-    "empty_list_friend": "Earn 10% more Tether coins from the coins your friends earn",
-    "coin_earn": "Coin earn"
+    "invite_friend": "Invite Friends",
+    "des_invite_friend": "Invite friends to boost your token earnings",
+    "share_link": "Share Your Referral Link",
+    "copy_link": "Copy Referral Link",
+    "empty_list_friend": "Earn an extra 10% USDT bonus from your friends' coin earnings!",
+    "coin_earn": "Coins Earned"
   },
   "level_up": "Level up!",
   "got_it": "Got It!",

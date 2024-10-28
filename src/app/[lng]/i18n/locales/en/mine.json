@@ -4,8 +4,7 @@
   "earn_per_hour": "Earn per hour",
   "your_coin_balance": "Your coin balance",
   "earn_per_tap": " Earn per tap",
-  "boost_economic": "Buy package and earn hourly",
-  "earn_offline": "Earn offline up to 1 hour.",
+  "boost_economic": "Buy mining packages to earn USDT automatically every hour, even when offline (up to 1 hour)",
   "coin_per_hour": "Coin per hour",
   "coin_per_tap": "Coin per tap",
   "price": "Price",
@@ -19,5 +18,6 @@
   "duration": "Duration",
   "des_modal_about_mine": "Tap the <span>Mine</span> and buy upgrades to earn coin faster",
   "mine_offline_title": "Total USDT earned",
-  "mine_offline_des": "Welcome back! Here's the USDT you earned offline. Check the app often to earn more and explore exciting mining packages!"
+  "mine_offline_des": "Welcome back! Here's the USDT you earned offline. Check the app often to earn more and explore exciting mining packages!",
+  "buy_now": "Buy now"
 }

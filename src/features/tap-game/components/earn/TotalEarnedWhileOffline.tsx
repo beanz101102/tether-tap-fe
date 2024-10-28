@@ -1,11 +1,11 @@
-import {Button} from "@/components/ui/button";
-import {formatNumberWithCommas} from "@/utils/formatNumber";
-import {Dispatch, FC, memo, SetStateAction, useEffect} from "react";
+import { Button } from "@/components/ui/button";
+import { formatNumberWithCommas } from "@/utils/formatNumber";
+import { Dispatch, FC, memo, SetStateAction, useEffect } from "react";
 import ShadModal from "@/components/ui/ShadModal";
 import Image from "next/image";
-import {useAtom} from "jotai";
-import {coinGainedWhileOfflineAtom} from "@/app/[lng]/(auth)/layout";
-import {useTranslation} from "@/app/[lng]/i18n/client";
+import { useAtom } from "jotai";
+import { coinGainedWhileOfflineAtom } from "@/app/[lng]/(auth)/layout";
+import { useTranslation } from "@/app/[lng]/i18n/client";
 
 interface ModalTotalEarnedWhileOfflineProps {
   isOpen: boolean;
@@ -13,39 +13,62 @@ interface ModalTotalEarnedWhileOfflineProps {
   profit: number;
 }
 
-const ModalTotalEarnedWhileOffline: FC<ModalTotalEarnedWhileOfflineProps> = ({ isOpen, setOpen, profit }) => {
+const ModalTotalEarnedWhileOffline: FC<ModalTotalEarnedWhileOfflineProps> = ({
+  isOpen,
+  setOpen,
+  profit,
+}) => {
   const { t } = useTranslation("mine");
   return (
     <ShadModal isOpen={isOpen} onOpen={setOpen}>
       <CleanUpComponent />
-      <div className={'px-3 pt-3 pb-6'}>
-        <p className={'text-lg font-bold text-center main-text-primary w-full '}>{t('mine_offline_title')}</p>
-        <div className={'w-[64px] h-[64px] mx-auto mt-6 mb-3'}>
-          <Image src={'/img/tap-game/coin.webp'} width={64} height={63} alt={'coin'} className={'w-full h-full'} />
+      <div className={"px-3 pb-6 pt-3"}>
+        <p
+          className={"main-text-primary w-full text-center text-lg font-bold "}
+        >
+          {t("mine_offline_title")}
+        </p>
+        <div className={"mx-auto mb-3 mt-6 h-[64px] w-[64px]"}>
+          <Image
+            src={"https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"}
+            width={64}
+            height={63}
+            alt={"coin"}
+            className={"h-full w-full"}
+          />
         </div>
-        <p className={'main-text-primary text-xl font-semibold w-full text-center mb-3'}>
+        <p
+          className={
+            "main-text-primary mb-3 w-full text-center text-xl font-semibold"
+          }
+        >
           +{formatNumberWithCommas(profit)}
         </p>
-        <p className={'main-text-secondary text-sm font-normal mb-6 w-full text-center'}>
-          {t('mine_offline_des')}
+        <p
+          className={
+            "main-text-secondary mb-6 w-full text-center text-sm font-normal"
+          }
+        >
+          {t("mine_offline_des")}
         </p>
         <Button
-          className={'rounded-2xl w-full'}
+          className={"w-full rounded-2xl"}
           onClick={() => {
             setOpen(false);
-          }}>
+          }}
+        >
           Collect
         </Button>
       </div>
     </ShadModal>
   );
-}
+};
 
 const CleanUpComponent = memo(() => {
   const [_, setCoinGainedWhileOffline] = useAtom(coinGainedWhileOfflineAtom);
   useEffect(() => {
     return () => {
-      setCoinGainedWhileOffline(prev => {
+      setCoinGainedWhileOffline((prev) => {
         return {
           profit: 0,
           isShowUp: true,
@@ -56,4 +79,4 @@ const CleanUpComponent = memo(() => {
   return <></>;
 });
 
-export default ModalTotalEarnedWhileOffline
+export default ModalTotalEarnedWhileOffline;

@@ -29,7 +29,7 @@ export default function WhackAMole() {
   const { userTapGameInfo } = useGetUserTapGameInfo();
   const coinGainPerTap = Number(userTapGameInfo?.coins_earned_per_tap);
 
-  const [gameActive, setGameActive] = useState(false);
+  const [gameActive, setGameActive] = useState(true);
   const [moleStates, setMoleStates] = useState(
     Array(MOLE_COUNT).fill("hidden"),
   );
@@ -170,23 +170,13 @@ export default function WhackAMole() {
 
   return (
     <div
-      className="mx-auto flex h-[100vh] w-full max-w-2xl flex-col items-center justify-center bg-white"
+      className="mx-auto flex h-[80vh] w-full max-w-2xl flex-col items-center justify-center rounded-t-[12px] bg-white"
       style={{
         backgroundImage: "url('/img/background.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <div className="mb-4 text-center">
-        <WrapSkeleton className={"h-[25px] w-[60px]"} isSkeleton={isLoading}>
-          <AnimatedNumber
-            value={Number(Number(score ?? 0).toFixed(7))}
-            hasComma={true}
-            size={30}
-            duration={200}
-          />
-        </WrapSkeleton>
-      </div>
       <div className="mb-4 grid grid-cols-3 gap-4">
         {moleStates.map((state, index) => (
           <div
@@ -226,11 +216,6 @@ export default function WhackAMole() {
             )}
           </div>
         ))}
-      </div>
-      <div className="text-center">
-        <Button onClick={gameActive ? endGame : startGame}>
-          {gameActive ? "End Game" : "Start  Game"}
-        </Button>
       </div>
     </div>
   );

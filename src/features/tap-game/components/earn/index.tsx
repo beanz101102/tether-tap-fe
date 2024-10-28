@@ -13,18 +13,11 @@ const Earn = () => {
   const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
   return (
     <div className={"px-4 pt-6"}>
-      <div className="relative mx-auto h-[140px] w-[160px]">
-        <div
-          className="absolute inset-0 bg-[#45887A] opacity-30"
-          style={{
-            background: "#45887A",
-            filter: "blur(40px)",
-          }}
-        ></div>
+      <div className="relative mx-auto h-[180px] w-[180px]">
         <NextImage
-          src={"/img/tap-game/money_bag_earn.webp"}
+          src={"/img/usd_earn.webp"}
           alt={"friend logo"}
-          className={" z-10 mb-2 w-[160px]"}
+          className={" z-10 mb-2 w-[200px]"}
         />
       </div>
       <p className={"main-text-primary text-center text-xl font-semibold"}>
@@ -42,21 +35,21 @@ const ListQuest = () => {
   const { t } = useTranslation("tap-game", { keyPrefix: "earn" });
   const { checkUserSpecificActionStatusData, loading } = useGetListQuest();
   const listQuestData: ItemQuestProps[] = [
-    // {
-    //   questDetail: {
-    //     title: "follow_twitter",
-    //     action_url: "https://t.me/MineLordChannel",
-    //   },
-    //   type: QuestType.TWITTER,
-    //   isClaim:
-    //     (checkUserSpecificActionStatusData &&
-    //       checkUserSpecificActionStatusData[
-    //         KeyCheckUserSpecificActionStatus.FOLLOW_TWITTER
-    //       ]) ??
-    //     false,
-    //   coins: 0.000001,
-    //   key: KeyCheckUserSpecificActionStatus?.FOLLOW_TWITTER,
-    // },
+    {
+      questDetail: {
+        title: "follow_twitter",
+        action_url: "https://t.me/MineLordChannel",
+      },
+      type: QuestType.TWITTER,
+      isClaim:
+        (checkUserSpecificActionStatusData &&
+          checkUserSpecificActionStatusData[
+            KeyCheckUserSpecificActionStatus.FOLLOW_TWITTER
+          ]) ??
+        false,
+      coins: 0.000001,
+      key: KeyCheckUserSpecificActionStatus?.FOLLOW_TWITTER,
+    },
     {
       questDetail: {
         title: "join_telegram_channel",

@@ -5,7 +5,6 @@ import {
   formatNumberWithNumeral,
 } from "@/utils/formatNumber";
 import { Button } from "@/components/ui/button";
-import SelectChain, { ChainIdAtom } from "../SelectChain";
 import { useTranslation } from "@/app/[lng]/i18n/client";
 import { Input } from "@/components/ui/input";
 import * as React from "react";
@@ -39,16 +38,9 @@ const Withdraw = () => {
     setAmount("");
     setOpenModalConfirm(false);
   });
-  const chainId = useAtomValue(ChainIdAtom);
 
   const minWithdraw = 0.5;
   const balance = score;
-  const { t } = useTranslation("tap-game", {
-    keyPrefix: "wallet",
-  });
-  const { t: tValidate } = useTranslation("tap-game", {
-    keyPrefix: "upgrade",
-  });
 
   const onMax = () => {
     setAmount(String(balance));
@@ -57,9 +49,9 @@ const Withdraw = () => {
     handleWithdraw({
       amount: Number(amount),
       receiver: address,
-      chain_id: chainId,
+      chain_id: 56, // Hardcode BNB Chain ID
     });
-  }, [amount, address, chainId]);
+  }, [amount, address]);
 
   const isAddressValid = useMemo(() => {
     const addressETHRegex = /^0x[0-9a-fA-F]{40}$/;
@@ -84,92 +76,113 @@ const Withdraw = () => {
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
       <p className="main-text-primary pt-6 text-center text-4xl font-semibold">
-        {t("withdraw")}
+        Withdraw
       </p>
-      <p className="main-text-secondary text-center text-sm font-normal">
-        {t("des_withdraw")}
+      <p className="main-text-secondary mt-2 max-w-[500px] text-center text-sm font-normal">
+        Withdraw your USDT to any wallet address. All withdrawals are processed
+        on BNB Chain (BSC) with minimal fees.
       </p>
 
-      <div className="w-full">
-        <p className="main-text-primary mb-[2px] text-sm font-medium">
-          {t("chain")}
-        </p>
-        <SelectChain />
+      {/* Network Info */}
+      <div className="mt-6 w-full rounded-lg border border-blue-100 bg-blue-50 p-3">
+        <div className="flex items-center gap-2">
+          <NextImage
+            src="/images/bnb-chain-logo.png"
+            alt="BNB Chain"
+            className="h-5 w-5"
+          />
+          <span className="font-medium text-blue-800">BNB Chain (BSC)</span>
+        </div>
       </div>
+
+      {/* Wallet Address Input */}
       <div className="mt-4 w-full">
+        <p className="main-text-primary mb-2 text-sm font-medium">
+          Recipient Address
+        </p>
         <Input
           onChange={(e) => {
             setAddress(e?.target?.value);
           }}
           error={
             !isAddressValid && address?.trim() !== ""
-              ? t("invalid_address")
+              ? "Invalid BNB Chain address"
               : ""
           }
           value={address}
-          className="main-border-color main-text-primary w-full border"
-          placeholder={t("enter_address_wallet")}
+          className="main-border-color main-text-primary w-full border !bg-gray-50"
+          placeholder="Enter BNB Chain (BSC) address"
         />
       </div>
-      <div className="main-bg-default main-text-secondary main-border-color mt-5 w-full rounded-lg border px-2 py-3 text-sm font-normal">
-        <p className="main-text-secondary text-sm font-normal">{t("amount")}</p>
-        <div className="flex items-center justify-between">
-          <NumberInput
-            onValueChange={(e) => {
-              setAmount(e?.target?.value);
-            }}
-            value={amount}
-            placeholder="0.0"
-            className="main-text-primary w-[60%] border-none !pl-0 text-[20px]"
-          />
-          <div className="flex">
-            <NextImage
-              className="mr-2 h-5 w-5"
-              src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
-              alt="usdt logo"
+
+      {/* Amount Input */}
+      <div>
+        <p className="main-text-primary mt-4 text-sm font-medium">Amount</p>
+        <div className="mt-1 w-full rounded-lg border border-gray-100 bg-gray-50 p-4">
+          <div className="flex items-center justify-between">
+            <NumberInput
+              onValueChange={(e) => {
+                setAmount(e?.target?.value);
+              }}
+              value={amount}
+              placeholder="0.0"
+              className="main-text-primary w-[60%] border-none !bg-gray-50  !pl-0 text-[20px]"
             />
-            USDT
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <p className="main-text-muted">
-            {t("min")}: {formatNumberWithCommas(minWithdraw)} USDT
-          </p>
-          <div className="flex">
-            <p>
-              {t("balance")}:{" "}
-              {Number(balance) > 0
-                ? formatNumberWithNumeral(Number(balance), 7)
-                : 0}
-            </p>
-            <button onClick={onMax} className="main-text-brand ml-2">
-              {t("max")}
-            </button>
+            <div className="flex items-center">
+              <NextImage
+                className="mr-2 h-5 w-5"
+                src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+                alt="usdt logo"
+              />
+              <span className="font-medium">USDT</span>
+            </div>
           </div>
         </div>
       </div>
+      {/* Error Messages */}
       <div className={"w-full"}>
         {amount?.trim() !== "" && isShowErrorAmountInput && (
-          <p className="main-text-danger mt-[2px] text-left text-sm font-normal">
+          <p className="main-text-danger mt-2 text-left text-sm">
             {Number(amount) > Number(balance ?? 0)
-              ? tValidate("err_balance")
+              ? "Insufficient balance"
               : Number(amount) < minWithdraw
-                ? tValidate("min_amount_withdraw", {
-                    amount: minWithdraw,
-                  })
+                ? `Minimum withdrawal amount is ${minWithdraw} USDT`
                 : ""}
           </p>
         )}
       </div>
+
+      <div className="mt-2 flex w-full items-center justify-between">
+        <p className="main-text-muted text-sm">
+          Min: {formatNumberWithCommas(minWithdraw)} USDT
+        </p>
+        <div className="flex items-center gap-2 text-sm">
+          <span>Balance: {formatNumberWithNumeral(Number(balance), 7)}</span>
+          <button onClick={onMax} className="main-text-brand font-medium">
+            MAX
+          </button>
+        </div>
+      </div>
+
+      {/* Fee Info */}
+      <div className="mt-4 w-full rounded-lg border border-gray-100 bg-gray-50 p-4">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-600">Network Fee</span>
+          <span className="font-medium">0.5 USDT</span>
+        </div>
+      </div>
+
+      {/* Withdraw Button */}
       <Button
         loading={loading}
         disabled={isDisableButtonWithdraw}
         variant={"common"}
         onClick={openModalConfirm}
-        className={"mt-8 w-full"}
+        className={"mt-6 w-full"}
       >
-        {t("transfer")}
+        Withdraw
       </Button>
+
       <ModalConfirm
         toAddress={address}
         isOpen={isOpenModalConfirm}
@@ -285,7 +298,7 @@ const ModalConfirm = ({
           </p>
           <div className="main-text-primary flex items-center text-base font-semibold">
             <NextImage
-              src="/img/tap-game/coin.webp"
+              src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
               alt="coin"
               className="mr-2 h-5 w-5"
             />

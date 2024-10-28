@@ -24,18 +24,11 @@ const Friends = () => {
 
   return (
     <div className={"relative w-full py-6"}>
-      <div className="relative mx-auto h-[140px] w-[160px]">
-        <div
-          className="absolute inset-0 bg-[#45887A] opacity-30"
-          style={{
-            background: "#45887A",
-            filter: "blur(40px)",
-          }}
-        ></div>
+      <div className="relative mx-auto h-[180px] w-[180px]">
         <NextImage
-          src={"/img/tap-game/banner_referral.webp"}
+          src={"/img/invite.webp"}
           alt={"friend logo"}
-          className={" z-10 mb-2 w-[160px]"}
+          className={" z-10 mb-2 w-[180px]"}
         />
       </div>
 

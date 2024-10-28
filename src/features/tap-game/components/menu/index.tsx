@@ -8,13 +8,13 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+import { Home, Hammer, Trophy, Wallet, Users } from "lucide-react";
 
 interface TabBarMiniGameAppProps {
   name: string;
   path: string;
-  imgUrl: string;
+  icon: React.ReactNode;
   isActive: boolean;
-  isImage?: boolean;
 }
 
 const TabBarMiniGameApp = () => {
@@ -48,39 +48,38 @@ const TabBarMiniGameApp = () => {
 
   const itemTabBar: TabBarMiniGameAppProps[] = [
     {
-      name: "tap",
+      name: "Hit",
       path: "/",
-      imgUrl: "tap.webp",
+      icon: <Hammer className="h-6 w-6" />,
       isActive: isActiveHomePage,
     },
     {
-      name: "mine",
+      name: "Mine",
       path: "/mine",
-      imgUrl: "mine.webp",
+      icon: <Home className="h-6 w-6" />,
       isActive: isMinePageActive,
     },
     {
-      name: "earn",
+      name: "Earn",
       path: "/earn",
-      imgUrl: "earn.webp",
+      icon: <Trophy className="h-6 w-6" />,
       isActive: isEarnPageActive,
     },
     {
-      name: "wallet",
-      path: "/wallet",
-      imgUrl: "wallet.webp",
-      isActive: isActiveWalletPage,
+      name: "Friends",
+      path: "/referral",
+      icon: <Users className="h-6 w-6" />,
+      isActive: isFriendsPageActive,
     },
     {
-      name: "friends",
-      path: "/referral",
-      imgUrl: "friend.webp",
-      isActive: isFriendsPageActive,
+      name: "Wallet",
+      path: "/wallet",
+      icon: <Wallet className="h-6 w-6" />,
+      isActive: isActiveWalletPage,
     },
   ];
 
   const clickTab = () => {
-    // Play vibrate
     if (
       "vibrate" in navigator &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -93,18 +92,18 @@ const TabBarMiniGameApp = () => {
     <div>
       <div
         className={cn(
-          "fixed bottom-4 left-1/2 z-50 flex w-full max-w-[500px] -translate-x-1/2 transform justify-evenly gap-4",
+          "fixed bottom-4 left-1/2 z-50 flex w-full max-w-[500px] -translate-x-1/2 transform justify-evenly gap-4 rounded-[16px] px-4",
         )}
       >
         <div
           className={cn(
-            "flex h-[66px] w-full justify-between rounded-[16px] backdrop-blur-[16px]",
+            "flex h-[66px] w-full justify-between rounded-[16px] shadow-lg",
+            "bg-white/80 backdrop-blur-[16px]",
           )}
-          style={{
-            background: "rgba(24, 24, 27, 1)",
-          }}
         >
           {itemTabBar.map((item, index) => {
+            const isActive = item.isActive;
+
             return (
               <Link
                 prefetch
@@ -114,23 +113,39 @@ const TabBarMiniGameApp = () => {
                   hapticFeedback.impactOccurred("heavy");
                   clickTab();
                 }}
-                style={{
-                  background: item.isActive ? "rgba(255, 255, 255, 0.05)" : "",
-                }}
                 className={clsx(
                   "relative flex w-[20%] flex-col items-center justify-center gap-0.5",
-                  item.isActive ? "main-text-primary" : "main-text-secondary",
-                  index === 0 ? "rounded-l-[16px]" : "rounded-[16px]",
+                  "transition-all duration-200",
+                  isActive ? "bg-blue-50/80" : "hover:bg-gray-50/80",
+                  index === 0
+                    ? "rounded-l-[16px]"
+                    : index === itemTabBar.length - 1
+                      ? "rounded-r-[16px]"
+                      : "",
                 )}
               >
-                <NextImage
-                  src={`/img/tap-game/${item.imgUrl}`}
-                  alt={item.imgUrl}
-                  className={cn("flex h-8 w-8 items-center justify-center")}
-                />
-                <span className={cn("mt-[2px] text-xs font-medium")}>
-                  {t(item.name)}
+                <div
+                  className={cn(
+                    "flex h-8 w-8 items-center justify-center",
+                    isActive ? "scale-110" : "scale-100",
+                    "transition-transform duration-200",
+                    isActive ? "text-blue-600" : "text-gray-600",
+                  )}
+                >
+                  {item.icon}
+                </div>
+                <span
+                  className={cn(
+                    "mt-[2px] text-xs font-medium",
+                    isActive ? "text-blue-600" : "text-gray-600",
+                  )}
+                >
+                  {item.name}
                 </span>
+
+                {isActive && (
+                  <div className="absolute -bottom-[2px] left-1/2 h-1 w-10 -translate-x-1/2 rounded-t-full bg-blue-500" />
+                )}
               </Link>
             );
           })}

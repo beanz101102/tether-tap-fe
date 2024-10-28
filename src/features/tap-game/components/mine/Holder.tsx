@@ -1,21 +1,21 @@
 "use client";
 import MineItem from "@/features/tap-game/components/mine/MineItem";
-import {useGetListMinePack} from "@/features/tap-game/hooks/useGetListMinePack";
-import {Loading} from "@/components/common/Loading";
+import { useGetListMinePack } from "@/features/tap-game/hooks/useGetListMinePack";
+import { Loading } from "@/components/common/Loading";
 
 const Holder = () => {
-  const {listMinePack, isLoading} = useGetListMinePack();
+  const { listMinePack, isLoading } = useGetListMinePack();
 
   if (isLoading) {
     return (
-      <div className={'flex items-center justify-center'}>
+      <div className={"flex items-center justify-center"}>
         <Loading />
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="grid grid-cols-2 gap-4">
       {listMinePack.CoinsPerSecondPacks.map((pack, index) => (
         <MineItem
           id={pack.id}

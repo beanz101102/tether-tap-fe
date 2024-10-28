@@ -1,27 +1,11 @@
 "use client";
-import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
-import { useAtom } from "jotai/index";
 import { Button } from "@/components/ui/button";
-import SelectChain from "../SelectChain";
-import ListHistory from "../ListHistory";
-import { useTranslation } from "@/app/[lng]/i18n/client";
-import { truncateAddress } from "@/utils/truncateAddress";
 import { useWindowSize } from "@/features/tap-game/hooks/useWindowSize";
+import { useGetCurrentUser } from "@/libs/hooks/useGetCurrentUser";
 import { copyToClipboardWithCommand } from "@/utils/copyToClipboardWithCommand";
-import { useEffect, useState } from "react";
-import { api } from "@/trpc/react";
-import { uniqBy } from "lodash";
-import { atom } from "jotai";
-import { ITransferTransactionHistory } from "@/features/tap-game/interfaces/transaction-history";
-
-const listDepositTransactionHistoryAtom = atom<ITransferTransactionHistory[]>(
-  [],
-);
+import { truncateAddress } from "@/utils/truncateAddress";
 
 const Deposit = () => {
-  const { t } = useTranslation("tap-game", {
-    keyPrefix: "wallet",
-  });
   const { currentUser } = useGetCurrentUser();
   const { width } = useWindowSize();
   const address = currentUser?.address;
@@ -29,85 +13,54 @@ const Deposit = () => {
   return (
     <div className={"flex w-full flex-col items-center justify-center px-4"}>
       <p className="main-text-primary pt-6 text-center text-4xl font-semibold">
-        {t("deposit")}
+        Deposit
       </p>
-      <p className="main-text-secondary text-center text-sm font-normal">
-        {t("des_deposit")}
+      <p className="main-text-secondary mt-2 max-w-[500px] text-center text-sm font-normal">
+        Deposit your tokens securely to start playing. Your funds are protected
+        by smart contracts and you can withdraw anytime. Minimum deposit is 1
+        USDT.
       </p>
 
-      <div className="w-full">
+      <div className="mt-6 w-full">
         <p className="main-text-primary mb-[2px] text-sm font-medium">
-          {t("chain")}
-        </p>
-        <SelectChain />
-      </div>
-      <div className="mt-4 w-full">
-        <p className="main-text-primary mb-[2px] text-sm font-medium">
-          {t("address")}
+          Your Deposit Address
         </p>
         <div className="flex items-center justify-between">
-          <div className="main-bg-default main-text-primary main-border-color w-[65%] rounded-md border px-3 py-2 text-base font-normal">
+          <div className="main-bg-secondary h-[32px] w-[65%] rounded-md border px-3 py-2 text-base font-normal">
             {truncateAddress(address, width < 390 ? 7 : 10)}
           </div>
           <Button
             onClick={() => copyToClipboardWithCommand(address ?? "")}
-            variant={"common"}
-            className="!w-[30%]"
+            className="h-[32px] !w-[30%]"
           >
-            {t("copy")}
+            Copy
           </Button>
         </div>
       </div>
-      <ListTransactionHistory />
+
+      {/* Thêm phần hướng dẫn deposit */}
+      <div className="mt-6 w-full">
+        <p className="main-text-primary mb-2 text-sm font-medium">
+          How to deposit:
+        </p>
+        <ol className="main-text-secondary list-decimal space-y-2 pl-4 text-sm">
+          <li>Copy the deposit address above</li>
+          <li>Open your wallet and send USDT to this address</li>
+          <li>Wait for network confirmation (usually 1-2 minutes)</li>
+          <li>Your balance will be updated automatically</li>
+        </ol>
+      </div>
+
+      {/* Thêm phần note quan trọng */}
+      <div className="mt-6 w-full rounded-lg border border-yellow-200 bg-yellow-50 p-4">
+        <p className="text-sm font-medium text-yellow-800">Important Notes:</p>
+        <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-yellow-700">
+          <li>Only send USDT on BNB Chain (BSC)</li>
+          <li>Minimum deposit: 1 USDT</li>
+          <li>Do not send other tokens to this address</li>
+        </ul>
+      </div>
     </div>
-  );
-};
-
-const ListTransactionHistory = () => {
-  const { currentUser } = useGetCurrentUser();
-
-  const [page, setPage] = useState(1);
-  const [listDepositTransactionHistory, setListDepositTransactionHistory] =
-    useAtom(listDepositTransactionHistoryAtom);
-  const { data, isLoading } = api.tapGame.getListTransactionHistory.useQuery(
-    {
-      address: currentUser?.address as string,
-      pageSize: 20,
-      page: page,
-      status: "deposit",
-    },
-    {
-      refetchInterval: 10000,
-    },
-  );
-
-  useEffect(() => {
-    if (!data || isLoading) return;
-    if (page === 1) {
-      setListDepositTransactionHistory(
-        uniqBy(data?.listTransactionHistory as any[], "id"),
-      );
-    } else {
-      setListDepositTransactionHistory(
-        uniqBy(
-          [
-            ...listDepositTransactionHistory,
-            ...(data?.listTransactionHistory as any),
-          ],
-          "id",
-        ),
-      );
-    }
-  }, [data, page, isLoading]);
-
-  return (
-    <ListHistory
-      listData={listDepositTransactionHistory}
-      hasMore={data?.listTransactionHistory?.length === 20}
-      isLoading={isLoading}
-      nextPage={() => setPage(page + 1)}
-      title="deposit_history"
-    />
   );
 };
 

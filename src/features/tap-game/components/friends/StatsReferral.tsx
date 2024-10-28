@@ -26,7 +26,7 @@ const ItemStatsReferral = ({
     keyPrefix: "friends",
   });
   return (
-    <div className="main-bg-primary flex h-full flex-col justify-between rounded-lg border border-[#45887A] px-3 py-2">
+    <div className="main-bg-primary flex h-full flex-col justify-between rounded-lg px-3 py-2">
       <p className="main-text-secondary text-sm font-normal">
         {t(`rewards.${title}`)}
       </p>
@@ -35,10 +35,10 @@ const ItemStatsReferral = ({
           className="h-6 w-6"
           width={24}
           height={24}
-          src={"/img/tap-game/coin.webp"}
+          src={"https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"}
           alt={"usdt"}
         />
-        <p className="main-text-warning pl-1 text-base font-bold">
+        <p className="main-text-success pl-1 text-base font-bold">
           + {formatNumberWithCommas(value)}
         </p>
       </div>

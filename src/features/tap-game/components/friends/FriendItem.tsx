@@ -43,7 +43,9 @@ const FriendItem: FC<FriendItemProps> = ({
           <p className={"main-text-primary font-medium"}>{name}</p>
           <div className={"flex items-center gap-1"}>
             <NextImage
-              src={"/img/tap-game/coin.webp"}
+              src={
+                "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+              }
               alt={"coin"}
               className={"h-4 w-4"}
             />
@@ -60,7 +62,9 @@ const FriendItem: FC<FriendItemProps> = ({
         <div className={"ml-auto flex items-center"}>
           <div className={"h-4 w-4"}>
             <NextImage
-              src={"/img/tap-game/coin.webp"}
+              src={
+                "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+              }
               alt={"coin"}
               className={"h-4 w-4"}
             />

@@ -70,180 +70,203 @@ const MineItem: FC<MineItemProps> = ({
   return (
     <>
       <div
-        className={
-          "my-2 flex w-full items-center justify-between gap-2 rounded bg-[#18181B] px-3 py-2"
-        }
+        className={cn(
+          "relative flex w-full flex-col rounded-xl bg-white p-4 md:w-[calc(50%-8px)]",
+          "border transition-all duration-200",
+          isActive
+            ? "border-blue-200 shadow-lg"
+            : "border-gray-100 hover:border-gray-200",
+          !isActive && "hover:shadow-md",
+        )}
       >
-        <div className={cn("flex", !isActive ? "opacity-60" : "opacity-100")}>
-          <Image
-            width={32}
-            height={32}
-            src={`/img/economic/${imgUrl}.svg`}
-            alt={name}
-            className={"h-14 w-14 min-w-14 rounded-lg bg-[#27272A] p-2"}
-          />
-          <div className={"ml-2 flex flex-col"}>
-            <p className={"main-text-primary xs:text-base text-sm font-bold"}>
-              {name}
-            </p>
-            <p className={"main-text-secondary text-sm font-normal"}>
-              {t(
-                packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND
-                  ? "coin_per_hour"
-                  : "coin_per_tap",
-              )}
-            </p>
-            <div className={"flex items-center gap-1"}>
+        {/* Card Header */}
+        <div className="w-full items-center gap-3">
+          <div>
+            <h3 className="text-lg font-bold text-gray-900">{name}</h3>
+            {isActive && (
+              <p className="text-sm font-medium text-blue-600">
+                <TextTimeEnd endTimeUnix={dayjs(endTime ?? 0).unix()} />
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Card Content */}
+        <div className="my-4 w-full space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              {packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND
+                ? "Coin per hour"
+                : "Coin per tap"}
+            </span>
+            <div className="flex items-center gap-1.5">
               <Image
                 width={20}
                 height={20}
-                src={"/img/tap-game/coin.webp"}
-                alt={"coin"}
-                className={"mr-2 h-5 w-5"}
+                src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+                alt="coin"
+                className="h-5 w-5"
               />
-              <p className={"main-text-primary font-bold"}>
-                + {formatNumberWithCommas(coinPerHour, 3)}
-              </p>
+              <span className="font-bold text-gray-900">
+                +{formatNumberWithCommas(coinPerHour, 3)}
+              </span>
             </div>
           </div>
+
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">Price</span>
+            <div className="flex items-center gap-1.5">
+              <Image
+                width={16}
+                height={16}
+                src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+                alt="coin"
+                className="h-5 w-5"
+              />
+              <span className="font-bold text-gray-900">
+                {formatNumberWithCommas(price)}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <span className="text-sm text-gray-500">Duration</span>
+            <span className="font-medium text-gray-900">
+              {formatDuration(duration)}
+            </span>
+          </div>
         </div>
+
+        {/* Card Action */}
         <Button
-          variant={"secondary"}
-          className={
-            "flex h-fit max-h-fit w-fit max-w-[107px] items-center justify-center gap-1 !bg-[#3F3F46] px-2"
-          }
+          variant={isActive ? "outline" : "default"}
+          className={cn(
+            "mt-auto w-full rounded-lg",
+            isActive
+              ? "border-blue-200 text-blue-600 hover:bg-blue-50"
+              : "bg-blue-600 text-white hover:bg-blue-700",
+          )}
           onClick={() => setOpenModalConfirm(true)}
         >
-          {!isActive ? (
-            <>
-              <p className={"main-text-secondary text-xs"}>{t("price")}</p>
-              <div className={"flex items-center gap-1"}>
-                <Image
-                  width={12}
-                  height={12}
-                  src={"/img/tap-game/coin.webp"}
-                  alt={"coin"}
-                  className={"h-3 w-3"}
-                />
-                <p className={"main-text-primary text-xs font-bold"}>
-                  {formatNumberWithCommas(price)}
-                </p>
-              </div>
-            </>
-          ) : (
-            <p className={"main-text-secondary text-xs"}>{t("detail")}</p>
-          )}
+          {!isActive ? "Buy Now" : "View Details"}
         </Button>
       </div>
+
       <ShadModal isOpen={openModalConfirm} onOpen={setOpenModalConfirm}>
-        <div className={"my-6"}>
-          <p className={"mb-6 w-full text-center font-bold"}>{name}</p>
-          <Image
-            width={76}
-            height={76}
-            src={`/img/economic/${imgUrl}.svg`}
-            alt={name}
-            className={
-              "mx-auto mb-6 h-[76px] w-[76px] min-w-[76px] rounded-lg bg-[#27272A] p-2"
-            }
-          />
-          <div className={"mb-6 flex w-full flex-col gap-2"}>
-            <div className={"flex w-full items-center justify-between"}>
-              <div className={"flex flex-col gap-1"}>
-                <p className={"main-text-secondary font-normal"}>
-                  {t("price")}
-                </p>
-                <div className={"flex items-center gap-1"}>
+        <div className="relative p-6">
+          {/* Header */}
+          <div className="mb-8 text-center">
+            <h3 className="text-2xl font-bold text-gray-900">{name}</h3>
+            {isActive && (
+              <p className="mt-2 text-sm font-medium text-blue-600">
+                <TextTimeEnd endTimeUnix={dayjs(endTime ?? 0).unix()} />
+              </p>
+            )}
+          </div>
+
+          {/* Content */}
+          <div className="rounded-xl bg-gray-50 p-4">
+            <div className="space-y-4">
+              {/* Price Info */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">Price</span>
+                <div className="flex items-center gap-2 rounded-lg bg-white px-3 py-1.5 shadow-sm">
                   <Image
-                    width={12}
-                    height={12}
-                    src={"/img/tap-game/coin.webp"}
-                    alt={"coin"}
-                    className={"h-3 w-3"}
+                    width={18}
+                    height={18}
+                    src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+                    alt="coin"
+                    className="h-[18px] w-[18px]"
                   />
-                  <p className={"main-text-primary text-xs font-bold"}>
+                  <span className="font-bold text-gray-900">
                     {formatNumberWithCommas(price)}
-                  </p>
+                  </span>
                 </div>
               </div>
-              <div className={"flex flex-col items-end justify-end gap-1"}>
-                <p
-                  className={"main-text-secondary w-full text-end font-normal"}
-                >
-                  {t(isActive ? "time_left" : "duration")}
-                </p>
-                <p className={"main-text-primary text-xs font-bold"}>
-                  {isActive ? (
-                    <TextTimeEnd endTimeUnix={dayjs(endTime ?? 0).unix()} />
-                  ) : (
-                    formatDuration(duration)
-                  )}
-                </p>
+
+              {/* Duration Info */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">
+                  {isActive ? "Time Left" : "Duration"}
+                </span>
+                <div className="rounded-lg bg-white px-3 py-1.5 shadow-sm">
+                  <span className="font-bold text-gray-900">
+                    {isActive ? (
+                      <TextTimeEnd endTimeUnix={dayjs(endTime ?? 0).unix()} />
+                    ) : (
+                      formatDuration(duration)
+                    )}
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className={"flex w-full items-center justify-between"}>
-              <div className={"flex flex-col gap-1"}>
-                <p className={"main-text-secondary font-normal"}>
+
+              {/* Earning Rate */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">
                   {packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND
                     ? "Coin per hour"
                     : "Coin per tap"}
-                </p>
-                <div className={"flex items-center gap-1"}>
+                </span>
+                <div className="flex items-center gap-2 rounded-lg bg-white px-3 py-1.5 shadow-sm">
                   <Image
-                    width={12}
-                    height={12}
-                    src={"/img/tap-game/coin.webp"}
-                    alt={"coin"}
-                    className={"h-3 w-3"}
+                    width={18}
+                    height={18}
+                    src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+                    alt="coin"
+                    className="h-[18px] w-[18px]"
                   />
-                  <p className={"main-text-primary text-xs font-bold"}>
-                    +{formatNumberWithCommas(coinPerHour, 3)}/
-                    {packType === PackType.MINE_PACK_FOR_EARN_COINS_PER_SECOND
-                      ? "h"
-                      : "tap"}
-                  </p>
-                </div>
-              </div>
-              <div className={"flex flex-col items-end justify-end gap-1"}>
-                <p
-                  className={"main-text-secondary w-full text-end font-normal"}
-                >
-                  {t("est_earn")}
-                </p>
-                <div className={"flex items-center gap-1"}>
-                  <Image
-                    width={12}
-                    height={12}
-                    src={"/img/tap-game/coin.webp"}
-                    alt={"coin"}
-                    className={"h-3 w-3"}
-                  />
-                  <p className={"main-text-primary text-xs font-bold"}>
-                    {calculateEstimatedProfit() !== 0
-                      ? `+${formatNumberWithCommas(calculateEstimatedProfit(), 3)}`
-                      : "--"}
-                  </p>
+                  <span className="font-bold text-blue-600">
+                    +{formatNumberWithCommas(coinPerHour, 3)}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-          {!isActive && (
+
+          {/* Estimated Earnings */}
+          <div className="mt-6 rounded-xl bg-blue-50 p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-blue-700">
+                Estimated Earnings
+              </span>
+              <div className="flex items-center gap-2 rounded-lg bg-white px-3 py-1.5 shadow-sm">
+                <Image
+                  width={18}
+                  height={18}
+                  src="https://s2.coinmarketcap.com/static/img/coins/64x64/825.png"
+                  alt="coin"
+                  className="h-[18px] w-[18px]"
+                />
+                <span className="font-bold text-blue-600">
+                  {calculateEstimatedProfit() !== 0
+                    ? `+${formatNumberWithCommas(calculateEstimatedProfit(), 3)}`
+                    : "--"}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="mt-8 space-y-3">
+            {!isActive && (
+              <Button
+                disabled={loading}
+                loading={loading}
+                onClick={() => handleBuyPack(id, packType, price)}
+                className="w-full rounded-xl bg-blue-600 py-3 text-white shadow-lg transition-all hover:bg-blue-700 hover:shadow-xl"
+              >
+                Buy Now
+              </Button>
+            )}
+
             <Button
-              disabled={loading || isActive}
-              loading={loading}
-              onClick={() => handleBuyPack(id, packType, price)}
-              className={"mb-4 w-full rounded"}
+              variant="outline"
+              className="w-full rounded-xl border-2 border-gray-200 py-3 font-medium text-gray-700 transition-all hover:bg-gray-50"
+              onClick={() => setOpenModalConfirm(false)}
             >
-              {t("buy")}
+              Cancel
             </Button>
-          )}
-          <Button
-            variant={isActive ? "default" : "outline"}
-            className={"w-full rounded"}
-            onClick={() => setOpenModalConfirm(false)}
-          >
-            {t("cancel")}
-          </Button>
+          </div>
         </div>
       </ShadModal>
     </>
@@ -252,6 +275,10 @@ const MineItem: FC<MineItemProps> = ({
 
 const TextTimeEnd = ({ endTimeUnix }: { endTimeUnix: number }) => {
   const { days, hours, minutes, seconds } = useCountdown(endTimeUnix * 1000);
-  return <p>{`${days}d ${hours}h ${minutes}m ${seconds}s`}</p>;
+  return (
+    <span className="text-blue-600">
+      {`${days}d ${hours}h ${minutes}m ${seconds}s`}
+    </span>
+  );
 };
 export default MineItem;

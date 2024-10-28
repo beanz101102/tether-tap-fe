@@ -1,8 +1,8 @@
-import { ChangeEvent, RefObject } from 'react';
-import {Input} from "@/components/ui/input";
+import { ChangeEvent, RefObject } from "react";
+import { Input } from "@/components/ui/input";
 
 function escapeSpecialRegExpChars(string: string): string {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`);
@@ -15,19 +15,31 @@ type Props = {
   onBlur?: () => void;
   className?: string;
   placeholder?: string;
-  error?: string
+  error?: string;
 };
 
-function NumberInput({ value = '', inputRef, onValueChange, error, onFocus, onBlur, className, placeholder }: Props) {
+function NumberInput({
+  value = "",
+  inputRef,
+  onValueChange,
+  error,
+  onFocus,
+  onBlur,
+  className,
+  placeholder,
+}: Props) {
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     if (!onValueChange) return;
     // Replace comma with dot
-    let newValue = e.target.value.replace(/,/g, '.');
-    if (newValue === '.') {
-      newValue = '0.';
+    let newValue = e.target.value.replace(/,/g, ".");
+    if (newValue === ".") {
+      newValue = "0.";
     }
 
-    if (newValue === '' || inputRegex.test(escapeSpecialRegExpChars(newValue))) {
+    if (
+      newValue === "" ||
+      inputRegex.test(escapeSpecialRegExpChars(newValue))
+    ) {
       e.target.value = newValue;
       onValueChange(e);
     }

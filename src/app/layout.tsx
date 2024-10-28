@@ -30,7 +30,7 @@ export default function RootLayout({
   }, []);
   const [isProtocolLoaded, setIsProtocolLoaded] = useState(false);
   return (
-    <html lang="en" className={`${GeistSans.variable} dark`}>
+    <html lang="en" className={`${GeistSans.variable}`}>
       <head>
         <meta
           name="viewport"
@@ -56,9 +56,8 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className="dark"
         style={{
-          background: "black",
+          background: "white",
         }}
       >
         <div id="root">{children}</div>
