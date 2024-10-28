@@ -1,22 +1,16 @@
 "use client";
 
-import ShadModal from "@/components/ui/ShadModal";
+import NextImage from "@/components/common/next-image";
 import AnimatedNumber from "@/components/ui/animated-number";
-import { Button } from "@/components/ui/button";
 import WrapSkeleton from "@/components/ui/wrap-skeleton";
-import EnergyProgress from "@/features/tap-game/components/EnergyProgress";
-import TapArea from "@/features/tap-game/components/TapArea";
 import { useGetCurrentBalance } from "@/features/tap-game/hooks/useGetCurrentBalance";
 import { useGetUserTapGameInfo } from "@/features/tap-game/hooks/useGetUserTapGameInfo";
+import WhackAMole from "@/features/whale-a-mole";
 import { formatNumberWithCommas } from "@/utils/formatNumber";
-import { Info } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Trans } from "react-i18next";
 import { useTranslation } from "../i18n/client";
-import WhackAMole from "@/features/whale-a-mole";
-import NextImage from "@/components/common/next-image";
 
 export default function Home() {
   const { t } = useTranslation("tap-game");
