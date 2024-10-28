@@ -38,7 +38,7 @@ const ListQuest = () => {
     {
       questDetail: {
         title: "follow_twitter",
-        action_url: "https://t.me/MineLordChannel",
+        action_url: "https://x.com/TetherCatTg",
       },
       type: QuestType.TWITTER,
       isClaim:
