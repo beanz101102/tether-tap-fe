@@ -39,6 +39,11 @@ const ConnectingApp = () => {
       className={
         "relative flex h-[100vh] w-full flex-col items-center bg-white"
       }
+      style={{
+        backgroundImage: "url('/img/loading.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <LoadingBar
         style={{
@@ -47,19 +52,6 @@ const ConnectingApp = () => {
         progress={progress}
         onLoaderFinished={() => setProgress(100)}
       />
-
-      <div className="z-10 mt-[60px] flex-col text-center">
-        <p className="text-[48px] font-extrabold text-gray-900">Whack & Earn</p>
-        <p className="mt-2 text-xl text-gray-600">Hit moles, earn USDT</p>
-      </div>
-
-      <div className="z-10 mt-6 max-w-md px-4 text-center">
-        <div className="mt-2 space-y-2 text-gray-600">
-          <p>✓ Free to play</p>
-          <p>✓ Daily rewards</p>
-          <p>✓ Instant withdraw</p>
-        </div>
-      </div>
 
       <div className="z-10 flex flex-grow items-center justify-center">
         <Loading className={"text-gray-900"} />
